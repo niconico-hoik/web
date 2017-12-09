@@ -1,0 +1,67 @@
+{
+  
+  "DEVELOPMENT": {
+    "put": "./asset",
+    "out": "./.local",
+    "process": {},
+    "weirs": [
+      ["./embed", {
+        "js": ["EmbedJs", "utf8"]
+      }],
+      ["./image", {
+        "jpg": "OptimizeJpg",
+        "png": "OptimizePng"
+      }],
+      ["./post", {
+        "md": ["MarkdownToHtml", "utf8"]
+      }]
+    ],
+    "ignore": {
+      "targets": [
+        "./favicons",
+        "./embed/ganalytics.js",
+        "./embed/uappend.js"
+      ]
+    }
+  },
+
+  "PRODUCTION": {
+    "put": "./asset",
+    "out": "./.site",
+    "process": {},
+    "weirs": [
+      ["./image", {
+        "jpg": "OptimizeJpg",
+        "png": "OptimizePng"
+      }],
+      ["./post", {
+        "md": ["MarkdownToHtml", "utf8"]
+      }]
+    ],
+    "//weirs": [
+      ["./embed", ["EmbedJs", "utf8"]],
+      ["./favicons", "EmbedFavicons"],
+      ["./image", { "jpg": "OptimizeJpg", "png": "OptimizePng" }],
+      ["./post", ["MarkdownToHtml", "utf8"]]
+    ],
+    "ignore": {
+      "targets": [
+        "./favicons",
+        "./embed"
+      ]
+    }
+  },
+
+  "INKSCHIN": {
+    "put": "./ikc",
+    "out": "./asset",
+    "weirs": [
+      ["./image", {
+        "svg": ["InkPng", null, "stream"]
+      }],
+      ["./pdf", {
+        "svg": ["InkPdf", null, "stream"]
+      }]
+    ]
+  }
+}
