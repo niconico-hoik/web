@@ -3,9 +3,7 @@ import svgo from 'imagemin-svgo'
 
 export default opts => data =>
   imagemin.buffer(data, {
-    plugins: [
-      svgo({ js2svg: { pretty: true } })
-    ]
+    plugins: [svgo({ js2svg: { pretty: true } })]
   })
 
 // const options = {

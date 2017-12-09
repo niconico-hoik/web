@@ -52,7 +52,7 @@ export default class Simulation extends React.Component {
   }
 }
 
-const createOnChange = (react) => (e) => {
+const createOnChange = react => e => {
   const { name } = e.target.dataset
   const value = +e.target.value
 
@@ -71,10 +71,14 @@ const createOnChange = (react) => (e) => {
   react.setState({ selects, results: [] })
 }
 
-const createOnClick = (react) => () => {
+const createOnClick = react => () => {
   const { selects } = react.state
-  const children = [].concat(selects.age).sort((a, b) => (a < b ? -1 : a > b ? 1 : 0))
-  const results = creators.map(fn => fn(children, selects)).filter(result => result)
+  const children = []
+    .concat(selects.age)
+    .sort((a, b) => (a < b ? -1 : a > b ? 1 : 0))
+  const results = creators
+    .map(fn => fn(children, selects))
+    .filter(result => result)
   react.setState({ results })
 }
 
@@ -82,34 +86,33 @@ const creators = [
   children => ({
     name: '入園料',
     half_price: children.length > 1,
-    fees: children.map((child, index) =>
-      (children.length > 1 && index === 0)
-        ? 5000 / 2
-        : 5000
-    ),
+    fees: children.map(
+      (child, index) => (children.length > 1 && index === 0 ? 5000 / 2 : 5000)
+    )
   }),
   (children, { day, time }) => ({
     name: '保育料',
     half_price: children.length > 1,
     fees: children.map((child, index) => {
-      const fee = child + (day * 2000) + (time * 2000)
-      return (children.length > 1 && index === 0)
-        ? fee / 2
-        : fee
-    }),
+      const fee = child + day * 2000 + time * 2000
+      return children.length > 1 && index === 0 ? fee / 2 : fee
+    })
   }),
-  (children, { morning }) => morning && {
-    name: '早朝料金',
-    fees: children.map(() => 3000)
-  },
-  (children, { night }) => night && {
-    name: '夜間料金',
-    fees: children.map(() => 3000)
-  },
-  (children, { sunday }) => sunday && {
-    name: '日曜料金',
-    fees: children.map(() => 3000)
-  },
+  (children, { morning }) =>
+    morning && {
+      name: '早朝料金',
+      fees: children.map(() => 3000)
+    },
+  (children, { night }) =>
+    night && {
+      name: '夜間料金',
+      fees: children.map(() => 3000)
+    },
+  (children, { sunday }) =>
+    sunday && {
+      name: '日曜料金',
+      fees: children.map(() => 3000)
+    },
   children => ({
     name: '諸経費',
     fees: children.map(() => 200)

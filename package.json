@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "format": "prettier --write **/*.js **/*.md package.json",
+    "format": "prettier --write **/*.js **/*.md **/*.json",
     "pipe": "chin -c .scripts/chin.config.json -p .scripts/chin.preset.js -v",
     "ikc": "yarn pipe INKSCHIN",
     "dev:pipe": "yarn pipe DEVELOPMENT",

@@ -8,7 +8,6 @@ import Simulation from './Simulation'
 const head = 'About'
 
 const create = async ({ renderDetail, setPopdown, setInform }) => {
-
   const details = {
     about: await fetchToReact('./post/about.html'),
     month: await fetchToReact('./post/month.html'),
@@ -18,17 +17,22 @@ const create = async ({ renderDetail, setPopdown, setInform }) => {
   }
 
   return {
-    Exhibit: () => Object.keys(summaries).map((key) => {
-      const { backgroundColor, title, description } = summaries[key]
-      return <Summary {...{
-        key,
-        backgroundColor,
-        title,
-        description,
-        onClick: () => renderDetail(key)
-      }} />
-    }),
-    
+    Exhibit: () =>
+      Object.keys(summaries).map(key => {
+        const { backgroundColor, title, description } = summaries[key]
+        return (
+          <Summary
+            {...{
+              key,
+              backgroundColor,
+              title,
+              description,
+              onClick: () => renderDetail(key)
+            }}
+          />
+        )
+      }),
+
     Detail: ({ data }) => <Detail {...{ contents: details[data] }} />
   }
 }

@@ -1,27 +1,31 @@
 {
-  
   "DEVELOPMENT": {
     "put": "./asset",
     "out": "./.local",
     "process": {},
     "weirs": [
-      ["./embed", {
-        "js": ["EmbedJs", "utf8"]
-      }],
-      ["./image", {
-        "jpg": "OptimizeJpg",
-        "png": "OptimizePng"
-      }],
-      ["./post", {
-        "md": ["MarkdownToHtml", "utf8"]
-      }]
+      [
+        "./embed",
+        {
+          "js": ["EmbedJs", "utf8"]
+        }
+      ],
+      [
+        "./image",
+        {
+          "jpg": "OptimizeJpg",
+          "png": "OptimizePng"
+        }
+      ],
+      [
+        "./post",
+        {
+          "md": ["MarkdownToHtml", "utf8"]
+        }
+      ]
     ],
     "ignore": {
-      "targets": [
-        "./favicons",
-        "./embed/ganalytics.js",
-        "./embed/uappend.js"
-      ]
+      "targets": ["./favicons", "./embed/ganalytics.js", "./embed/uappend.js"]
     }
   },
 
@@ -30,13 +34,19 @@
     "out": "./.site",
     "process": {},
     "weirs": [
-      ["./image", {
-        "jpg": "OptimizeJpg",
-        "png": "OptimizePng"
-      }],
-      ["./post", {
-        "md": ["MarkdownToHtml", "utf8"]
-      }]
+      [
+        "./image",
+        {
+          "jpg": "OptimizeJpg",
+          "png": "OptimizePng"
+        }
+      ],
+      [
+        "./post",
+        {
+          "md": ["MarkdownToHtml", "utf8"]
+        }
+      ]
     ],
     "//weirs": [
       ["./embed", ["EmbedJs", "utf8"]],
@@ -45,10 +55,7 @@
       ["./post", ["MarkdownToHtml", "utf8"]]
     ],
     "ignore": {
-      "targets": [
-        "./favicons",
-        "./embed"
-      ]
+      "targets": ["./favicons", "./embed"]
     }
   },
 
@@ -56,12 +63,18 @@
     "put": "./ikc",
     "out": "./asset",
     "weirs": [
-      ["./image", {
-        "svg": ["InkPng", null, "stream"]
-      }],
-      ["./pdf", {
-        "svg": ["InkPdf", null, "stream"]
-      }]
+      [
+        "./image",
+        {
+          "svg": ["InkPng", null, "stream"]
+        }
+      ],
+      [
+        "./pdf",
+        {
+          "svg": ["InkPdf", null, "stream"]
+        }
+      ]
     ]
   }
 }

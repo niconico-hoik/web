@@ -19,9 +19,8 @@ props.views = [
   notice
 ]
 props.sides.unshift({
-  "href": "tel:0725563396",
-  "buttonImage": "./image/tel.png"
+  href: 'tel:0725563396',
+  buttonImage: './image/tel.png'
 })
-
 
 export default props

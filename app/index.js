@@ -5,9 +5,9 @@ import mobile from './mobile'
 import desktop from './desktop'
 import indexCss from './index.css'
 
-document.addEventListener("DOMContentLoaded", () => rendering())
+document.addEventListener('DOMContentLoaded', () => rendering())
 
-function rendering(){
+function rendering() {
   const { Ligure, props } = navigator.userAgent.toLowerCase().includes('mobile')
     ? { Ligure: Mobile, props: mobile }
     : { Ligure: Desktop, props: desktop }

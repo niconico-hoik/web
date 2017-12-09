@@ -11,10 +11,12 @@ export default opts => data =>
       htmlBomb.setProp('favicons', htmlToReactElement(tags).props.children)
       return [].concat(res.images, res.files)
     })
-    .then((files) =>
-      Promise.all(files.map(
-        ({ name, contents }) => outputFile(`${opts.dir}/${name}`, contents)
-      ))
+    .then(files =>
+      Promise.all(
+        files.map(({ name, contents }) =>
+          outputFile(`${opts.dir}/${name}`, contents)
+        )
+      )
     )
     .then(() => undefined)
 

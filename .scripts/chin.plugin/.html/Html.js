@@ -1,11 +1,6 @@
 import React from 'react'
 
-export default ({
-  favicons,
-  onerror,
-  ganalytics,
-  dll
-}) =>
+export default ({ favicons, onerror, ganalytics, dll }) => (
   <html lang="ja">
     <head>
       <title>{'title'}</title>
@@ -19,3 +14,4 @@ export default ({
       <script src="./bundle.js" />
     </body>
   </html>
+)

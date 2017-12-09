@@ -17,14 +17,15 @@ const apiopts = {
 }
 
 const create = async ({ renderDetail, setPopdown, setInform }) => {
-
   const feed = createFeed(await tumblr.Posts(apiopts))
   // const feed = createFeed(await tumblr.PostsRandom(apiopts))
   const store = await feed()
   const { give, back } = createGiveAndBack(store)
 
   return {
-    Exhibit: () => <Exhibit {...{ feed, renderDetail, setInform, give, back }} />,
+    Exhibit: () => (
+      <Exhibit {...{ feed, renderDetail, setInform, give, back }} />
+    ),
     Detail: props => {
       const { ym, index } = props.data
       const { caption, layouts } = store.posts[ym][index].detail
@@ -35,21 +36,17 @@ const create = async ({ renderDetail, setPopdown, setInform }) => {
 
 const createFeed = supply => async (posts = {}) => {
   const { done, res } = await supply()
-  res.response.posts.forEach((post) => {
+  res.response.posts.forEach(post => {
     const ym = moment.unix(post.timestamp).format('YYYY / M')
-    if (!Array.isArray(posts[ym])) { posts[ym] = [] }
+    if (!Array.isArray(posts[ym])) {
+      posts[ym] = []
+    }
     posts[ym].push(transform(post))
   })
   return { done, posts }
 }
 
-const transform = ({
-  summary,
-  photos,
-  caption,
-  photoset_layout
-}) => {
-
+const transform = ({ summary, photos, caption, photoset_layout }) => {
   const result = {
     summary: undefined,
     photo: undefined,
@@ -74,7 +71,9 @@ const transform = ({
 
   result.detail.layouts = layouts.map(num => {
     const arr = []
-    for (let i = 0; i < num; i++) { arr.push(willpushed.shift()) }
+    for (let i = 0; i < num; i++) {
+      arr.push(willpushed.shift())
+    }
     return arr
   })
 
