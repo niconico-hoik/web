@@ -2,7 +2,7 @@
 import React from 'react'
 import Atra from 'atra'
 
-export default ({ backgroundColor, title, description, onClick }) =>
+export default ({ backgroundColor, title, description, onClick }) => (
   <div {...a('ROOT', { onClick, style: { backgroundColor } })}>
     <div {...a('COVER')} />
     <div {...a('WRAP')}>
@@ -10,9 +10,10 @@ export default ({ backgroundColor, title, description, onClick }) =>
       <div {...a('DESCRIPTION')}>{description}</div>
     </div>
   </div>
+)
 
 const a = Atra({
-  'ROOT': {
+  ROOT: {
     style: {
       width: '97%',
       height: 260,
@@ -20,7 +21,7 @@ const a = Atra({
       position: 'relative'
     }
   },
-  'COVER': {
+  COVER: {
     style: {
       // backgroundColor: 'rgba(0,0,0,0.2)',
       backgroundColor: 'rgba(0,0,0,0.24)',
@@ -32,27 +33,27 @@ const a = Atra({
       right: 0
     }
   },
-  'WRAP': {
+  WRAP: {
     style: {
       color: '#ffffff',
       position: 'relative',
       top: '28%'
     }
   },
-  'TITLE': {
+  TITLE: {
     style: {
       fontSize: '2.7em',
       fontWeight: 'bold',
-			letterSpacing: 3,
+      letterSpacing: 3,
       marginLeft: 45,
       marginBottom: 5
     }
   },
-  'DESCRIPTION': {
+  DESCRIPTION: {
     style: {
-			marginLeft: 50,
-			fontSize: '1.4em',
-			letterSpacing: 4
+      marginLeft: 50,
+      fontSize: '1.4em',
+      letterSpacing: 4
     }
   }
 })

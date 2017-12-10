@@ -2,65 +2,64 @@ import React from 'react'
 import Atra from 'atra'
 
 export default ({ results }) =>
-  <div {...a('left_wrap')}>
-    <Total {...{ results }} />
-    {results.map((result, key) => <Result {...{ key, result }} />)}
+  <div {...a('ROOT')}>
+    <Total {...{
+      total: (
+        results
+        .map(({ fees }) => fees.reduce((p, c) => p + c))
+        .reduce((p, c) => p + c)
+      )
+    }} />
+    {results.map(({ name, fees, half_price }, key) =>
+      <Result {...{
+        key,
+        name,
+        total: fees.reduce((p, c) => p + c),
+        fees,
+        half_price
+      }} />
+    )}
   </div>
 
-// if (!results.length) return false
-const Total = ({ results }) => {
-  const total = results
-    .map(({ fees }) => fees.reduce((pre, cur) => pre + cur))
-    .reduce((pre, cur) => pre + cur)
-    
-  return (
-    <div {...a('result_total')}>
-      <span>{`合計 ￥${total}`}</span>
-      <span {...a('result_alert')}>{`(価格は税抜き)`}</span>
-    </div>
+const Total = ({ total }) =>
+  <div {...a('TOTAL_ROOT')}>
+    <span>{`合計 ￥${total}`}</span>
+    <span {...a('NO_TAX')}>{`(価格は税抜き)`}</span>
+  </div>
+
+const Result = ({ name, total, fees, half_price }) =>
+  <div {...a('RESULT_ROOT')}>
+    <div>{`${name} ￥${total}`}</div>
+    <div>{fees.length >= 2 && createDetails({ fees, half_price })}</div>
+  </div>
+
+const createDetails = ({ fees, half_price }) =>
+  fees.map((fee, index) =>
+    <span {...a('FEE_DETAIL', { key: index })}>
+      {index !== 0
+        ? ` + ￥${fee}`
+        : half_price
+        ? `￥${fee}(半額)`
+        : `￥${fee}`}
+    </span>
   )
-}
-
-const Result = ({ result }) => {
-  const { name, fees, half_price } = result
-  const total = fees.reduce((pre, cur) => pre + cur)
-  const feesOptimized =
-    fees.length < 2
-      ? []
-      : fees.map((fee, index) =>
-          index === 0
-            ? half_price ? `￥${fee}(半額)` : `￥${fee}`
-            : ` + ￥${fee}`
-        )
-
-  return (
-    <div {...a('result_wrap')}>
-      <div>{`${name} ￥${total}`}</div>
-      <div>{feesOptimized.map((fee, key) => <FeeDetail {...{ key, fee }} />)}</div>
-    </div>
-  )
-}
-
-const FeeDetail = ({ fee }) => <span {...a('mini_span')}>{fee}</span>
 
 const a = Atra({
-
-  left_wrap: {
+  ROOT: {
     style: {
       marginTop: 90,
-      // marginLeft:24,
       textAlign: 'left',
       fontSize: 54
     }
   },
 
-  result_total: {
+  TOTAL_ROOT: {
     style: {
       marginTop: 18
     }
   },
 
-  result_alert: {
+  NO_TAX: {
     style: {
       fontSize: '0.4em',
       marginLeft: 20,
@@ -68,14 +67,14 @@ const a = Atra({
     }
   },
 
-  result_wrap: {
+  RESULT_ROOT: {
     style: {
       fontSize: '0.58em',
       marginTop: 18
     }
   },
 
-  mini_span: {
+  FEE_DETAIL: {
     style: {
       fontSize: '0.85em',
       verticalAlign: 'super'

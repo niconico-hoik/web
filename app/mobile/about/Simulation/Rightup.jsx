@@ -3,95 +3,89 @@ import Atra from 'atra'
 
 export default ({
   selects,
-  resulting,
   onChange,
+  buttonable,
   onClick
 }) =>
-  <div {...a('right_wrap')}>
-
-    {Object.entries(selects).map(
-      ([selectKey,selectValue]) =>
-        Array.isArray(selectValue)
-        ? selectValue.map(
-          (selectValue, ageIndex, ages) =>
-            <Select {...{
-              key: ageIndex,
-              selectKey,
-              selectValue,
-              onChange,
-              ageIndex,
-              ages
-            }} />
-          )
-        : <Select {...{
-          key: selectKey,
-          selectKey,
-          selectValue,
-          onChange
-        }} />
-    )}
-
-    {!resulting && <Button {...{ onClick }} />}
-
+  <div {...a('ROOT')}>
+    {createSelects({ onChange, selects })}
+    {buttonable && <Button {...{ onClick }} />}
   </div>
 
-const Select = ({
-  selectKey,
-  selectValue,
-  onChange,
-  ageIndex,
-  ages
-}) => {
+const createSelects = ({ onChange, selects }) =>
+  Object.entries(selects).map(([selectName,selectValue]) =>
+    Array.isArray(selectValue)
+    ? createAges({ onChange, selectName, ages: selectValue })
+    : <Select {...{
+      key: selectName,
+      beforeText: templates[selectName].before,
+      onChange,
+      selectName,
+      selectValue,
+      options: templates[selectName].options,
+      afterText: templates[selectName].after
+    }} />
+  )
 
-  const template = templates[selectKey]
-  const { before, after, beforeExcludeFirst, afterExcludeLast } = template
-
-  const isAge = typeof ageIndex === 'number' && ages.length > 1
-  const beforeText = (!isAge || ageIndex === 0) ? before : beforeExcludeFirst
-  const afterText = (!isAge || ageIndex === ages.length - 1) ? after : afterExcludeLast
-
-  return (
-    <div {...a('select_div')}>
-
-      <span>{beforeText}</span>
-
-      <select {...a('select', {
-        onChange,
-        value: selectValue,
-        ['data-name']: selectKey,
-        ['data-index']: ageIndex
-      })}>
-        {template.options.map(({ value, children }) => <option {...{ key: value, children, value }} />)}
-      </select>
-
-      <span>{afterText}</span>
-
-    </div>
+const createAges = ({ onChange, selectName, ages }) => {
+  const { before, after, beforeExZero, afterExLast, options } = templates.ages
+  return ages.map((selectValue, agesIndex) =>
+    <Select {...{
+      key: agesIndex,
+      beforeText: ages.length > 1 && agesIndex !== 0 ? beforeExZero : before,
+      onChange,
+      selectName,
+      selectValue,
+      agesIndex,
+      options,
+      afterText: ages.length > 1 && agesIndex !== ages.length - 1 ? afterExLast : after
+    }} />
   )
 }
 
+const Select = ({
+  beforeText,
+  onChange,
+  selectValue,
+  selectName,
+  agesIndex,
+  options,
+  afterText
+}) =>
+  <div {...a('SELECT_ROOT')}>
+    <span>{beforeText}</span>
+    <select {...a('SELECT', {
+      onChange,
+      value: selectValue,
+      'data-name': selectName,
+      'data-age-index': typeof agesIndex === 'number' && agesIndex
+    })}>
+      {options.map(({ value, children }) => <option {...{ key: value, children, value }} />)}
+    </select>
+    <span>{afterText}</span>
+  </div>
+
 const Button = ({ onClick }) =>
-  <div {...a('button_wrap')}>
-    <button {...a('button', { onClick })}>
-      {"計算する"}
+  <div {...a('BUTTON_ROOT')}>
+    <button {...a('BUTTON', { onClick })}>
+      {'計算する'}
     </button>
   </div>
 
 const a = Atra({
-  right_wrap: {
+  ROOT: {
     style: {
       textAlign: 'right'
-      // marginRight:30
     }
   },
 
-  select_div: {
+  SELECT_ROOT: {
     style: {
       marginTop: 18
     }
   },
 
-  select: {
+  SELECT: {
     style: {
       fontSize: 50,
       textAlign: 'right',
@@ -103,18 +97,19 @@ const a = Atra({
     }
   },
 
-  button_wrap: {
+  BUTTON_ROOT: {
     style: {
       marginTop: 90
-      // marginRight:44
-      // marginRight:20
-      // textAlign:"right"
     }
   },
 
-  button: {
-    onTouchStart: e => { e.target.style.borderStyle = 'inset' },
-    onTouchEnd: e => { e.target.style.borderStyle = 'outset' },
+  BUTTON: {
+    onTouchStart: e => {
+      e.target.style.borderStyle = 'inset'
+    },
+    onTouchEnd: e => {
+      e.target.style.borderStyle = 'outset'
+    },
     style: {
       fontSize: 38,
       padding: '18px 40px 18px',
@@ -137,14 +132,14 @@ const templates = {
     ],
     after: '人のお子さま'
   },
-  age: {
+  ages: {
     before: '(',
-    beforeExcludeFirst: '',
+    beforeExZero: '',
     options: [
       { value: 8000, children: '3才以上' },
       { value: 11000, children: '2才以下' }
     ],
-    afterExcludeLast: 'と',
+    afterExLast: 'と',
     after: ')を'
   },
   day: {

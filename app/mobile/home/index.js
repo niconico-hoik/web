@@ -6,7 +6,7 @@ import { House as Button } from 'ligure-tool/button'
 const head = 'Home'
 
 const create = async ({ renderDetail, setPopdown, setInform }) => {
-  await setInform(1)
+  // await setInform(1)
   return {
     Exhibit: () => <div />,
     Detail: () => <div />

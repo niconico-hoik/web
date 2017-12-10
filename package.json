@@ -1,4 +1,9 @@
 {
+  "prettier": {
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true
+  },
   "scripts": {
     "format": "prettier --write **/*.js **/*.md **/*.json",
     "pipe": "chin -c .scripts/chin.config.json -p .scripts/chin.preset.js -v",
@@ -10,18 +15,15 @@
     "pro:pipe": "yarn pipe PRODUCTION",
     "pro:pack": "webpack -p --config .scripts/webpack.config.pro.babel.js",
     "pro": "run-s pro:pipe pro:pack",
-    "pro:serve": "http-server .site -a localhost -p 7000 -o -c-1"
-  },
-  "prettier": {
-    "tabWidth": 2,
-    "semi": false,
-    "singleQuote": true
+    "pro:serve": "http-server .site -a localhost -p 7000 -o -c-1",
+    "pro:nfy": "run-s ligure:add pro",
+    "ligure:add": "env-cmd ./.env cross-var yarn add git+https://$GITHUB_ACCESS_TOKEN:x-oauth-basic@github.com/kthjm/ligure.git",
+    "ligure:rm": "yarn remove ligure"
   },
   "dependencies": {
     "atra": "^1.1.2",
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.26.0",
-    "ligure": "https://github.com/kthjm/ligure",
     "ligure-tool": "https://github.com/kthjm/ligure-tool",
     "moment": "^2.19.3",
     "orph": "^1.1.0",
@@ -39,7 +41,9 @@
     "babel-preset-react": "^6.24.1",
     "chin": "^2.1.2",
     "chin-plugins-inkscape": "https://github.com/kthjm/chin-plugins-inkscape",
+    "cross-var": "^1.1.0",
     "css-loader": "^0.28.7",
+    "env-cmd": "^7.0.0",
     "favicons": "^4.8.6",
     "flow-bin": "^0.61.0",
     "flow-typed": "^2.2.1",
