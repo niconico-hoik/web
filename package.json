@@ -26,7 +26,6 @@
     "babel-runtime": "^6.26.0",
     "ligure-tool": "https://github.com/kthjm/ligure-tool",
     "moment": "^2.19.3",
-    "orph": "^1.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "unist-util-find": "^1.0.1",

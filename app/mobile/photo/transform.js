@@ -25,7 +25,7 @@ export default ({
 
   return {
     summary: summary && `${summary.slice(0, 7)}...`,
-    photo: photos[0].alt_sizes[2].url,
+    src: photos[0].alt_sizes[2].url,
     detail: {
       caption: externalHtml(caption),
       layouts: layouts.map(num => [...numToShiftArr(num, () => srcs.shift())])

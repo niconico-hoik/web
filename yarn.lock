@@ -5170,10 +5170,6 @@ original@>=0.0.5:
   dependencies:
     url-parse "1.0.x"
 
-orph@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/orph/-/orph-1.1.0.tgz#51607519bab969b97a9fda1811d411a302987216"
-
 os-browserify@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/os-browserify/-/os-browserify-0.3.0.tgz#854373c7f5c2315914fc9bfc6bd8238fdda1ec27"
