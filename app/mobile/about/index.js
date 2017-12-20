@@ -1,6 +1,6 @@
 import React from 'react'
-import { Question as Button } from 'ligure-tool/button'
-import { internalHtml } from 'ligure-tool/toreact'
+import { Question as Button } from 'lonogara-tool/button'
+import { internalHtml } from 'lonogara-tool/toreact'
 import Summary from './Summary.jsx'
 import Detail from './Detail.jsx'
 import Simulation from './Simulation'

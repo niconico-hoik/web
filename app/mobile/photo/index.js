@@ -1,8 +1,8 @@
 // @flow
 import React from 'react'
 import moment from 'moment'
-import { Camera as Button } from 'ligure-tool/button'
-import { tumblr } from 'ligure-tool/api'
+import { Camera as Button } from 'lonogara-tool/button'
+import { tumblr } from 'lonogara-tool/api'
 import Exhibit from './Exhibit'
 import Detail from './Detail'
 import transform from './transform.js'

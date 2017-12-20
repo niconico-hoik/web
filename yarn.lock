@@ -4298,25 +4298,6 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
-"ligure-tool@https://github.com/kthjm/ligure-tool":
-  version "0.0.0"
-  resolved "https://github.com/kthjm/ligure-tool#57ffe18ad97e8af3bbc543be253abead3ed41315"
-  dependencies:
-    atra "^1.1.2"
-    create-keyframes "^1.0.1"
-    hast-util-select "^1.0.1"
-    jsonp-simple "^0.0.5"
-    regenerator-runtime "^0.11.1"
-    rehype-img-as "^0.0.7"
-    rehype-minify-whitespace "^2.0.3"
-    rehype-parse "^4.0.0"
-    rehype-raw "^2.0.0"
-    rehype-react "^3.0.2"
-    rehype-stringify "^3.0.0"
-    remark-parse "^4.0.0"
-    remark-rehype "^3.0.0"
-    unified "^6.1.6"
-
 load-bmfont@^1.2.3:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/load-bmfont/-/load-bmfont-1.3.0.tgz#bb7e7c710de6bcafcb13cb3b8c81e0c0131ecbc9"
@@ -4527,6 +4508,25 @@ longest-streak@^2.0.1:
 longest@^1.0.0, longest@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
+
+"lonogara-tool@https://github.com/kthjm/lonogara-tool":
+  version "0.0.0"
+  resolved "https://github.com/kthjm/lonogara-tool#f790da99f80e87a456984512c9f8095fe6c4ec4a"
+  dependencies:
+    atra "^1.1.2"
+    create-keyframes "^1.0.1"
+    hast-util-select "^1.0.1"
+    jsonp-simple "^0.0.5"
+    regenerator-runtime "^0.11.1"
+    rehype-img-as "^0.0.7"
+    rehype-minify-whitespace "^2.0.3"
+    rehype-parse "^4.0.0"
+    rehype-raw "^2.0.0"
+    rehype-react "^3.0.2"
+    rehype-stringify "^3.0.0"
+    remark-parse "^4.0.0"
+    remark-rehype "^3.0.0"
+    unified "^6.1.6"
 
 loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.1:
   version "1.3.1"

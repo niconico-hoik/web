@@ -1,6 +1,6 @@
 import React from 'react'
-import { Post as Button } from 'ligure-tool/button'
-import { tumblr } from 'ligure-tool/api'
+import { Post as Button } from 'lonogara-tool/button'
+import { tumblr } from 'lonogara-tool/api'
 // import Exhibit from './Exhibit.jsx'
 // import Detail from './Detail.jsx'
 
@@ -17,7 +17,7 @@ const create = async ({ renderDetail, setPopdown, setInform }) => {
 export default { head, Button, create }
 
 // import React from 'react'
-// import { tumblr } from 'ligure-tool/api'
+// import { tumblr } from 'lonogara-tool/api'
 //
 // // const account = 'kthjm'
 // // const OPTS = { type: "photo" }

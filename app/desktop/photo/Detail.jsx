@@ -19,7 +19,8 @@ export default class Detail extends React.Component {
         {...{
           style: {
             width: `${wrapRatio * 100}%`,
-            margin: 'auto'
+            margin: 'auto',
+            overflow: 'hidden'
             // textAlign: "center"
           }
         }}

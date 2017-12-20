@@ -1,25 +1,17 @@
-{
-  "firstIndex": 0,
-  "firstIndex": 1,
-  "firstIndex": 2,
-  "firstIndex": 3,
-  "firstIndex": 0,
-  "exhibitBg": [
-    "",
-    {
-      "backgroundRepeat": "no-repeat",
-      "backgroundSize": "cover",
-      "backgroundPosition": "center"
-    }
-  ],
-  "colors": {
-    "//base": "#142118",
-    "//base": "rgb(79, 77, 85)",
-    "//base": "rgb(105, 93, 78)",
-    "base": "rgb(53, 54, 63)",
-    "sub": "",
-    "side": ""
-  },
+export default ({
+  backgroundURL,
+  Preloader,
+  colors,
+  views
+}) => ({
+  "background": [backgroundURL, {
+    "backgroundRepeat": "no-repeat",
+    "backgroundSize": "cover",
+    "backgroundPosition": "center"
+  }],
+  colors,
+  Preloader,
+  views,
   "sides": [
     {
       "href": "https://goo.gl/maps/cZwNJkGV2FB2",
@@ -39,7 +31,7 @@
       ]
     },
     {
-      "href": "assets/term.pdf",
+      "href": "pdf/term.pdf",
       "coverColor": "rgba(0, 29, 36, 0.48)",
       "buttonImage": "./image/pdf.mobile.png",
       "description": [
@@ -50,7 +42,7 @@
       ]
     },
     {
-      "href": "assets/recruit.pdf",
+      "href": "pdf/recruit.pdf",
       "buttonImage": "./image/pdf.mobile.png",
       "coverColor": "rgba(0, 29, 36, 0.48)",
       "description": [
@@ -72,4 +64,4 @@
       ]
     }
   ]
-}
+})

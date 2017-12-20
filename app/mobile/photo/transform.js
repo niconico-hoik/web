@@ -1,5 +1,5 @@
 // @flow
-import { externalHtml } from 'ligure-tool/toreact'
+import { externalHtml } from 'lonogara-tool/toreact'
 
 function* numToShiftArr(num, cb){
   let from = 0

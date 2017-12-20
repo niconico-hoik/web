@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
-import { Post as Button } from 'ligure-tool/button'
-import { tumblr } from 'ligure-tool/api'
+import { Post as Button } from 'lonogara-tool/button'
+import { tumblr } from 'lonogara-tool/api'
 import Exhibit from './Exhibit.jsx'
 import Detail from './Detail.jsx'
 import transform from './transform.js'

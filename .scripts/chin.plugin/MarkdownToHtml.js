@@ -1,4 +1,4 @@
-import { markdownToHtml } from 'ligure-tool/build'
+import { markdownToHtml } from 'lonogara-tool/build'
 // import { htmlToFormat } from './util.js'
 
 export default opts => {

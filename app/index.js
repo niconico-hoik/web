@@ -1,22 +1,21 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Mobile, Desktop } from 'ligure'
-import mobile from './mobile'
-import desktop from './desktop'
+import Mobile from './mobile'
+import Desktop from './desktop'
 import indexCss from './index.css'
 
 document.addEventListener('DOMContentLoaded', () => rendering())
 
 function rendering() {
-  const { Ligure, props } = navigator.userAgent.toLowerCase().includes('mobile')
-    ? { Ligure: Mobile, props: mobile }
-    : { Ligure: Desktop, props: desktop }
+  const Lonogara = navigator.userAgent.toLowerCase().includes('mobile')
+    ? Mobile
+    : Desktop
 
   render(
     <div>
       <style>{indexCss.toString()}</style>
       <style>{`a { color: #a5a5a5; text-decoration: none; }`}</style>
-      <Ligure {...props} />
+      <Lonogara />
     </div>,
     document.getElementById('app')
   )

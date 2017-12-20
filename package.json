@@ -1,4 +1,5 @@
 {
+  "lonogara": "github.com/kthjm/lonogara.git",
   "prettier": {
     "tabWidth": 2,
     "semi": false,
@@ -16,15 +17,15 @@
     "pro:pack": "webpack -p --config .scripts/webpack.config.pro.babel.js",
     "pro": "run-s pro:pipe pro:pack",
     "pro:serve": "http-server .site -a localhost -p 7000 -o -c-1",
-    "pro:nfy": "run-s ligure:add pro",
-    "ligure:add": "env-cmd ./.env cross-var yarn add git+https://$GITHUB_ACCESS_TOKEN:x-oauth-basic@github.com/kthjm/ligure.git",
-    "ligure:rm": "yarn remove ligure"
+    "pro:nfy": "run-s lonogara:add pro",
+    "lonogara:add": "env-cmd ./.env cross-var yarn add git+https://$GITHUB_ACCESS_TOKEN:x-oauth-basic@$npm_package_lonogara",
+    "lonogara:rm": "yarn remove lonogara"
   },
   "dependencies": {
     "atra": "^1.1.2",
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.26.0",
-    "ligure-tool": "https://github.com/kthjm/ligure-tool",
+    "lonogara-tool": "https://github.com/kthjm/lonogara-tool",
     "moment": "^2.19.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

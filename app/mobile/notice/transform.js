@@ -3,7 +3,7 @@ import React from 'react'
 import moment from 'moment'
 import rehype from 'rehype'
 import find from 'unist-util-find'
-import { externalHtml } from 'ligure-tool/toreact'
+import { externalHtml } from 'lonogara-tool/toreact'
 
 const components = { h1: (props) => <h2 {...props} /> }
 
