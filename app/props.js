@@ -4,6 +4,7 @@ export default ({
   colors,
   views
 }) => ({
+  // firstIndex: 3,
   "background": [backgroundURL, {
     "backgroundRepeat": "no-repeat",
     "backgroundSize": "cover",
@@ -13,10 +14,6 @@ export default ({
   Preloader,
   views,
   "sides": [
-    {
-      "href": "https://goo.gl/maps/cZwNJkGV2FB2",
-      "buttonImage": "./image/map.png"
-    },
     {
       "buttonImage":
         "https://lh3.googleusercontent.com/l-ZZOFGyeKYz3stUbxTECHYnXcRD66C9g0tjiWA_okVIxZyb0E7_esU8LRpq_0LFCu8Y=w300",

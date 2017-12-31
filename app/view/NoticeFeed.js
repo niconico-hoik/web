@@ -3,11 +3,27 @@ import React from 'react'
 import moment from 'moment'
 import rehype from 'rehype'
 import find from 'unist-util-find'
+import { tumblr } from 'lonogara-tool/api'
 import { externalHtml } from 'lonogara-tool/toreact'
 
-const components = { h1: (props) => <h2 {...props} /> }
+const account = 'nicohoi-info'
+const query = { type: 'text' }
 
-export default ({
+export default async ({ api_key, setInform }) => {
+  const supply = await tumblr.Posts({ api_key, account, query })
+
+  return async (reactState = {}) => {
+    const { done, res } = await supply()
+    const posts = reactState.posts || []
+
+    res.response.posts.forEach(post => posts.push(postTransform(post)))
+    await setInform(posts.filter(({ isNew }) => isNew).length)
+
+    return { done, posts }
+  }
+}
+
+const postTransform = ({
   body,
   title,
   summary,
@@ -24,12 +40,14 @@ export default ({
     summary: createSummary(title || summary || slug),
     isNew: limitMoment.isAfter(moment()),
     season: whatSeason(+postMoment.format('M')),
-    date: postMoment.format('Y-M-D'),
+    date: postMoment.format('Y/M/D'),
     detail: {
       body: externalHtml(`${title ? `<h2>${title}</h2>` : ``}${html}`, components)
     }
   }
 }
+
+const components = { h1: (props) => <h2 {...props} /> }
 
 const summaryLength = 12
 

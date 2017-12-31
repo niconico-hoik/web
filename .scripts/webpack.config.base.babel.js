@@ -1,3 +1,4 @@
+import Dotenv from 'dotenv-webpack'
 import { resolve } from 'path'
 
 const nodeModulesPath = resolve('node_modules')
@@ -20,5 +21,11 @@ export default {
         use: ['css-loader']
       }
     ]
-  }
+  },
+  plugins: [
+    new Dotenv({
+      path: resolve(`app/.env`),
+      systemvars: true
+    })
+  ]
 }

@@ -1,13 +1,13 @@
 import React from 'react'
 import { Mobile as Lonogara } from 'lonogara'
 import { WaveLoading } from 'lonogara-tool/preloader'
-import _props from '../props.js'
-import about from './about'
-import home from './home'
-import notice from './notice'
-import photo from './photo'
+import Props from '../props.js'
+import home from './0.home.jsx'
+import about from './1.about.jsx'
+import photo from './2.photo.jsx'
+import notice from './3.notice.jsx'
 
-const props = _props({
+const props = Props({
   backgroundURL: './image/top.mobile.jpg',
   Preloader: () => <WaveLoading {...{ size: 200 }} />,
   views: [home, about, photo, notice],
@@ -17,9 +17,15 @@ const props = _props({
     background: 'rgba(242, 242, 242, 0.78)',
     preloader: 'rgb(241, 241, 241)',
     detail: 'rgb(243, 243, 243)',
-    detailQuit: 'rgb(24, 24, 35)',
-    side: 'rgb(77, 172, 125)'
+    // detailQuit: 'rgb(24, 24, 35)',
+    detailQuit: 'rgb(201, 201, 201)',
+    side: 'rgb(183, 220, 197)'
   }
+})
+
+props.sides.unshift({
+  "href": "https://goo.gl/maps/cZwNJkGV2FB2",
+  "buttonImage": "./image/map.png"
 })
 
 props.sides.unshift({
