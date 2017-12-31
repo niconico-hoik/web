@@ -13,8 +13,8 @@ export default {
     'babel-polyfill',
     'orph',
     'atra',
-    'lonogara',
-    'lonogara-tool'
+    // 'lonogara',
+    // 'lonogara-tool'
   ],
   output: {
     filename: `${VAR_NAME}.js`,

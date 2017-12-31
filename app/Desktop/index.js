@@ -7,9 +7,11 @@ import about from './1.about.jsx'
 import photo from './2.photo.jsx'
 import notice from './3.notice.jsx'
 
+const preloader = <WaveLoading {...{ size: 140 }} />
+
 const props = Props({
   backgroundURL: './image/top.desktop.jpg',
-  Preloader: () => <WaveLoading {...{ size: 140 }} />,
+  Preloader: () => preloader,
   views: [
     home,
     about,

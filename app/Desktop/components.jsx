@@ -53,7 +53,8 @@ export const Block = (a =>
       height: 180,
       borderRadius: 7,
       margin: 6,
-      overflow: 'hidden'
+      overflow: 'hidden',
+      cursor: 'pointer'
     }
   }
 }))
@@ -84,7 +85,8 @@ export const More = (a =>
       letterSpacing: 10,
       padding: '2px 8px',
       borderBottomStyle: 'dashed',
-      borderBottomWidth: 3
+      borderBottomWidth: 3,
+      cursor: 'pointer'
     }
   }
 }))

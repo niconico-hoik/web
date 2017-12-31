@@ -26,7 +26,7 @@ export default Home(({
 
       <Cover {...a('BG_COVER')} />
 
-      <Center deduct={10}>
+      <Center deduct={5}>
         <div {...a('TEXT')}>
 
           <span>{NAME}</span><br />
@@ -75,7 +75,8 @@ export default Home(({
       style: {
         textAlign: 'center',
         color: '#ffffff',
-        fontSize: '1.25em',
+        // fontSize: '1.25em',
+        fontSize: '1em',
         lineHeight: 2.5,
         letterSpacing: 4
       }
@@ -97,7 +98,8 @@ export default Home(({
       style: {
         position: 'relative',
         marginRight: 45,
-        borderBottom: 'dashed 1.5px'
+        borderBottom: 'dashed 1.5px',
+        cursor: 'pointer'
       }
     }
   })),
