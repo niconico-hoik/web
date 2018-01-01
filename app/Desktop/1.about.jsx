@@ -5,8 +5,6 @@ import { About } from '../view'
 import Simulation from '../Simulation.jsx'
 import { ExLayout, Block, Cover, MouseDown } from './components.jsx'
 
-const simulation = <Simulation />
-
 export default About(({
   details,
   renderDetail,
@@ -128,3 +126,43 @@ const abouts = {
     backgroundColor: 'rgb(117, 104, 182)'
   }
 }
+
+const simulation = <Simulation style={{
+  ROOT: {
+    style: {
+      position: 'relative',
+      fontSize: '0.9em',
+      textAlign: 'center',
+    }
+  },
+  TITLE: {
+    style: {
+      fontSize: '1.4em',
+      marginBottom: 40
+    }
+  },
+  TITLE_STRING: {
+    style: {
+      letterSpacing: 4
+    }
+  },
+  TITLE_ICON: {
+    style: {
+      display: 'inline-block',
+      width: 38,
+      position: 'absolute',
+      top: 1,
+      marginLeft: 4
+    }
+  },
+  SELECTS: {
+    style: {
+      marginBottom: 40
+    }
+  },
+  RESULT_DETAILS: {
+    style: {
+      marginTop: 5
+    }
+  }
+}} />

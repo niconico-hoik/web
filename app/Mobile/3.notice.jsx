@@ -2,7 +2,7 @@
 import React from 'react'
 import Atra from 'atra'
 import { Notice } from '../view'
-import { ExLayout, DeTextLayout, Block, Click, Cover, More } from './components.jsx'
+import { ExLayout, Block, Click, Cover, More, TouchEnd } from './components.jsx'
 import { Spring, Summer, Fall, Winter } from '../Icons.jsx'
 
 const seasons = {
@@ -61,7 +61,7 @@ export default Notice(({
       {(!state.done || state.done === 'fetching') &&
         <div {...a('MORE')}>
           <More fetching={state.done === 'fetching'}>
-            <Click listener={update} />
+            <TouchEnd listener={update} />
           </More>
         </div>
       }
@@ -71,8 +71,7 @@ export default Notice(({
   )(Atra({
     BLOCKS: {
       style: {
-        color: '#ffffff',
-        letterSpacing: 3
+        color: '#ffffff'
       }
     },
     SEASON: {
@@ -85,7 +84,7 @@ export default Notice(({
     },
     BG_COVER: {
       style: {
-        backgroundColor: 'rgba(0, 0, 0, 0.67)',
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
         borderRadius: 'inherit'
       }
     },
@@ -125,7 +124,14 @@ export default Notice(({
     const post = store.posts[index] || {}
     const { body } = post.detail || {}
 
-    return <DeTextLayout>{body}</DeTextLayout>
+    return <div {...{
+      style: {
+        fontSize: '2.3em',
+        color: 'rgb(72, 72, 72)',
+        letterSpacing: 2,
+        margin: '0px 20px'
+      }
+    }}>{body}</div>
   }
 
 }))

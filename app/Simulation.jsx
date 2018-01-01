@@ -24,6 +24,8 @@ export default class Simulation extends React.Component {
     this.state.selects = initSelects()
     this.state.results = reResults(this.state.selects)
 
+    this.a = Atra(props.style)
+
     this.onChange = (e) => {
       const selects = reSelects({
         prevSelects: this.state.selects,
@@ -39,6 +41,8 @@ export default class Simulation extends React.Component {
   }
 
   render() {
+    const { a } = this
+
     return (
       <div {...a('ROOT')}>
         <div {...a('TITLE')}>
@@ -111,54 +115,11 @@ export default class Simulation extends React.Component {
   }
 
   createDetails({ fees, half_price }) {
-    return <div {...a('RESULT_DETAILS')}>
+    return <div {...this.a('RESULT_DETAILS')}>
       {fees.map((fee, index) => <Detail key={index} {...{ fee, index, half_price }} />)}
     </div>
   }
 }
-
-const a = Atra({
-  ROOT: {
-    style: {
-      position: 'relative',
-      fontSize: '0.9em',
-      textAlign: 'center',
-    }
-  },
-  TITLE: {
-    style: {
-      fontSize: '1.4em',
-      marginBottom: 40
-    }
-  },
-  TITLE_STRING: {
-    style: {
-      letterSpacing: 4,
-      // borderBottomStyle: 'dashed',
-      // borderColor: 'inherit',
-      // borderWidth: 2
-    }
-  },
-  TITLE_ICON: {
-    style: {
-      display: 'inline-block',
-      width: 38,
-      position: 'absolute',
-      top: 1,
-      marginLeft: 4
-    }
-  },
-  SELECTS: {
-    style: {
-      marginBottom: 40
-    }
-  },
-  RESULT_DETAILS: {
-    style: {
-      marginTop: 5
-    }
-  }
-})
 
 const templates = {
   number: {

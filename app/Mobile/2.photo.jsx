@@ -2,7 +2,7 @@
 import React from 'react'
 import Atra from 'atra'
 import { Photo } from '../view'
-import { ExLayout, DeTextLayout, Block, Cover, Click, More } from './components.jsx'
+import { ExLayout, Block, Cover, Click, More, TouchEnd } from './components.jsx'
 
 export default Photo(({
   store,
@@ -18,7 +18,7 @@ export default Photo(({
 
         <div key={index} {...a('YEAR_MONTH')}>
 
-          <div {...a('YM')}>{ym}</div>
+          <div {...a('YM')}>{`- - - - - - ${ym} - - - - - -`}</div>
 
           {photos.map(({ src, summary }, index) =>
 
@@ -43,7 +43,7 @@ export default Photo(({
       {(!state.done || state.done === 'fetching') && (
 
         <More fetching={state.done === 'fetching'}>
-          <Click listener={update} />
+          <TouchEnd listener={update} />
         </More>
 
       )}
@@ -53,14 +53,14 @@ export default Photo(({
   )(Atra({
     YEAR_MONTH: {
       style: {
-        marginBottom: '8%',
+        marginBottom: '10%'
       }
     },
     YM: {
       style: {
         color: 'rgb(28, 28, 28)',
         fontSize: '1.4em',
-        marginLeft: '4%',
+        textAlign: 'center',
         marginTop: '4%',
         marginBottom: '4%'
       }
@@ -74,7 +74,7 @@ export default Photo(({
     },
     BG_COLOR: {
       style: {
-        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
         borderRadius: 'inherit'
       }
     },
@@ -84,7 +84,6 @@ export default Photo(({
         position: 'relative',
         top: '40%',
         fontSize: '0.9em',
-        letterSpacing: 3,
         textAlign: 'center'
       }
     }
@@ -95,7 +94,7 @@ export default Photo(({
     const { ym, index } = data
     const { caption, layouts } = store.posts[ym][index].detail
 
-    const parentWidth = window.innerWidth
+    const parentWidth = window.innerWidth - 5
     const marginSway = 5
     const marginTop = marginSway - 2
     const margin = `${marginTop}px ${marginSway}px 0px`
@@ -103,32 +102,34 @@ export default Photo(({
     return (
       <div>
 
-        {caption && <DeTextLayout>{caption}</DeTextLayout>}
+        {caption && <div {...a('CAPTION')}>{caption}</div>}
 
-        {layouts.map(photos => photos.map(({ src, vertically }, index) => {
+        <div {...a('LAYOUTS')}>
+          {layouts.map(photos => photos.map(({ src, vertically }, index) => {
 
-          const width = (parentWidth / photos.length) - (marginSway * 2)
+            const width = (parentWidth / photos.length) - (marginSway * 2)
 
-          const height = layouts.length === 1
-            ? photos.length === 1 ? width * 0.7 : width
-            : photos.length === 1 ? width * 0.5 : width
+            const height = layouts.length === 1
+              ? photos.length === 1 ? width * 0.7 : width
+              : photos.length === 1 ? width * 0.5 : width
 
-          return (
-            <span key={index} {...a('PHOTO_RECT', { style: { margin } })}>
+            return (
+              <span key={index} {...a('PHOTO_RECT', { style: { margin } })}>
 
-              <img {...{
-                src,
-                style: layouts.length === 1 && photos.length === 1
-                  ? { objectFit: 'contain', maxHeight: height, width }
-                  : { objectFit: 'cover', height, width }
-              }} />
+                <img {...{
+                  src,
+                  style: layouts.length === 1 && photos.length === 1
+                    ? { objectFit: 'contain', maxHeight: height, width }
+                    : { objectFit: 'cover', height, width }
+                }} />
 
-              <Click listener={() => setPopdown({ src, vertically })} />
+                <Click listener={() => setPopdown({ src, vertically })} />
 
-            </span>
-          )
+              </span>
+            )
 
-        }))}
+          }))}
+        </div>
 
       </div>
     )
@@ -138,6 +139,22 @@ export default Photo(({
       style: {
         position: 'relative',
         display: 'inline-block'
+      }
+    },
+    CAPTION: {
+      style: {
+        width: '85%',
+        marginLeft: '4%',
+        color: 'rgb(72, 72, 72)',
+        fontSize: '2.3em',
+        letterSpacing: 3,
+        lineHeight: 2,
+        overflowX: 'hidden'
+      }
+    },
+    LAYOUTS: {
+      style: {
+        textAlign: 'center'
       }
     }
   }))

@@ -5,8 +5,6 @@ import { About } from '../view'
 import Simulation from '../Simulation.jsx'
 import { ExLayout, Block, Cover, Click } from './components.jsx'
 
-const simulation = <Simulation />
-
 export default About(({
   details,
   renderDetail,
@@ -18,7 +16,7 @@ export default About(({
 
     <ExLayout>
 
-      {Object.entries(exhibits).map(
+      {Object.entries(abouts).map(
         ([key, { title, description, backgroundColor }], index) =>
 
         <Block key={index}>
@@ -56,7 +54,7 @@ export default About(({
         color: '#ffffff',
         position: 'relative',
         top: '32%',
-        letterSpacing: 3,
+        // letterSpacing: 3,
         textAlign: 'center'
       }
     },
@@ -106,7 +104,7 @@ export default About(({
 
 }))
 
-const exhibits = {
+const abouts = {
   month: {
     title: '月極預かり',
     description: '持ち物や料金体系について',
@@ -128,3 +126,46 @@ const exhibits = {
     backgroundColor: 'rgb(117, 104, 182)'
   }
 }
+
+const simulation = <Simulation style={{
+  ROOT: {
+    style: {
+      position: 'relative',
+      fontSize: '1.4em',
+      textAlign: 'center',
+    }
+  },
+  TITLE: {
+    style: {
+      // fontSize: '1.4em',
+      textAlign: 'left',
+      fontSize: '1.1em',
+      marginBottom: 70,
+      marginLeft: 30
+    }
+  },
+  TITLE_STRING: {
+    style: {
+      letterSpacing: 4
+    }
+  },
+  TITLE_ICON: {
+    style: {
+      display: 'inline-block',
+      width: 70,
+      position: 'absolute',
+      top: 4,
+      marginLeft: 4
+    }
+  },
+  SELECTS: {
+    style: {
+      marginBottom: 70
+    }
+  },
+  RESULT_DETAILS: {
+    style: {
+      marginTop: 5
+    }
+  }
+}} />

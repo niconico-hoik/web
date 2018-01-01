@@ -4,6 +4,7 @@ import Atra from 'atra'
 import Center from 'react-vertical-center'
 import { Home } from '../view'
 import { Rogo } from '../Icons.jsx'
+import { TouchEnd } from './components.jsx'
 
 const NAME = 'ニコニコ保育園 和泉中央園'
 const POSTAL = '〒594-1105'
@@ -21,29 +22,22 @@ export default Home(({
     <div {...a('ROOT')}>
 
       <Center deduct={60}>
-        <div {...{
-          style: {
-            width: '80%',
-            margin: 'auto'
-          }
-        }}>
-          <Rogo />
-        </div>
+
+        <div {...a('ROGO')}><Rogo /></div>
 
         <div {...a('TEXT')}>
+
           <span>{POSTAL}</span><br />
           <span>{ADDRESS}</span><br />
-          <span>{BUILDING}</span><br />
-          <span>{'→ '}</span>
-          <span {...{ style: {
-            display: 'inline-block',
-            background: 'rgb(24, 24, 35)',
-            color: '#ffffff',
-            fontWeight: 'bold',
-            lineHeight: 1.2,
-            padding: '4px 8px'
-          } }}>{'≡'}</span>
+          <span>{BUILDING}</span><span>{' → '}</span><Triple /><br />
+
+          <span {...a('PREVIEW_WRAP')}>
+            <span {...a('PREVIEW_TEXT')}>{'Preview'}</span>
+            <TouchEnd listener={renderDetail} />
+          </span>
+
         </div>
+
       </Center>
 
     </div>
@@ -51,19 +45,25 @@ export default Home(({
   )(Atra({
     ROOT: {
       style: {
-        height: '100%'
+        height: '100%',
+        textAlign: 'center',
+        color: 'rgb(80, 80, 80)',
+        fontSize: '2.1em',
+        fontWeight: 'bold',
+        letterSpacing: 4
+      }
+    },
+    ROGO: {
+      style: {
+        width: '80%',
+        margin: 'auto'
       }
     },
     TEXT: {
       style: {
         position: 'relative',
-        top: -50,
-        textAlign: 'center',
-        color: 'rgb(147, 147, 147)',
-        fontSize: '1.8em',
-        fontWeight: 'bold',
-        lineHeight: 2.1,
-        letterSpacing: 4
+        top: -54,
+        lineHeight: 2.1
       }
     },
     MAP_LINK: {
@@ -73,13 +73,61 @@ export default Home(({
         color: 'white',
         borderBottom: 'dashed 1.5px'
       }
-    }
+    },
+    PREVIEW_WRAP: {
+      style: {
+        position: 'relative',
+        display: 'inline-block',
+        marginTop: 24
+      }
+    },
+    PREVIEW_TEXT: {
+      style: {
+        borderBottomStyle: 'dashed',
+        borderColor: '#444444',
+        borderWidth: 2
+      }
+    },
   })),
 
-  // Detail: (a => (props) => false
-  //
-  // )(Atra({
-  //
-  // }))
+  Detail: () =>
+    <div {...{
+      className: 'markdown-body',
+      style: {
+        fontSize: '2.3em',
+        color: 'rgb(72, 72, 72)',
+        letterSpacing: 2,
+        margin: '0px 20px'
+      }
+    }}>
+      {preview}
+    </div>
 
+}))
+
+const Triple = (a => () =>
+
+  <span {...a('WRAP')}>
+    <span {...a('STRING')}>
+      {'≡'}
+    </span>
+  </span>
+
+)(Atra({
+  WRAP: {
+    style: {
+      display: 'inline-block',
+      background: 'rgb(24, 24, 35)',
+      color: '#ffffff',
+      fontWeight: 'bold',
+      lineHeight: 1.2,
+      padding: '4px 8px 2px'
+    }
+  },
+  STRING: {
+    style: {
+      position: 'relative',
+      left: 2.4
+    }
+  }
 }))
