@@ -49,7 +49,7 @@
     "out": "./asset",
     "weirs": [
       ["./image", {
-        "svg": ["InkPng", null, "stream"]
+        "svg": ["InkPngWhite", null, "stream"]
       }],
       ["./pdf", {
         "svg": ["InkPdf", null, "stream"]

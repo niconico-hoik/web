@@ -12,7 +12,7 @@ export const Home = (creator) => ({
   Button: House,
   create: async ({ renderDetail, setPopdown, setInform }) => {
 
-    const preview = await fetchToReact('./post/about.html')
+    const preview = await fetchToReact('./post/preview.html')
 
     const { Exhibit, Detail } = creator({ preview, renderDetail, setPopdown, setInform })
 
@@ -30,8 +30,9 @@ export const About = (creator) => ({
 
     const details = {
       month: await fetchToReact('./post/month.html'),
-      infant: await fetchToReact('./post/day.infant.html'),
-      school: await fetchToReact('./post/day.school.html')
+      toddler: await fetchToReact('./post/temp.toddler.html'),
+      school: await fetchToReact('./post/temp.school.html')
+
     }
 
     const { Exhibit, Detail } = creator({ details, renderDetail, setPopdown, setInform })

@@ -140,7 +140,8 @@ export default Photo(({
     PHOTO_RECT: {
       style: {
         position: 'relative',
-        display: 'inline-block'
+        display: 'inline-block',
+        cursor: 'pointer'
       }
     }
   }))

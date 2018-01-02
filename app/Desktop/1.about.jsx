@@ -115,7 +115,7 @@ const abouts = {
     description: 'ケースに応じた実際の料金を算出頂けます',
     backgroundColor: 'rgb(108, 184, 64)'
   },
-  infant: {
+  toddler: {
     title: '一時預かり',
     description: '持ち物や料金体系について',
     backgroundColor: 'rgb(90, 147, 190)'

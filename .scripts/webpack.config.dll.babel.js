@@ -11,7 +11,6 @@ export default {
     'react-dom',
     'whatwg-fetch',
     'babel-polyfill',
-    'orph',
     'atra',
     // 'lonogara',
     // 'lonogara-tool'
