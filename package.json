@@ -1,5 +1,5 @@
 {
-  "lonogara": "github.com/kthjm/lonogara.git",
+  "lonogara": "github.com/kthjm/lonogara.git#0",
   "prettier": {
     "tabWidth": 2,
     "semi": false,
