@@ -4,8 +4,9 @@ import Atra from 'atra'
 import Center from 'react-vertical-center'
 import { Home } from '../view'
 import { Rogo } from '../Icons.jsx'
-import { TouchEnd } from './components.jsx'
+import { Click } from './components.jsx'
 
+const rogo = <Rogo />
 const NAME = 'ニコニコ保育園 和泉中央園'
 const POSTAL = '〒594-1105'
 const ADDRESS = '大阪府和泉市のぞみ野三丁目1237-58'
@@ -23,17 +24,19 @@ export default Home(({
 
       <Center deduct={60}>
 
-        <div {...a('ROGO')}><Rogo /></div>
+        <div {...a('ROGO')}>{rogo}</div>
 
         <div {...a('TEXT')}>
 
           <span>{POSTAL}</span><br />
           <span>{ADDRESS}</span><br />
-          <span>{BUILDING}</span><span>{' → '}</span><Triple /><br />
+          <span>{BUILDING}</span>
+          <span {...a('ARROW')}>{' → '}</span>
+          <Triple /><br />
 
           <span {...a('PREVIEW_WRAP')}>
             <span {...a('PREVIEW_TEXT')}>{'Preview'}</span>
-            <TouchEnd listener={renderDetail} />
+            <Click listener={renderDetail} />
           </span>
 
         </div>
@@ -66,6 +69,12 @@ export default Home(({
         lineHeight: 2.1
       }
     },
+    ARROW: {
+      style: {
+        position: 'relative',
+        top: -2.5
+      }
+    },
     MAP_LINK: {
       href: 'https://goo.gl/maps/THnM3UX6ytF2',
       target: '_blank',
@@ -84,8 +93,9 @@ export default Home(({
     PREVIEW_TEXT: {
       style: {
         borderBottomStyle: 'dashed',
-        borderColor: '#444444',
-        borderWidth: 2
+        borderColor: 'inherit',
+        borderWidth: 4,
+        padding: '0 4px'
       }
     },
   })),

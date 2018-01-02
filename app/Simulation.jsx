@@ -202,7 +202,8 @@ const reSelects = ({ prevSelects, changedName, changedValue, ageIndex }) => {
   }
 
   if(changedName === 'number'){
-    selects.ages = numToArr(changedValue).map(() => MIN_FEE)
+    const peopleNumber = changedValue
+    selects.ages = numToArr(peopleNumber).map(() => MIN_FEE)
   }
 
   return Object.assign({}, prevSelects, selects)
@@ -274,11 +275,7 @@ const Select = (a =>
   }) =>
     <div {...a('SELECT_ROOT')}>
       <span>{beforeText}</span>
-      <select {...a('SELECT', {
-        onChange,
-        value: selectValue,
-        'data-name': selectName
-      })}>
+      <select {...a('SELECT', { onChange, value: selectValue, 'data-name': selectName })}>
         {options.map(({ value, children }) => <option key={value} {...{ children, value }} />)}
       </select>
       <span>{afterText}</span>
@@ -316,12 +313,7 @@ const Age = (a =>
   }) =>
     <span>
       <span>{beforeText}</span>
-      <select {...a('SELECT', {
-        onChange,
-        value: selectValue,
-        'data-name': selectName,
-        'data-age-index': agesIndex
-      })}>
+      <select {...a('SELECT', { onChange, value: selectValue, 'data-name': selectName, 'data-age-index': agesIndex })}>
         {options.map(({ value, children }) => <option key={value} {...{ children, value }} />)}
       </select>
       <span>{afterText}</span>
@@ -372,7 +364,6 @@ const Result = (a =>
       <div>{`${name} ￥${total}`}</div>
       {children}
     </div>
-
 
 )(Atra({
   RESULT_ROOT: {

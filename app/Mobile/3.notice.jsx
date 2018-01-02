@@ -2,7 +2,7 @@
 import React from 'react'
 import Atra from 'atra'
 import { Notice } from '../view'
-import { ExLayout, Block, Click, Cover, More, TouchEnd } from './components.jsx'
+import { ExLayout, Block, Click, Cover, More } from './components.jsx'
 import { Spring, Summer, Fall, Winter } from '../Icons.jsx'
 
 const seasons = {
@@ -59,12 +59,7 @@ export default Notice(({
       </div>
 
       {(!state.done || state.done === 'fetching') &&
-        <div {...a('MORE')}>
-          <More fetching={state.done === 'fetching'}>
-            <TouchEnd listener={update} />
-          </More>
-        </div>
-      }
+        <More fetching={state.done === 'fetching'}><Click listener={update} /></More>}
 
     </ExLayout>
 
@@ -111,11 +106,6 @@ export default Notice(({
         top: 4,
         right: 8
       }
-    },
-    MORE: {
-      style: {
-        marginTop: '8%'
-      }
     }
   })),
 
@@ -125,13 +115,15 @@ export default Notice(({
     const { body } = post.detail || {}
 
     return <div {...{
+      className: 'markdown-body',
       style: {
         fontSize: '2.3em',
         color: 'rgb(72, 72, 72)',
         letterSpacing: 2,
         margin: '0px 20px'
-      }
-    }}>{body}</div>
+      },
+      children: body
+    }} />
   }
 
 }))

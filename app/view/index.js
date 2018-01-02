@@ -91,7 +91,6 @@ class Lure extends Component {
 
     this.transform = async (cb) => {
       const nextState = await cb(this.cloneState())
-      console.log(nextState);
       this.setState(nextState)
     }
 

@@ -6,7 +6,6 @@ import { Listen, Cover } from '../util.js'
 export { Cover }
 
 export const Click = ({ listener }) => <Listen {...{ type: 'onClick', listener }} />
-export const TouchEnd = ({ listener }) => <Listen {...{ type: 'onTouchEnd', listener }} />
 
 export const ExLayout = (a =>
 
@@ -54,6 +53,7 @@ export const More = (a =>
 )(Atra({
   ROOT: {
     style: {
+      marginTop: '8%',
       marginBottom: '10%',
       textAlign: 'center'
     }
@@ -62,14 +62,10 @@ export const More = (a =>
     style: {
       position: 'relative',
       color: 'rgb(28, 28, 28)',
-      // color: 'rgb(47, 47, 47)',
-      // color: 'rgb(28, 28, 28)',
       fontSize: '1.6em',
-      // fontWeight: 'bold',
       letterSpacing: 20,
       padding: '2px 8px',
       borderBottomStyle: 'dashed',
-      // borderBottomWidth: 7
       borderBottomWidth: 4
     }
   }

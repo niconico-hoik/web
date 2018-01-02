@@ -2,7 +2,7 @@
 import React from 'react'
 import Atra from 'atra'
 import { Photo } from '../view'
-import { ExLayout, Block, Cover, Click, More, TouchEnd } from './components.jsx'
+import { ExLayout, Block, Cover, Click, More } from './components.jsx'
 
 export default Photo(({
   store,
@@ -14,14 +14,12 @@ export default Photo(({
 
     <ExLayout>
 
-      {Object.entries(state.posts).map(([ym,photos], index) =>
-
-        <div key={index} {...a('YEAR_MONTH')}>
+      {Object.entries(state.posts).map(([ym,photos], index, { length }) =>
+        <div key={index} {...{ style: { marginBottom: index !== length - 1 && '10%' } }}>
 
           <div {...a('YM')}>{`- - - - - - ${ym} - - - - - -`}</div>
 
           {photos.map(({ src, summary }, index) =>
-
             <Block key={index}>
 
               <Cover {...a('BG_IMG', { style: { backgroundImage: `url(${src})` } })} />
@@ -33,29 +31,17 @@ export default Photo(({
               <Click listener={() => renderDetail({ ym, index })} />
 
             </Block>
-
           )}
 
         </div>
-
       )}
 
-      {(!state.done || state.done === 'fetching') && (
-
-        <More fetching={state.done === 'fetching'}>
-          <TouchEnd listener={update} />
-        </More>
-
-      )}
+      {(!state.done || state.done === 'fetching') &&
+        <More fetching={state.done === 'fetching'}><Click listener={update} /></More>}
 
     </ExLayout>
 
   )(Atra({
-    YEAR_MONTH: {
-      style: {
-        marginBottom: '10%'
-      }
-    },
     YM: {
       style: {
         color: 'rgb(28, 28, 28)',

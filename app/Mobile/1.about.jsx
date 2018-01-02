@@ -139,7 +139,7 @@ const simulation = <Simulation style={{
     style: {
       // fontSize: '1.4em',
       textAlign: 'left',
-      fontSize: '1.1em',
+      // fontSize: '1.1em',
       marginBottom: 70,
       marginLeft: 30
     }
