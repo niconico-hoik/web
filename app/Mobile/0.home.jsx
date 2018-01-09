@@ -2,7 +2,7 @@
 import React from 'react'
 import Atra from 'atra'
 import Center from 'react-vertical-center'
-import { Home } from '../view'
+import { Home } from '../Views.js'
 import { Rogo } from '../Icons.jsx'
 import { Click } from './components.jsx'
 

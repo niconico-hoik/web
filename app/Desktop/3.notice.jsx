@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import Atra from 'atra'
-import { Notice } from '../view'
+import { Notice } from '../Views.js'
 import { ExLayout, Block, MouseDown, Cover, More } from './components.jsx'
 import { Spring, Summer, Fall, Winter } from '../Icons.jsx'
 

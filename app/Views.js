@@ -2,14 +2,13 @@
 import React, { Component } from 'react'
 import { House, Question, Camera, Post } from 'lonogara-tool/button'
 import { internalHtml } from 'lonogara-tool/toreact'
-import NoticeFeed from './NoticeFeed.js'
-import PhotoFeed from './PhotoFeed.js'
+import { PhotoFeed, NoticeFeed } from './api'
 
 const { assign } = Object
 const api_key = process.env.TUMBLR_KEY
 
 export const Home = (creator) => ({
-  // head: 'アクセス',
+  head: '',
   Button: House,
   create: async ({ renderDetail, setPopdown, setInform }) => {
 
@@ -31,19 +30,19 @@ export const About = (creator) => ({
 
     const abouts = {
       month: {
-        title: '月極預かり',
+        title: '月極保育',
         description: '持ち物や料金体系について',
         backgroundColor: 'rgb(175, 196, 72)',
         detail: await fetchToReact('./post/month.html')
       },
       month_simu: {
-        title: '月極預かりシミュレーション',
+        title: '月極保育シミュレーション',
         description: 'ケースに応じた実際の料金を算出頂けます',
         backgroundColor: 'rgb(108, 184, 64)'
       },
       temp: {
         title: '一時預かり',
-        description: '幼児/小学生ともに対応',
+        description: '持ち物や料金体系について',
         backgroundColor: 'rgb(90, 147, 190)',
         detail: await fetchToReact('./post/temp.html')
       },
@@ -97,15 +96,31 @@ export const Notice = (creator) => ({
   }
 })
 
+class Gack {
+  constructor(store) {
+    this.store = store
+  }
+  give() {
+    return assign({}, this.store)
+  }
+  back(reactState) {
+    Object.keys(this.store).forEach(key => {
+      this.store[key] = reactState[key]
+    })
+  }
+}
+
 class Lure extends Component {
+
   constructor(props) {
+
     super(props)
+
     this.state = props.gack.give()
 
     this.update = async () => {
       this.setState({ done: 'fetching' })
-      const { feed } = props
-      const nextState = await feed(this.cloneState())
+      const nextState = await props.feed(this.cloneState())
       this.setState(nextState)
     }
 
@@ -113,7 +128,6 @@ class Lure extends Component {
       const nextState = await cb(this.cloneState())
       this.setState(nextState)
     }
-
   }
 
   cloneState() {
@@ -131,62 +145,30 @@ class Lure extends Component {
   }
 }
 
-class Gack {
-  constructor(store) {
-    this.store = store
-  }
-  give() {
-    return assign({}, this.store)
-  }
-  back(reactState) {
-    Object.keys(this.store).forEach(key => {
-      this.store[key] = reactState[key]
-    })
-  }
-}
-
 const fetchToReact = src =>
   fetch(src)
   .then(res => res.text())
-  .then(html => internalHtml(html, {
-    components,
-    imgas: {
-      reference: src
-    }
-  }))
+  .then(html => internalHtml(html, { components, imgas: { reference: src } }))
 
 const components = {
   tr: (props) => <tr {...recreateTrProps(props)} />
 }
 
 const recreateTrProps = (props) => {
-
   props = assign({}, props)
-
   props.children = props.children.map(
     (td, index, { length }) =>
       index !== length - 1
       ? recreateTd(td)
       : td
   )
-
   return props
 }
 
 const recreateTd = (td) => {
-
   td = assign({}, td)
   td.props = assign({}, td.props)
   td.props.style = assign({}, td.props.style)
   td.props.style.whiteSpace = 'nowrap'
-
   return td
 }
-
-  // width: 49.5%;
-  // height: 350px;
-  // object-fit: cover;
-  // img: (props) =>
-  //   props.className === 'preview_square'
-  //   ? <span></span>
-  //   : <img {...props} />

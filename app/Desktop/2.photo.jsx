@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import Atra from 'atra'
-import { Photo } from '../view'
+import { Photo } from '../Views.js'
 import Widthing from './Widthing.jsx'
 import { ExLayout, Block, Cover, MouseDown, More } from './components.jsx'
 

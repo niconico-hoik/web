@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import Atra from 'atra'
-import { About } from '../view'
+import { About } from '../Views.js'
 import { Month as MonthSimu, Temp as TempSimu } from '../simulation'
 import { IconSimulate } from '../Icons.jsx'
 import { ExLayout, Block, Cover, Click } from './components.jsx'
@@ -145,7 +145,7 @@ const nodes = {
 
   month_simu: (
     <div>
-      <SimuTitle title={'月極預かりシミュレーション'} />
+      <SimuTitle title={'月極保育シミュレーション'} />
       <MonthSimu {...{
         selectspace: 30,
         blockspace: 95,

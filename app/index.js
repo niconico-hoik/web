@@ -4,12 +4,9 @@ import Mobile from './Mobile'
 import Desktop from './Desktop'
 import indexCss from './index.css'
 
-window.addEventListener('load', () => rendering())
+window.addEventListener('load', () => {
 
-function rendering() {
-  const Lonogara = navigator.userAgent.toLowerCase().includes('mobile')
-    ? Mobile
-    : Desktop
+  const App = navigator.userAgent.toLowerCase().includes('mobile') ? Mobile : Desktop
 
   render(
     <div>
@@ -19,8 +16,8 @@ function rendering() {
         figure { margin: 0px; }
         blockquote { margin-left: 20px; }
       `}</style>
-      <Lonogara />
+      <App />
     </div>,
     document.getElementById('app')
   )
-}
+})

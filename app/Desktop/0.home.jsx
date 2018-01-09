@@ -3,7 +3,7 @@ import React from 'react'
 import Atra from 'atra'
 import Center from 'react-vertical-center'
 import Parade from 'react-parade'
-import { Home } from '../view'
+import { Home } from '../Views.js'
 import { Cover, MouseDown } from './components.jsx'
 import { numToArr } from '../util.js'
 

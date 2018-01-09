@@ -7,45 +7,48 @@ import about from './1.about.jsx'
 import photo from './2.photo.jsx'
 import notice from './3.notice.jsx'
 
-const props = Props({
-  backgroundURL: './image/top.mobile.jpg',
-  Preloader: () => <WaveLoading {...{ size: 200 }} />,
-  views: [
-    home,
-    about,
-    photo,
-    notice
-  ],
-  termStyle: {
-    position: 'relative',
-    top: '-68%',
-    color: '#ffffff'
-  },
-  recruitStyle: {
-    position: 'relative',
-    top: '-78%',
-    color: '#ffffff'
-  },
-  colors: {
-    base: 'rgb(24, 24, 35)',
-    sub: 'rgb(255, 255, 255)',
-    background: 'rgba(242, 242, 242, 0.78)',
-    preloader: 'rgb(241, 241, 241)',
-    detail: 'rgb(243, 243, 243)',
-    detailQuit: 'rgb(201, 201, 201)',
-    side: 'rgb(183, 220, 197)'
-  }
-})
+export default () => {
 
-props.sides = [
-  {
-    href: 'tel:0725563396',
-    buttonImage: './image/tel.png'
-  },
-  {
-    "href": "https://goo.gl/maps/cZwNJkGV2FB2",
-    "buttonImage": "./image/map.png"
-  }
-].concat(props.sides)
+  const props = Props({
+    backgroundURL: './image/top.mobile.jpg',
+    Preloader: () => <WaveLoading {...{ size: 200 }} />,
+    views: [
+      home,
+      about,
+      photo,
+      notice
+    ],
+    termStyle: {
+      position: 'relative',
+      top: '-68%',
+      color: '#ffffff'
+    },
+    recruitStyle: {
+      position: 'relative',
+      top: '-78%',
+      color: '#ffffff'
+    },
+    colors: {
+      base: 'rgb(24, 24, 35)',
+      sub: 'rgb(255, 255, 255)',
+      background: 'rgba(242, 242, 242, 0.78)',
+      preloader: 'rgb(241, 241, 241)',
+      detail: 'rgb(243, 243, 243)',
+      detailQuit: 'rgb(201, 201, 201)',
+      side: 'rgb(183, 220, 197)'
+    }
+  })
 
-export default () => <Lonogara {...props} />
+  props.sides = [
+    {
+      href: 'tel:0725563396',
+      buttonImage: './image/tel.png'
+    },
+    {
+      "href": "https://goo.gl/maps/cZwNJkGV2FB2",
+      "buttonImage": "./image/map.png"
+    }
+  ].concat(props.sides)
+
+  return <Lonogara {...props} />
+}

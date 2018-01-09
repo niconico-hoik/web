@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import Atra from 'atra'
-import { Photo } from '../view'
+import { Photo } from '../Views.js'
 import { ExLayout, Block, Cover, Click, More } from './components.jsx'
 
 export default Photo(({
