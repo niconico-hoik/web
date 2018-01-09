@@ -4913,7 +4913,7 @@ negotiator@0.6.1:
 
 "nicohoi-price-api@https://github.com/kthjm/nicohoi-price-api":
   version "0.0.0"
-  resolved "https://github.com/kthjm/nicohoi-price-api#072deeaad58786cbe462e544f4e062d932ba3e98"
+  resolved "https://github.com/kthjm/nicohoi-price-api#6338122889c87ebcc953b799fb4b16b71ec55a68"
 
 node-fetch@^1.0.1:
   version "1.7.3"
