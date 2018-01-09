@@ -2,11 +2,12 @@
 import React from 'react'
 import Atra from 'atra'
 import { About } from '../view'
-import Simulation from '../Simulation.jsx'
+import { Month as MonthSimu, Temp as TempSimu } from '../simulation'
+import { IconSimulate } from '../Icons.jsx'
 import { ExLayout, Block, Cover, MouseDown } from './components.jsx'
 
 export default About(({
-  details,
+  abouts,
   renderDetail,
   setPopdown,
   setInform
@@ -73,19 +74,20 @@ export default About(({
   })),
 
   Detail: (a => ({ data }) => {
+
     const { key } = data
 
-    const [detail, addition] = key === 'simu'
-    ? [simulation, {
-      style: {
-        marginTop: 40,
-        marginBottom: 60
-      }
-    }]
-    : [details[key], {
+    const [detail, addition] = abouts[key].detail
+    ? [abouts[key].detail, {
       className: 'markdown-body',
       style: {
         margin: '0px 20px'
+      }
+    }]
+    : [nodes[key], {
+      style: {
+        marginTop: 40,
+        marginBottom: 60
       }
     }]
 
@@ -104,49 +106,31 @@ export default About(({
 
 }))
 
-const abouts = {
-  month: {
-    title: '月極預かり',
-    description: '持ち物や料金体系について',
-    backgroundColor: 'rgb(175, 196, 72)'
-  },
-  simu: {
-    title: '月極料金シミュレーション',
-    description: 'ケースに応じた実際の料金を算出頂けます',
-    backgroundColor: 'rgb(108, 184, 64)'
-  },
-  toddler: {
-    title: '一時預かり',
-    description: '持ち物や料金体系について',
-    backgroundColor: 'rgb(90, 147, 190)'
-  },
-  school: {
-    title: '一時預かり(小学生以上)',
-    description: '通常の一時預かり(幼児)との違いについて',
-    backgroundColor: 'rgb(117, 104, 182)'
-  }
-}
+const SimuTitle = (a => {
 
-const simulation = <Simulation style={{
-  ROOT: {
-    style: {
-      position: 'relative',
-      fontSize: '0.9em',
-      textAlign: 'center',
-    }
-  },
+  const icon = <IconSimulate />
+
+  return ({ title }) =>
+  <div {...a('TITLE')}>
+    <span {...a('STRING')}>{title}</span>
+    <span {...a('ICON')}>{icon}</span>
+  </div>
+
+})(Atra({
   TITLE: {
     style: {
-      fontSize: '1.4em',
+      textAlign: 'center',
+      position: 'relative',
       marginBottom: 40
     }
   },
-  TITLE_STRING: {
+  STRING: {
     style: {
+      fontSize: '1.4em',
       letterSpacing: 4
     }
   },
-  TITLE_ICON: {
+  ICON: {
     style: {
       display: 'inline-block',
       width: 38,
@@ -154,15 +138,38 @@ const simulation = <Simulation style={{
       top: 1,
       marginLeft: 4
     }
-  },
-  SELECTS: {
-    style: {
-      marginBottom: 40
-    }
-  },
-  RESULT_DETAILS: {
-    style: {
-      marginTop: 5
-    }
   }
-}} />
+}))
+
+const nodes = {
+
+  month_simu: (
+    <div>
+      <SimuTitle title={'月極預かりシミュレーション'} />
+      <MonthSimu {...{
+        selectspace: 18,
+        blockspace: 36,
+        resultsLeft: '-5%'
+      }} />
+    </div>
+  ),
+
+  temp_simu: (
+    <div>
+      <SimuTitle title={'一時預かりシミュレーション'} />
+      <TempSimu {...{
+        selectspace: 18,
+        blockspace: 36,
+        resultsLeft: 0,
+        badgeStyle: {
+          position: 'absolute',
+          right: 80,
+          fontSize: '0.75em',
+          color: '#ffffff',
+          whiteSpace: 'nowrap',
+          padding: '8px 8px 6px'
+        }
+      }} />
+    </div>
+  )
+}

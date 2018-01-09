@@ -5,6 +5,7 @@ import { internalHtml } from 'lonogara-tool/toreact'
 import NoticeFeed from './NoticeFeed.js'
 import PhotoFeed from './PhotoFeed.js'
 
+const { assign } = Object
 const api_key = process.env.TUMBLR_KEY
 
 export const Home = (creator) => ({
@@ -28,14 +29,32 @@ export const About = (creator) => ({
   Button: Question,
   create: async ({ renderDetail, setPopdown, setInform }) => {
 
-    const details = {
-      month: await fetchToReact('./post/month.html'),
-      toddler: await fetchToReact('./post/temp.toddler.html'),
-      school: await fetchToReact('./post/temp.school.html')
-
+    const abouts = {
+      month: {
+        title: '月極預かり',
+        description: '持ち物や料金体系について',
+        backgroundColor: 'rgb(175, 196, 72)',
+        detail: await fetchToReact('./post/month.html')
+      },
+      month_simu: {
+        title: '月極預かりシミュレーション',
+        description: 'ケースに応じた実際の料金を算出頂けます',
+        backgroundColor: 'rgb(108, 184, 64)'
+      },
+      temp: {
+        title: '一時預かり',
+        description: '幼児/小学生ともに対応',
+        backgroundColor: 'rgb(90, 147, 190)',
+        detail: await fetchToReact('./post/temp.html')
+      },
+      temp_simu: {
+        title: '一時預かりシミュレーション',
+        description: 'ケースに応じた実際の料金を算出頂けます',
+        backgroundColor: 'rgb(117, 104, 182)'
+      }
     }
 
-    const { Exhibit, Detail } = creator({ details, renderDetail, setPopdown, setInform })
+    const { Exhibit, Detail } = creator({ abouts, renderDetail, setPopdown, setInform })
 
     return {
       Exhibit,
@@ -98,7 +117,7 @@ class Lure extends Component {
   }
 
   cloneState() {
-    return Object.assign({}, this.state)
+    return assign({}, this.state)
   }
 
   render() {
@@ -117,7 +136,7 @@ class Gack {
     this.store = store
   }
   give() {
-    return Object.assign({}, this.store)
+    return assign({}, this.store)
   }
   back(reactState) {
     Object.keys(this.store).forEach(key => {
@@ -130,7 +149,44 @@ const fetchToReact = src =>
   fetch(src)
   .then(res => res.text())
   .then(html => internalHtml(html, {
+    components,
     imgas: {
       reference: src
     }
   }))
+
+const components = {
+  tr: (props) => <tr {...recreateTrProps(props)} />
+}
+
+const recreateTrProps = (props) => {
+
+  props = assign({}, props)
+
+  props.children = props.children.map(
+    (td, index, { length }) =>
+      index !== length - 1
+      ? recreateTd(td)
+      : td
+  )
+
+  return props
+}
+
+const recreateTd = (td) => {
+
+  td = assign({}, td)
+  td.props = assign({}, td.props)
+  td.props.style = assign({}, td.props.style)
+  td.props.style.whiteSpace = 'nowrap'
+
+  return td
+}
+
+  // width: 49.5%;
+  // height: 350px;
+  // object-fit: cover;
+  // img: (props) =>
+  //   props.className === 'preview_square'
+  //   ? <span></span>
+  //   : <img {...props} />

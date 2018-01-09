@@ -13,13 +13,15 @@
       }],
       ["./post", {
         "md": ["MarkdownToHtml", "utf8"]
+      }],
+      ["./svg", {
+        "svg": "OptimizeSvg"
       }]
     ],
     "ignore": {
       "targets": [
         "./favicons",
-        "./embed/ganalytics.js",
-        "./embed/uappend.js"
+        "./embed/ganalytics.js"
       ]
     }
   },
@@ -29,18 +31,27 @@
     "out": "./.site",
     "process": {},
     "weirs": [
+      ["./embed/ganalytics.js", {
+        "js": ["EmbedJs", "utf8"]
+      }],
+      ["./favicons/index.png", {
+        "png": "EmbedFavicons"
+      }],
       ["./post", {
         "md": ["MarkdownToHtml", "utf8"]
+      }],
+      ["./svg", {
+        "svg": "OptimizeSvg"
       }]
     ],
     "//weirs": [
-      ["./embed", ["EmbedJs", "utf8"]],
-      ["./favicons", "EmbedFavicons"],
       ["./image", { "jpg": "OptimizeJpg", "png": "OptimizePng" }],
       ["./post", ["MarkdownToHtml", "utf8"]]
     ],
     "ignore": {
-      "targets": ["./favicons", "./embed"]
+      "targets": [
+        "./embed/onerror.js"
+      ]
     }
   },
 
@@ -48,6 +59,9 @@
     "put": "./ikc",
     "out": "./asset",
     "weirs": [
+      ["./favicons", {
+        "svg": ["InkPngWhite", null, "stream"]
+      }],
       ["./image", {
         "svg": ["InkPngWhite", null, "stream"]
       }],

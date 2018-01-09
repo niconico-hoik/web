@@ -2,7 +2,7 @@
 import React from 'react'
 import Atra from 'atra'
 import { Notice } from '../view'
-import { ExLayout, DeTextLayout, Block, MouseDown, Cover, More } from './components.jsx'
+import { ExLayout, Block, MouseDown, Cover, More } from './components.jsx'
 import { Spring, Summer, Fall, Winter } from '../Icons.jsx'
 
 const seasons = {
@@ -125,7 +125,16 @@ export default Notice(({
     const post = store.posts[index] || {}
     const { body } = post.detail || {}
 
-    return <DeTextLayout>{body}</DeTextLayout>
+    return <div {...{
+      className: 'markdown-body',
+      style: {
+        margin: '0px 20px',
+        fontSize: '1.3em',
+        color: 'rgb(72, 72, 72)',
+        letterSpacing: 2
+      },
+      children: body
+    }} />
   }
 
 }))

@@ -2,11 +2,12 @@
 import React from 'react'
 import Atra from 'atra'
 import { About } from '../view'
-import Simulation from '../Simulation.jsx'
+import { Month as MonthSimu, Temp as TempSimu } from '../simulation'
+import { IconSimulate } from '../Icons.jsx'
 import { ExLayout, Block, Cover, Click } from './components.jsx'
 
 export default About(({
-  details,
+  abouts,
   renderDetail,
   setPopdown,
   setInform
@@ -75,17 +76,19 @@ export default About(({
 
     const { key } = data
 
-    const [detail, addition] = key === 'simu'
-    ? [simulation, {
-      style: {
-        marginTop: 40,
-        marginBottom: 60
-      }
-    }]
-    : [details[key], {
+    const [detail, addition] = abouts[key].detail
+    ? [abouts[key].detail, {
       className: 'markdown-body',
       style: {
-        margin: '0px 20px'
+        margin: '0px 20px',
+        fontSize: '2.3em'
+      }
+    }]
+    : [nodes[key], {
+      style: {
+        marginTop: 40,
+        marginBottom: 140,
+        fontSize: '3.2em'
       }
     }]
 
@@ -95,7 +98,6 @@ export default About(({
   )(Atra({
     ROOT: {
       style: {
-        fontSize: '2.3em',
         color: 'rgb(72, 72, 72)',
         letterSpacing: 2
       }
@@ -104,68 +106,71 @@ export default About(({
 
 }))
 
-const abouts = {
-  month: {
-    title: '月極預かり',
-    description: '持ち物や料金体系について',
-    backgroundColor: 'rgb(175, 196, 72)'
-  },
-  simu: {
-    title: '月極料金シミュレーション',
-    description: 'ケースに応じた実際の料金を算出頂けます',
-    backgroundColor: 'rgb(108, 184, 64)'
-  },
-  toddler: {
-    title: '一時預かり',
-    description: '持ち物や料金体系について',
-    backgroundColor: 'rgb(90, 147, 190)'
-  },
-  school: {
-    title: '一時預かり(小学生以上)',
-    description: '通常の一時預かり(幼児)との違いについて',
-    backgroundColor: 'rgb(117, 104, 182)'
-  }
-}
+const SimuTitle = (a => {
 
-const simulation = <Simulation style={{
-  ROOT: {
-    style: {
-      position: 'relative',
-      fontSize: '1.4em',
-      textAlign: 'center',
-    }
-  },
+  const icon = <IconSimulate />
+
+  return ({ title }) =>
+  <div {...a('TITLE')}>
+    <span {...a('STRING')}>{title}</span>
+    <span {...a('ICON')}>{icon}</span>
+  </div>
+
+})(Atra({
   TITLE: {
     style: {
-      // fontSize: '1.4em',
+      position: 'relative',
       textAlign: 'left',
-      // fontSize: '1.1em',
-      marginBottom: 70,
+      marginBottom: 60,
       marginLeft: 30
     }
   },
-  TITLE_STRING: {
+  STRING: {
     style: {
       letterSpacing: 4
     }
   },
-  TITLE_ICON: {
+  ICON: {
     style: {
       display: 'inline-block',
-      width: 70,
+      width: 66,
       position: 'absolute',
-      top: 4,
+      top: 5,
       marginLeft: 4
     }
-  },
-  SELECTS: {
-    style: {
-      marginBottom: 70
-    }
-  },
-  RESULT_DETAILS: {
-    style: {
-      marginTop: 5
-    }
   }
-}} />
+}))
+
+const nodes = {
+
+  month_simu: (
+    <div>
+      <SimuTitle title={'月極預かりシミュレーション'} />
+      <MonthSimu {...{
+        selectspace: 30,
+        blockspace: 95,
+        resultsLeft: '-12%'
+      }} />
+    </div>
+  ),
+
+  temp_simu: (
+    <div>
+      <SimuTitle title={'一時預かりシミュレーション'} />
+      <TempSimu {...{
+        selectspace: 30,
+        blockspace: 95,
+        resultsLeft: '3%',
+        badgeStyle: {
+          position: 'absolute',
+          top: 19,
+          right: '110%',
+          fontSize: '0.6em',
+          color: '#ffffff',
+          whiteSpace: 'nowrap',
+          padding: '6px 6px 4px'
+        }
+      }} />
+    </div>
+  )
+}

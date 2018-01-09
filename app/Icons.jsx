@@ -2,7 +2,7 @@ import React from 'react'
 import Atra from 'atra'
 import Parade from 'react-parade'
 
-const ROGO_VIEWBOX = '0 0 600 400'
+const OBLONG_VIEWBOX = '0 0 600 400'
 const SQUARE_VIEWBOX = '0 0 100 100'
 
 export const Rogo = (a => () =>
@@ -23,7 +23,7 @@ export const Rogo = (a => () =>
 
 )(Atra({
   SVG: {
-    viewBox: '0 0 600 400'
+    viewBox: OBLONG_VIEWBOX
   },
   NURSERY_NAME: {
     style: {

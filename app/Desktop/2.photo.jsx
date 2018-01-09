@@ -3,7 +3,7 @@ import React from 'react'
 import Atra from 'atra'
 import { Photo } from '../view'
 import Widthing from './Widthing.jsx'
-import { ExLayout, DeTextLayout, Block, Cover, MouseDown, More } from './components.jsx'
+import { ExLayout, Block, Cover, MouseDown, More } from './components.jsx'
 
 export default Photo(({
   store,
@@ -98,7 +98,7 @@ export default Photo(({
     return (
       <div>
 
-        {caption && <DeTextLayout>{caption}</DeTextLayout>}
+        {caption && <div {...a('CAPTION')}>{caption}</div>}
 
         <Widthing children={(props) => {
 
@@ -137,6 +137,18 @@ export default Photo(({
     )
 
   })(Atra({
+    CAPTION: {
+      style: {
+        width: '90%',
+        marginTop: 10,
+        marginLeft: '4%',
+        color: 'rgb(72, 72, 72)',
+        fontSize: '1.2em',
+        letterSpacing: 3,
+        lineHeight: 2,
+        overflowX: 'hidden'
+      }
+    },
     PHOTO_RECT: {
       style: {
         position: 'relative',

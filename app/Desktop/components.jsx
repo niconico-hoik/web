@@ -21,26 +21,6 @@ export const ExLayout = (a =>
   }
 }))
 
-export const DeTextLayout = (a =>
-
-  ({ children }) =>
-    <div {...a('LAYOUT')}>{children}</div>
-
-)(Atra({
-  LAYOUT: {
-    style: {
-      width: '90%',
-      marginTop: 10,
-      marginLeft: '4%',
-      color: 'rgb(72, 72, 72)',
-      fontSize: '1.2em',
-      letterSpacing: 3,
-      lineHeight: 2,
-      overflowX: 'hidden'
-    }
-  },
-}))
-
 export const Block = (a =>
 
   ({ height, children }) =>

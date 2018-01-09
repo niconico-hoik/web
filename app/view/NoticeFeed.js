@@ -42,12 +42,13 @@ const postTransform = ({
     season: whatSeason(+postMoment.format('M')),
     date: postMoment.format('Y/M/D'),
     detail: {
-      body: externalHtml(`${title ? `<h2>${title}</h2>` : ``}${html}`, components)
+      // body: externalHtml(`${title ? `<h2>${title}</h2>` : ``}${html}`, components)
+      body: externalHtml(`${title ? `<h1>${title}</h1>` : ``}${html}`)
     }
   }
 }
 
-const components = { h1: (props) => <h2 {...props} /> }
+// const components = { h1: (props) => <h2 {...props} /> }
 
 const summaryLength = 12
 

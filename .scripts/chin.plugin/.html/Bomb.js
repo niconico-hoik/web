@@ -1,6 +1,13 @@
+import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { outputFile } from 'fs-extra'
 import { htmlToFormat } from '../util.js'
+
+const renderStaticHtml = elements =>
+  htmlToFormat(`
+  <!DOCTYPE html>
+  ${renderToStaticMarkup(elements)}
+`)
 
 export default class Bomb {
   constructor(opts) {
@@ -12,24 +19,24 @@ export default class Bomb {
 
   setProp(name, prop) {
     if (!this._requires.includes(name)) {
-      throw new Error(`what this name => ${name}`)
+      throw new Error(`htmlBomb: what this name => ${name}`)
     }
 
     this._props[name] = prop
-    return this._isready() && this._out()
+
+    if(this._isready()) {
+      this._out()
+    }
   }
 
   _isready() {
-    return this._requires.every(key => this._props[key])
+    return this._requires.every(key => Boolean(this._props[key]))
   }
 
   _out() {
-    return outputFile(this._path, renderHtml(this._component(this._props)))
+    const Component = this._component
+    const elements = <Component {...this._props}/>
+    const html = renderStaticHtml(elements)
+    return outputFile(this._path, html)
   }
 }
-
-const renderHtml = elements =>
-  htmlToFormat(`
-  <!DOCTYPE html>
-  ${renderToStaticMarkup(elements)}
-`)
