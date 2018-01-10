@@ -4,3 +4,8 @@
 
 [context.production]
   command = "yarn production:master"
+  
+[[headers]]
+  for = "/"
+  [headers.values]
+  Access-Control-Allow-Origin = "*"
