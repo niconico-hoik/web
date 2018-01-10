@@ -1,11 +1,20 @@
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
+# can't change
+#[[headers]]
+#  for = "api.tumblr.com/*"
+#  for = "https://api.tumblr.com/*"
+#  for = "*/*"
+#  [headers.values]
+#  Access-Control-Allow-Origin = "*"
+
 [build]
   publish = ".site"
   command = "yarn production:light"
 
 [context.production]
   command = "yarn production:master"
-  
-[[headers]]
-  for = "/"
-  [headers.values]
-  Access-Control-Allow-Origin = "*"

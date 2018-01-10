@@ -27,9 +27,7 @@ export const PRODUCTION_MASTER = ({ favicons, ganalytics }) =>
   <html lang="ja">
     <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
       <title>ニコニコ保育園 和泉中央園</title>
-      <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
-      <meta httpEquiv="Content-Script-Type" content="text/javascript" />
-      <meta httpEquiv="Content-Style-Type" content="text/css" />
+      <meta charset="utf-8" />
       <meta name="keywords" content="ニコニコ保育園,大阪,和泉市,いずみ,のぞみ野,保育園,ほいくえん,保育,ほいく,認可外,一時預かり,一時" />
       <meta name="description" content="「子どもの持つ多彩な可能性が育まれるようサポートすること」を保育方針に日々を励むニコニコ保育園 和泉中央園は2016年11月にのぞみ野の2丁目から3丁目へと少しだけ場所を変えてリスタートしました" />
       <meta name="fragment" content="!" />
