@@ -1,10 +1,21 @@
 import React from 'react'
 
-export const DEVELOPMENT = ({ onerror, dll }) =>
+export const DEVELOPMENT = ({ onerror }) =>
   <html lang="ja">
     <head>
       {onerror}
-      {dll}
+    </head>
+    <body>
+      <div id="app" />
+      <script src="./dll.js" />
+      <script src="./bundle.js" />
+    </body>
+  </html>
+
+export const PRODUCTION_LIGHT = ({ onerror }) =>
+  <html lang="ja">
+    <head>
+      {onerror}
     </head>
     <body>
       <div id="app" />
@@ -12,7 +23,7 @@ export const DEVELOPMENT = ({ onerror, dll }) =>
     </body>
   </html>
 
-export const PRODUCTION = ({ favicons, ganalytics }) =>
+export const PRODUCTION_MASTER = ({ favicons, ganalytics }) =>
   <html lang="ja">
     <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
       <title>ニコニコ保育園 和泉中央園</title>

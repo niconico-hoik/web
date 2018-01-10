@@ -4,12 +4,35 @@
     "out": "./.local",
     "process": {},
     "weirs": [
-      ["./embed", {
+      ["./embed/onerror.js", {
         "js": ["EmbedJs", "utf8"]
+      }],
+      ["./post", {
+        "md": ["MarkdownToHtml", "utf8"]
+      }],
+      ["./svg", {
+        "svg": "OptimizeSvg"
       }],
       ["./image", {
         "jpg": "OptimizeJpg",
         "png": "OptimizePng"
+      }]
+    ],
+    "ignore": {
+      "targets": [
+        "./favicons",
+        "./embed/ganalytics.js"
+      ]
+    }
+  },
+
+  "PRODUCTION:LIGHT": {
+    "put": "./asset",
+    "out": "./.site",
+    "process": {},
+    "weirs": [
+      ["./embed/onerror.js", {
+        "js": ["EmbedJs", "utf8"]
       }],
       ["./post", {
         "md": ["MarkdownToHtml", "utf8"]
@@ -26,7 +49,7 @@
     }
   },
 
-  "PRODUCTION": {
+  "PRODUCTION:MASTER": {
     "put": "./asset",
     "out": "./.site",
     "process": {},
@@ -44,15 +67,15 @@
         "svg": "OptimizeSvg"
       }]
     ],
-    "//weirs": [
-      ["./image", { "jpg": "OptimizeJpg", "png": "OptimizePng" }],
-      ["./post", ["MarkdownToHtml", "utf8"]]
-    ],
     "ignore": {
       "targets": [
         "./embed/onerror.js"
       ]
-    }
+    },
+    "//weirs": [
+      ["./image", { "jpg": "OptimizeJpg", "png": "OptimizePng" }],
+      ["./post", ["MarkdownToHtml", "utf8"]]
+    ]
   },
 
   "INKSCHIN": {
