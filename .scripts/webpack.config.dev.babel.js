@@ -22,7 +22,15 @@ export default merge(baseConfig, {
     historyApiFallback: true,
     hot: true,
     inline: true,
-    open: true
+    open: true,
+    // proxy: {
+    //   '/tumblr/**': {
+    //     target: 'https://api.tumblr.com',
+    //     secure: false,
+    //     changeOrigin: true,
+    //     bypass: (req, res, options) => {}
+    //   }
+    // }
   },
   devtool: `source-map`,
   plugins: [

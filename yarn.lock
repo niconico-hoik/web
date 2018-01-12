@@ -3,8 +3,8 @@
 
 
 "@types/node@*":
-  version "8.0.57"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.57.tgz#e5d8b4dc112763e35cfc51988f4f38da3c486d99"
+  version "9.3.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.3.0.tgz#3a129cda7c4e5df2409702626892cb4b96546dd5"
 
 abbrev@1:
   version "1.1.1"
@@ -4537,9 +4537,9 @@ longest@^1.0.0, longest@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
 
-"lonogara-tool@https://github.com/kthjm/lonogara-tool":
-  version "0.0.0"
-  resolved "https://github.com/kthjm/lonogara-tool#f790da99f80e87a456984512c9f8095fe6c4ec4a"
+"lonogara-tool@https://github.com/kthjm/lonogara-tool#0":
+  version "0.0.1"
+  resolved "https://github.com/kthjm/lonogara-tool#0ce12d1cd62cc2a161062d3e9a26334e883ba7c3"
   dependencies:
     atra "^1.1.2"
     create-keyframes "^1.0.1"
@@ -4554,6 +4554,7 @@ longest@^1.0.0, longest@^1.0.1:
     rehype-stringify "^3.0.0"
     remark-parse "^4.0.0"
     remark-rehype "^3.0.0"
+    tiloop "https://github.com/kthjm/tiloop"
     unified "^6.1.6"
 
 loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.1:
@@ -7104,6 +7105,12 @@ thunky@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/thunky/-/thunky-0.1.0.tgz#bf30146824e2b6e67b0f2d7a4ac8beb26908684e"
 
+"tiloop@https://github.com/kthjm/tiloop":
+  version "0.0.0"
+  resolved "https://github.com/kthjm/tiloop#e2c79006597d26e830b2a1905c56016058d9aebd"
+  dependencies:
+    regenerator-runtime "^0.11.1"
+
 time-stamp@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/time-stamp/-/time-stamp-1.1.0.tgz#764a5a11af50561921b133f3b44e618687e0f5c3"
@@ -7468,9 +7475,15 @@ unist-util-visit-parents@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/unist-util-visit-parents/-/unist-util-visit-parents-1.1.1.tgz#7d3f56b5b039a3c6e2d16e51cc093f10e4755342"
 
-unist-util-visit@^1.0.0, unist-util-visit@^1.1.0:
+unist-util-visit@^1.0.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/unist-util-visit/-/unist-util-visit-1.2.0.tgz#9dc78d1f95cd242e865f7f93f327d3296bb9a718"
+  dependencies:
+    unist-util-is "^2.1.1"
+
+unist-util-visit@^1.1.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/unist-util-visit/-/unist-util-visit-1.3.0.tgz#41ca7c82981fd1ce6c762aac397fc24e35711444"
   dependencies:
     unist-util-is "^2.1.1"
 

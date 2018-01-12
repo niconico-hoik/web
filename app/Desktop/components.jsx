@@ -53,6 +53,7 @@ export const More = (a =>
   ROOT: {
     style: {
       margin: 'auto',
+      marginTop: '8%',
       marginBottom: '9%',
       textAlign: 'center'
     }

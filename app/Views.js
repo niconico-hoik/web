@@ -6,6 +6,7 @@ import { PhotoFeed, NoticeFeed } from './api'
 
 const { assign } = Object
 const api_key = process.env.TUMBLR_KEY
+const proxy = Boolean(process.env.REPOSITORY_URL) && './tumblr'
 
 export const Home = (creator) => ({
   head: '',
@@ -67,7 +68,7 @@ export const Photo = (creator) => ({
   Button: Camera,
   create: async ({ renderDetail, setPopdown, setInform }) => {
 
-    const feed = await PhotoFeed({ api_key })
+    const feed = await PhotoFeed({ api_key, proxy })
     const store = await feed()
     const gack = new Gack(store)
     const { Exhibit, Detail } = creator({ store, renderDetail, setPopdown, setInform })
@@ -84,7 +85,7 @@ export const Notice = (creator) => ({
   Button: Post,
   create: async ({ renderDetail, setPopdown, setInform }) => {
 
-    const feed = await NoticeFeed({ api_key, setInform })
+    const feed = await NoticeFeed({ api_key, proxy, setInform })
     const store = await feed()
     const gack = new Gack(store)
     const { Exhibit, Detail } = creator({ store, renderDetail, setPopdown, setInform })

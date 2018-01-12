@@ -15,9 +15,9 @@ export default Photo(({
 
     <ExLayout>
 
-      {Object.entries(state.posts).map(([ym,photos], index) =>
+      {Object.entries(state.posts).map(([ym,photos], index, { length }) =>
 
-        <div key={index} {...a('YEAR_MONTH')}>
+        <div key={index} {...a('YEAR_MONTH', { style: { marginBottom: index !== length - 1 && '8%' } })}>
 
           <div {...a('YM')}>{ym}</div>
 
@@ -54,8 +54,7 @@ export default Photo(({
   )(Atra({
     YEAR_MONTH: {
       style: {
-        color: '#ffffff',
-        marginBottom: '8%',
+        color: '#ffffff'
       }
     },
     YM: {

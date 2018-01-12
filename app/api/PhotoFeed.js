@@ -1,15 +1,15 @@
 // @flow
 import moment from 'moment'
-import { tumblr } from 'lonogara-tool/api'
+import { TumblrPosts } from 'lonogara-tool/api'
 import { externalHtml } from 'lonogara-tool/toreact'
 import { numToArr } from '../util.js'
 
 const account = 'nicohoi'
-const query = { type: 'photo' }
+const query = (api_key) => ({ api_key, type: 'photo' })
 
-export default async ({ api_key }) => {
+export default async ({ api_key, proxy }) => {
 
-  const supply = await tumblr.Posts({ api_key, account, query })
+  const supply = await TumblrPosts(account, { query: query(api_key), proxy })
 
   const feed = async (reactState = {}) => {
     const posts = reactState.posts || {}

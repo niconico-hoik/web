@@ -3,19 +3,19 @@ import React from 'react'
 import moment from 'moment'
 import rehype from 'rehype'
 import find from 'unist-util-find'
-import { tumblr } from 'lonogara-tool/api'
+import { TumblrPosts } from 'lonogara-tool/api'
 import { externalHtml } from 'lonogara-tool/toreact'
 
 const account = 'nicohoi-info'
-const query = { type: 'text' }
+const query = (api_key) => ({ api_key, type: 'text' })
 const SUMMARY_LENGTH = 12
 const PREFIX_TYPES = ['期限', 'limit']
 const EQUAL_TYPES = [' ', '=']
 const SPLIT_TYPES = ['/', '-']
 
-export default async ({ api_key, setInform }) => {
+export default async ({ api_key, proxy, setInform }) => {
 
-  const supply = await tumblr.Posts({ api_key, account, query })
+  const supply = await TumblrPosts(account, { query: query(api_key), proxy })
 
   const feed = async (reactState = {}) => {
     const posts = reactState.posts || []

@@ -30,7 +30,7 @@
     "atra": "^1.1.2",
     "babel-polyfill": "^6.26.0",
     "babel-runtime": "^6.26.0",
-    "lonogara-tool": "https://github.com/kthjm/lonogara-tool",
+    "lonogara-tool": "https://github.com/kthjm/lonogara-tool#0",
     "moment": "^2.19.3",
     "nicohoi-price-api": "https://github.com/kthjm/nicohoi-price-api",
     "react": "^16.2.0",
