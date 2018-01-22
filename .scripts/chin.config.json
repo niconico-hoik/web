@@ -1,96 +1,67 @@
 {
   "DEVELOPMENT": {
-    "put": "./asset",
+    "put": "./frame",
     "out": "./.local",
     "process": {},
     "weirs": [
-      ["./embed/onerror.js", {
-        "js": ["EmbedJs", "utf8"]
-      }],
-      ["./post", {
-        "md": ["MarkdownToHtml", "utf8"]
-      }],
-      ["./svg", {
-        "svg": "OptimizeSvg"
-      }],
-      ["./image", {
-        "jpg": "OptimizeJpg",
-        "png": "OptimizePng"
-      }]
+      ["./onerror.js", { "js": ["EmbedJs", "utf8"] }],
+      ["./post", { "md": ["MarkdownToHtml", "utf8"] }],
+      ["./svg", { "svg": "OptimizeSvg" }],
+      ["./image", { "jpg": "OptimizeJpg", "png": "OptimizePng" }]
     ],
     "ignore": {
       "targets": [
-        "./favicons",
-        "./embed/ganalytics.js"
+        "./favicons.png",
+        "./ganalytics.js",
+        "./robots.txt",
+        "./sitemap.xml"
       ]
     }
   },
 
   "PRODUCTION:LIGHT": {
-    "put": "./asset",
+    "put": "./frame",
     "out": "./.site",
     "process": {},
     "weirs": [
-      ["./embed/onerror.js", {
-        "js": ["EmbedJs", "utf8"]
-      }],
-      ["./post", {
-        "md": ["MarkdownToHtml", "utf8"]
-      }],
-      ["./svg", {
-        "svg": "OptimizeSvg"
-      }]
+      ["./onerror.js", { "js": ["EmbedJs", "utf8"] }],
+      ["./post", { "md": ["MarkdownToHtml", "utf8"] }],
+      ["./svg", { "svg": "OptimizeSvg" }]
     ],
     "ignore": {
       "targets": [
-        "./favicons",
-        "./embed/ganalytics.js"
+        "./favicons.png",
+        "./ganalytics.js",
+        "./robots.txt",
+        "./sitemap.xml"
       ]
     }
   },
 
   "PRODUCTION:MASTER": {
-    "put": "./asset",
+    "put": "./frame",
     "out": "./.site",
     "process": {},
     "weirs": [
-      ["./embed/ganalytics.js", {
-        "js": ["EmbedJs", "utf8"]
-      }],
-      ["./favicons/index.png", {
-        "png": "EmbedFavicons"
-      }],
-      ["./post", {
-        "md": ["MarkdownToHtml", "utf8"]
-      }],
-      ["./svg", {
-        "svg": "OptimizeSvg"
-      }]
+      ["./ganalytics.js", { "js": ["EmbedJs", "utf8"] }],
+      ["./favicons.png", { "png": "EmbedFavicons" }],
+      ["./post", { "md": ["MarkdownToHtml", "utf8"] }],
+      ["./svg", { "svg": "OptimizeSvg" }]
     ],
     "ignore": {
       "targets": [
-        "./embed/onerror.js"
+        "./onerror.js"
       ]
-    },
-    "//weirs": [
-      ["./image", { "jpg": "OptimizeJpg", "png": "OptimizePng" }],
-      ["./post", ["MarkdownToHtml", "utf8"]]
-    ]
+    }
   },
 
   "INKSCHIN": {
     "put": "./ikc",
-    "out": "./asset",
+    "out": "./frame",
     "weirs": [
-      ["./favicons", {
-        "svg": ["InkPngWhite", null, "stream"]
-      }],
-      ["./image", {
-        "svg": ["InkPngWhite", null, "stream"]
-      }],
-      ["./pdf", {
-        "svg": ["InkPdf", null, "stream"]
-      }]
+      ["./favicons", { "svg": ["InkPngWhite", null, "stream"] }],
+      ["./image", { "svg": ["InkPngWhite", null, "stream"] }],
+      ["./pdf", { "svg": ["InkPdf", null, "stream"] }]
     ]
   }
 }

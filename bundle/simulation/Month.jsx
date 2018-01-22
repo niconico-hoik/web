@@ -1,5 +1,6 @@
 // @flow
 import React from 'react'
+import Orph from 'orph'
 import Atra from 'atra'
 import { monthEntry, monthCare, monthSundry, monthSpecialTime } from 'nicohoi-price-api'
 import { numToArr, scrape, sum, SELECT_COLOR } from './util.js'
@@ -15,106 +16,94 @@ import {
   ResultDetails
 } from './components.jsx'
 
-const NUMBER_LENGTH = 4
 const DAY_INIT = 2
-const DAY_LENGTH = 5
 const TIME_INIT = 6
-const TIME_LENGTH = 5
+
+const NUMBER_OPTIONS = numToArr(4).map((n, index) =>
+  <option key={index} {...{ value: index + 1, children: index + 1 }} />
+)
+
 const AGES_OPTIONS = [
   { value: 'infant', children: '2才以下' },
   { value: 'toddler', children: '3才以上' }
-]
+].map(({ value, children }, index) =>
+  <option key={index} {...{ value, children }} />
+)
+
+const DAY_OPTIONS = numToArr(5).map((value, index) => {
+  const both = DAY_INIT + index
+  return <option key={index} {...{ value: both, children: both }} />
+})
+
+const TIME_OPTIONS = numToArr(5).map((value, index) => {
+  const both = TIME_INIT + index
+  return <option key={index} {...{ value: both, children: both }} />
+})
+
 const SPECIAL_OPTIONS = [
   { value: 0, children: '含まない' },
   { value: 1, children: '含む' }
-]
+].map(({ value, children }, index) =>
+  <option key={index} {...{ value, children }} />
+)
 
-const createResults = ({
-  ages,
-  day,
-  time,
-  morning,
-  night,
-  sunday
-}) => {
+const orph = new Orph({
+  ages: ['toddler'],
+  day: DAY_INIT,
+  time: TIME_INIT,
+  morning: 0,
+  night: 0,
+  sunday: 0
+})
 
-  ages = [].concat(ages).sort((p, c) => p === 'toddler' ? -1 : 1)
-  const isHalfOne = ages.length > 1
-  const pricesSpecialTime = ages.map(() => monthSpecialTime())
+orph.register({
+  NUMBER_ON_CHANGE: (e, { state, render }) => {
+    const ages = state('ages')
+    const agesLength = +e.target.value
+    render({ ages: numToArr(agesLength).map((n, index) => ages[index] || 'toddler') })
+  },
+  AGE_ON_CHANGE: (e, { state, render }) => {
+    const ages = state('ages')
+    const ageIndex = +e.target.dataset.ageIndex
+    const ageValue = e.target.value
+    ages[ageIndex] = ageValue
+    render({ ages })
+  },
+  OTHER_ON_CHANGE: (e, { render }) => {
+    const name = e.target.dataset.name
+    const value = +e.target.value
+    render({ [name]: value })
+  }
+},{
+  use: {
+    state: true,
+    render: true
+  }
+})
 
-  return [
-    {
-      string: '入園料',
-      isHalfOne,
-      prices: ages.map((n, index) => monthEntry() / (isHalfOne && index === 0 ? 2 : 1))
-    },
-    {
-      string: '保育料',
-      isHalfOne,
-      prices: ages.map((age, index) => monthCare(age, day, time) / (isHalfOne && index === 0 ? 2 : 1))
-    },
-    {
-      string: '諸経費',
-      prices: ages.map(() => monthSundry())
-    },
-    {
-      string: '早朝料金',
-      prices: morning ? pricesSpecialTime : []
-    },
-    {
-      string: '夜間料金',
-      prices: night ? pricesSpecialTime : []
-    },
-    {
-      string: '日曜料金',
-      prices: sunday ? pricesSpecialTime : []
-    }
-  ]
-}
+const listeners = orph.order([
+  'NUMBER_ON_CHANGE',
+  'AGE_ON_CHANGE',
+  'OTHER_ON_CHANGE'
+])
 
 export default class MonthSimu extends React.Component {
 
   constructor(props) {
-
     super(props)
-
-    this.state = {
-      ages: ['toddler'],
-      day: DAY_INIT,
-      time: TIME_INIT,
-      morning: 0,
-      night: 0,
-      sunday: 0
-    }
-
-    this.nodes = {
+    orph.attach(this)
+    this.spaces = {
       blockspace: <Space size={props.blockspace} />,
       selectspace: <Space size={props.selectspace} />
     }
+  }
 
-    this.numberOnChange = (e) => {
-      const agesLength = +e.target.value
-      const ages = numToArr(agesLength).map((n, index) => this.state.ages[index] || 'toddler')
-      this.setState({ ages })
-    }
-
-    this.ageOnChange = (e) => {
-      const ages = [].concat(this.state.ages)
-      const ageIndex = +e.target.dataset.ageIndex
-      const ageValue = e.target.value
-      ages[ageIndex] = ageValue
-      this.setState({ ages })
-    }
-
-    this.otherOnChange = (e) => {
-      const name = e.target.dataset.name
-      const value = +e.target.value
-      this.setState({ [name]: value })
-    }
+  componentWillUnmount() {
+    orph.detach(true)
   }
 
   render() {
-    const { blockspace, selectspace } = this.nodes
+    const { blockspace, selectspace } = this.spaces
     const results = createResults(this.state)
     const totalPrice = sum(results.map(({ prices }) => prices.length ? sum(prices) : 0))
 
@@ -167,13 +156,11 @@ export default class MonthSimu extends React.Component {
   SelectNumber() {
     return (
       <Select {...{
-        onChange: this.numberOnChange,
+        onChange: listeners['NUMBER_ON_CHANGE'],
         value: this.state.ages.length,
         color: SELECT_COLOR
       }}>
-      {numToArr(NUMBER_LENGTH).map((n, index) =>
-        <option key={index} {...{ value: index + 1, children: index + 1 }} />
-      )}
+        {NUMBER_OPTIONS}
       </Select>
     )
   }
@@ -183,14 +170,12 @@ export default class MonthSimu extends React.Component {
       <span key={ageIndex}>
         {ageIndex !== 0 && 'と'}
         <Select {...{
-          onChange: this.ageOnChange,
+          onChange: listeners['AGE_ON_CHANGE'],
           value: ageValue,
           dataset: { 'age-index': ageIndex },
           color: SELECT_COLOR
         }}>
-        {AGES_OPTIONS.map(({ value, children }, index) =>
-          <option key={index} {...{ value, children }} />
-        )}
+          {AGES_OPTIONS}
         </Select>
       </span>
     )
@@ -199,15 +184,12 @@ export default class MonthSimu extends React.Component {
   SelectDay() {
     return (
       <Select {...{
-        onChange: this.otherOnChange,
+        onChange: listeners['OTHER_ON_CHANGE'],
         value: this.state.day,
         dataset: { name: 'day' },
         color: SELECT_COLOR
       }}>
-      {numToArr(DAY_LENGTH).map((value, index) => {
-        const both = DAY_INIT + index
-        return <option key={index} {...{ value: both, children: both }} />
-      })}
+        {DAY_OPTIONS}
       </Select>
     )
   }
@@ -215,15 +197,12 @@ export default class MonthSimu extends React.Component {
   SelectTime() {
     return (
       <Select {...{
-        onChange: this.otherOnChange,
+        onChange: listeners['OTHER_ON_CHANGE'],
         value: this.state.time,
         dataset: { name: 'time' },
         color: SELECT_COLOR
       }}>
-      {numToArr(TIME_LENGTH).map((value, index) => {
-        const both = TIME_INIT + index
-        return <option key={index} {...{ value: both, children: both }} />
-      })}
+        {TIME_OPTIONS}
       </Select>
     )
   }
@@ -231,17 +210,58 @@ export default class MonthSimu extends React.Component {
   SelectSpecialTime(name) {
     return (
       <Select {...{
-        onChange: this.otherOnChange,
+        onChange: listeners['OTHER_ON_CHANGE'],
         value: this.state[name],
         dataset: { name },
         color: SELECT_COLOR
       }}>
-      {SPECIAL_OPTIONS.map(({ value, children }, index) =>
-        <option key={index} {...{ value, children }} />
-      )}
+        {SPECIAL_OPTIONS}
       </Select>
     )
   }
+}
+
+const createResults = ({
+  ages,
+  day,
+  time,
+  morning,
+  night,
+  sunday
+}) => {
+
+  ages = [].concat(ages).sort((p, c) => p === 'toddler' ? -1 : 1)
+  const isHalfOne = ages.length > 1
+  const pricesSpecialTime = ages.map(() => monthSpecialTime())
+
+  return [
+    {
+      string: '入園料',
+      isHalfOne,
+      prices: ages.map((n, index) => monthEntry() / (isHalfOne && index === 0 ? 2 : 1))
+    },
+    {
+      string: '保育料',
+      isHalfOne,
+      prices: ages.map((age, index) => monthCare(age, day, time) / (isHalfOne && index === 0 ? 2 : 1))
+    },
+    {
+      string: '諸経費',
+      prices: ages.map(() => monthSundry())
+    },
+    {
+      string: '早朝料金',
+      prices: morning ? pricesSpecialTime : []
+    },
+    {
+      string: '夜間料金',
+      prices: night ? pricesSpecialTime : []
+    },
+    {
+      string: '日曜料金',
+      prices: sunday ? pricesSpecialTime : []
+    }
+  ]
 }
 
 const Result = ({ string, prices }) =>

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import Atra from 'atra'
-import Center from 'react-vertical-center'
+import Center from 'react-centpn'
 import { Home } from '../Views.js'
 import { Rogo } from '../Icons.jsx'
 import { Click } from './components.jsx'
@@ -22,7 +22,7 @@ export default Home(({
 
     <div {...a('ROOT')}>
 
-      <Center deduct={60}>
+      <Center top={-60}>
 
         <div {...a('ROGO')}>{rogo}</div>
 

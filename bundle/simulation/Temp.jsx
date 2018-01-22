@@ -1,5 +1,6 @@
 // @flow
 import React from 'react'
+import Orph from 'orph'
 import Atra from 'atra'
 import { TempCare, tempAllday } from 'nicohoi-price-api'
 import { numToArr, scrape, sum, SELECT_COLOR } from './util.js'
@@ -17,12 +18,18 @@ import {
 
 const ALL_DAY_COLOR = 'rgb(39, 165, 74)'
 const NIGHT_COLOR = '#ff6060'
-const NUMBER_LENGTH = 4
+
+const NUMBER_OPTIONS = numToArr(4).map((n, index) =>
+  <option key={index} {...{ value: index + 1, children: index + 1 }} />
+)
+
 const AGES_OPTIONS = [
   { value: 'toddler', children: '小学以下' },
   { value: 'lower', children: '小学低学年' },
   { value: 'higher', children: '小学高学年' }
-]
+].map(({ value, children }, index) =>
+  <option key={index} {...{ value, children }} />
+)
 
 function* ftOptionsG(from, to) {
   while (from <= to) {
@@ -48,72 +55,52 @@ const colorOfTo = (value) =>
   : value > 20 ? NIGHT_COLOR
   : SELECT_COLOR
 
-const createResults = ({ times, pricesByTime, badges }) => [
-  {
-    string: '7:00~',
-    time: times.morning || 0,
-    prices: scrape(pricesByTime.map(({ morning }) => morning))
+const orph = new Orph({
+  ages: ['toddler'],
+  from: 10,
+  to: 19.5
+})
+
+orph.register({
+  NUMBER_ON_CHANGE: (e, { state, render }) => {
+    const ages = state('ages')
+    const agesLength = +e.target.value
+    render({ ages: numToArr(agesLength).map((n, index) => ages[index] || 'toddler') })
   },
-  {
-    string: '8:00~',
-    time: times.day || 0,
-    prices: scrape(pricesByTime.map(({ day }) => day)),
-    badge: badges.day
+  AGE_ON_CHANGE: (e, { state, render }) => {
+    const ages = state('ages')
+    const ageIndex = +e.target.dataset.ageIndex
+    const ageValue = e.target.value
+    ages[ageIndex] = ageValue
+    render({ ages })
   },
-  {
-    string: '18:00~',
-    time: times.evening || 0,
-    prices: scrape(pricesByTime.map(({ evening }) => evening))
-  },
-  {
-    string: '20:00~',
-    time: times.night || 0,
-    prices: scrape(pricesByTime.map(({ night }) => night)),
-    badge: badges.night
+  FROMTO_ON_CHANGE: (e, { render }) => {
+    const from_or_to = e.target.dataset.name
+    const time = +e.target.value
+    render({ [from_or_to]: time })
   }
-]
-
-const prepareAllday = ({ from, to, ages, badges }) =>
-  from === 9 && to === 17 && {
-    totalPrice: sum(ages.map((age) => tempAllday(age))),
-    results: createResults({
-      times: { day: 8 },
-      pricesByTime: ages.map((age) => ({ day: tempAllday(age) })),
-      badges: { day: badges.day }
-    })
+},{
+  use: {
+    state: true,
+    render: true
   }
+})
 
-const prepare = ({ from, to, ages, badges }) => {
-
-  const care = new TempCare(from, to)
-
-  return {
-    totalPrice: sum(ages.map((age) => care.price(age))),
-    results: createResults({
-      times: care.timeByTime(),
-      pricesByTime: ages.map((age) => care.priceByTime(age)),
-      badges: { night: to > 20 && badges.night }
-    })
-  }
-}
+const listeners = orph.order([
+  'NUMBER_ON_CHANGE',
+  'AGE_ON_CHANGE',
+  'FROMTO_ON_CHANGE'
+])
 
 export default class TempSimu extends React.Component {
 
   constructor(props) {
-
     super(props)
-
-    this.state = {
-      ages: ['toddler'],
-      from: 10,
-      to: 19.5
-    }
-
+    orph.attach(this)
     this.spaces = {
       blockspace: <Space size={props.blockspace} />,
       selectspace: <Space size={props.selectspace} />
     }
-
     this.badges = {
       day: <span {...{
         style: Object.assign({}, props.badgeStyle, { backgroundColor: ALL_DAY_COLOR }),
@@ -124,26 +111,10 @@ export default class TempSimu extends React.Component {
         children: '前日までに要予約'
       }} />
     }
+  }
 
-    this.numberOnChange = (e) => {
-      const agesLength = +e.target.value
-      const ages = numToArr(agesLength).map((n, index) => this.state.ages[index] || 'toddler')
-      this.setState({ ages })
-    }
-
-    this.ageOnChange = (e) => {
-      const ages = [].concat(this.state.ages)
-      const ageIndex = +e.target.dataset.ageIndex
-      const ageValue = e.target.value
-      ages[ageIndex] = ageValue
-      this.setState({ ages })
-    }
-
-    this.fromtoOnChange = (e) => {
-      const from_or_to = e.target.dataset.name
-      const time = +e.target.value
-      this.setState({ [from_or_to]: time })
-    }
+  componentWillUnmount() {
+    orph.detach(true)
   }
 
   render() {
@@ -192,13 +163,11 @@ export default class TempSimu extends React.Component {
   SelectNumber() {
     return (
       <Select {...{
-        onChange: this.numberOnChange,
+        onChange: listeners['NUMBER_ON_CHANGE'],
         value: this.state.ages.length,
         color: SELECT_COLOR
       }}>
-      {numToArr(NUMBER_LENGTH).map((n, index) =>
-        <option key={index} {...{ value: index + 1, children: index + 1 }} />
-      )}
+        {NUMBER_OPTIONS}
       </Select>
     )
   }
@@ -208,14 +177,12 @@ export default class TempSimu extends React.Component {
       <span key={ageIndex}>
         {ageIndex !== 0 && 'と'}
         <Select {...{
-          onChange: this.ageOnChange,
+          onChange: listeners['AGE_ON_CHANGE'],
           value: ageValue,
           dataset: { 'age-index': ageIndex },
           color: SELECT_COLOR
         }}>
-        {AGES_OPTIONS.map(({ value, children }, index) =>
-          <option key={index} {...{ value, children }} />
-        )}
+          {AGES_OPTIONS}
         </Select>
       </span>
     )
@@ -225,7 +192,7 @@ export default class TempSimu extends React.Component {
     const { from, to } = this.state
     return (
       <Select {...{
-        onChange: this.fromtoOnChange,
+        onChange: listeners['FROMTO_ON_CHANGE'],
         value: from,
         dataset: { name: 'from' },
         color: colorOfFrom(from)
@@ -245,7 +212,7 @@ export default class TempSimu extends React.Component {
     const { from, to } = this.state
     return (
       <Select {...{
-        onChange: this.fromtoOnChange,
+        onChange: listeners['FROMTO_ON_CHANGE'],
         value: to,
         dataset: { name: 'to' },
         color: colorOfTo(to)
@@ -261,6 +228,53 @@ export default class TempSimu extends React.Component {
     )
   }
 }
+
+const prepareAllday = ({ from, to, ages, badges }) =>
+  from === 9 && to === 17 && {
+    totalPrice: sum(ages.map((age) => tempAllday(age))),
+    results: createResults({
+      times: { day: 8 },
+      pricesByTime: ages.map((age) => ({ day: tempAllday(age) })),
+      badges: { day: badges.day }
+    })
+  }
+
+const prepare = ({ from, to, ages, badges }) => {
+  const care = new TempCare(from, to)
+  return {
+    totalPrice: sum(ages.map((age) => care.price(age))),
+    results: createResults({
+      times: care.timeByTime(),
+      pricesByTime: ages.map((age) => care.priceByTime(age)),
+      badges: { night: to > 20 && badges.night }
+    })
+  }
+}
+
+const createResults = ({ times, pricesByTime, badges }) => [
+  {
+    string: '7:00~',
+    time: times.morning || 0,
+    prices: scrape(pricesByTime.map(({ morning }) => morning))
+  },
+  {
+    string: '8:00~',
+    time: times.day || 0,
+    prices: scrape(pricesByTime.map(({ day }) => day)),
+    badge: badges.day
+  },
+  {
+    string: '18:00~',
+    time: times.evening || 0,
+    prices: scrape(pricesByTime.map(({ evening }) => evening))
+  },
+  {
+    string: '20:00~',
+    time: times.night || 0,
+    prices: scrape(pricesByTime.map(({ night }) => night)),
+    badge: badges.night
+  }
+]
 
 export const Result = ({ string, prices, badge, time }) =>
   <span>

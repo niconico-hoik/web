@@ -1,19 +1,15 @@
-import { resolve } from 'path'
-import { DllPlugin } from 'webpack'
+const webpack = require('webpack')
+const { resolve } = require('path')
 
 const VAR_NAME = 'dll'
 const path = resolve('.local')
 
-export default {
+module.exports = {
   context: process.cwd(),
   entry: [
     'react',
     'react-dom',
-    'whatwg-fetch',
-    'babel-polyfill',
-    'atra',
-    // 'lonogara',
-    // 'lonogara-tool'
+    'atra'
   ],
   output: {
     filename: `${VAR_NAME}.js`,
@@ -21,7 +17,7 @@ export default {
     library: VAR_NAME
   },
   plugins: [
-    new DllPlugin({
+    new webpack.DllPlugin({
       path: resolve(path, `${VAR_NAME}.manifest.json`),
       name: VAR_NAME
     })

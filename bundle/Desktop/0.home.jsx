@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 import Atra from 'atra'
-import Center from 'react-vertical-center'
+import Center from 'react-centpn'
 import Parade from 'react-parade'
 import { Home } from '../Views.js'
 import { Cover, MouseDown } from './components.jsx'
@@ -26,7 +26,7 @@ export default Home(({
 
       <Cover {...a('BG_COVER')} />
 
-      <Center deduct={5}>
+      <Center top={-5}>
         <div {...a('TEXT')}>
 
           <span>{NAME}</span><br />

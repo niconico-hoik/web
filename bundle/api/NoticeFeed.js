@@ -47,18 +47,20 @@ const postTransform = ({
   timestamp
 }) => {
   const postMoment = moment.unix(timestamp)
+  const date = postMoment.format('Y/M/D')
+
   const { html, limitString } = separateBodyByRehype(body)
   const limitMoment = limitString
     ? moment(formatForISO(limitString))
     : postMoment.add(10, 'days')
 
   return {
+    date,
     summary: createSummary(title || summary || slug),
     isNew: limitMoment.isAfter(moment()),
     season: whatSeason(+postMoment.format('M')),
-    date: postMoment.format('Y/M/D'),
     detail: {
-      body: externalHtml(`${title ? `<h1>${title}</h1>` : ``}${html}`)
+      body: externalHtml(`<h5>${date}</h5>${title ? `<h1>${title}</h1>` : ``}${html}`)
     }
   }
 }

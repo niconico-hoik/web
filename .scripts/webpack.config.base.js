@@ -1,11 +1,9 @@
-import Dotenv from 'dotenv-webpack'
-import { resolve } from 'path'
+const Dotenv = require('dotenv-webpack')
+const { resolve } = require('path')
 
-const nodeModulesPath = resolve('node_modules')
-
-export default {
+module.exports = {
   context: process.cwd(),
-  entry: [resolve(`app/index.js`)],
+  entry: [resolve(`bundle/index.js`)],
   output: {
     filename: 'bundle.js'
   },
@@ -13,7 +11,7 @@ export default {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: [nodeModulesPath],
+        exclude: [resolve('node_modules')],
         use: [`babel-loader?cacheDirectory`]
       },
       {
@@ -24,7 +22,7 @@ export default {
   },
   plugins: [
     new Dotenv({
-      path: resolve(`app/.env`),
+      path: resolve(`./.env`),
       systemvars: true
     })
   ]
