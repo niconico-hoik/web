@@ -2262,6 +2262,10 @@ deep-extend@~0.4.0:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.4.2.tgz#48b699c27e334bf89f10892be432f6e4c7d34a7f"
 
+deepmerge@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-2.0.1.tgz#25c1c24f110fb914f80001b925264dd77f3f4312"
+
 define-properties@^1.1.1, define-properties@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/define-properties/-/define-properties-1.1.2.tgz#83a73f2fea569898fb737193c8f873caf6d45c94"
@@ -4717,6 +4721,10 @@ load-json-file@^4.0.0:
     pify "^3.0.0"
     strip-bom "^3.0.0"
 
+load-script@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/load-script/-/load-script-1.0.0.tgz#0491939e0bee5643ee494a7e3da3d2bac70c6ca4"
+
 loader-runner@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.3.0.tgz#f482aea82d543e07921700d5a46ef26fdac6b8a2"
@@ -4885,8 +4893,8 @@ longest@^1.0.0, longest@^1.0.1:
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
 
 "lonogara-tool@https://github.com/kthjm/lonogara-tool#0":
-  version "0.0.2"
-  resolved "https://github.com/kthjm/lonogara-tool#30a4b6e76edfce4da3043f3fd4efbc3d7d9f12dd"
+  version "0.0.3"
+  resolved "https://github.com/kthjm/lonogara-tool#4e24739ea1903fb9c7f4fee624427f9f96780ac2"
   dependencies:
     atra "^1.1.2"
     create-keyframes "^1.0.1"
@@ -5299,9 +5307,9 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-"nicohoi-price-api@https://github.com/kthjm/nicohoi-price-api":
-  version "0.0.0"
-  resolved "https://github.com/kthjm/nicohoi-price-api#6338122889c87ebcc953b799fb4b16b71ec55a68"
+"nicohoi-price-api@https://github.com/kthjm/nicohoi-price-api#0":
+  version "0.0.1"
+  resolved "https://github.com/kthjm/nicohoi-price-api#12fa83e8e26e3b6f5de4daa65885c05901a7b9e5"
 
 node-fetch@^1.0.1:
   version "1.7.3"
@@ -5614,9 +5622,9 @@ original@>=0.0.5:
   dependencies:
     url-parse "1.0.x"
 
-orph@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/orph/-/orph-2.0.0.tgz#44e77ce59ad78c278b639494ff6fc3c2087b035a"
+orph@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/orph/-/orph-3.0.0.tgz#41b224fee3f5f98206918367a19a2c91c51cbc84"
 
 os-browserify@^0.3.0:
   version "0.3.0"
@@ -6241,7 +6249,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.6.0:
+prop-types@^15.5.6, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -6405,6 +6413,14 @@ react-dom@^16.2.0:
 react-parade@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/react-parade/-/react-parade-0.0.1.tgz#384043cb7b7a10102af234d6347f97a0eb900067"
+
+react-player@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-player/-/react-player-1.1.1.tgz#1db459a913a7d6868517e5607c648cd1f9069967"
+  dependencies:
+    deepmerge "^2.0.1"
+    load-script "^1.0.0"
+    prop-types "^15.5.6"
 
 react@^16.2.0:
   version "16.2.0"
@@ -6901,6 +6917,10 @@ safe-buffer@5.1.1, safe-buffer@^5.0.1, safe-buffer@^5.1.0, safe-buffer@^5.1.1, s
 sax@>=0.6.0, sax@~1.2.1, sax@~1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
+
+screenfull@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/screenfull/-/screenfull-3.3.2.tgz#a6adf3b3f5556da812725385880600f5b39fbf25"
 
 seek-bzip@^1.0.3:
   version "1.0.5"

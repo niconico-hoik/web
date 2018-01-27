@@ -4,7 +4,7 @@ import { WaveLoading } from 'lonogara-tool/preloader'
 import Props from '../props.js'
 import home from './0.home.jsx'
 import about from './1.about.jsx'
-import photo from './2.photo.jsx'
+import photo from './2.diary.jsx'
 import notice from './3.notice.jsx'
 
 export default () =>

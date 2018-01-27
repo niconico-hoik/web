@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import Orph from 'orph'
+import Store from './Store.js'
 import Atra from 'atra'
 import { monthEntry, monthCare, monthSundry, monthSpecialTime } from 'nicohoi-price-api'
 import { numToArr, scrape, sum, SELECT_COLOR } from './util.js'
@@ -47,7 +47,7 @@ const SPECIAL_OPTIONS = [
   <option key={index} {...{ value, children }} />
 )
 
-const orph = new Orph({
+const store = Store({
   ages: ['toddler'],
   day: DAY_INIT,
   time: TIME_INIT,
@@ -56,42 +56,13 @@ const orph = new Orph({
   sunday: 0
 })
 
-orph.register({
-  NUMBER_ON_CHANGE: (e, { state, render }) => {
-    const ages = state('ages')
-    const agesLength = +e.target.value
-    render({ ages: numToArr(agesLength).map((n, index) => ages[index] || 'toddler') })
-  },
-  AGE_ON_CHANGE: (e, { state, render }) => {
-    const ages = state('ages')
-    const ageIndex = +e.target.dataset.ageIndex
-    const ageValue = e.target.value
-    ages[ageIndex] = ageValue
-    render({ ages })
-  },
-  OTHER_ON_CHANGE: (e, { render }) => {
-    const name = e.target.dataset.name
-    const value = +e.target.value
-    render({ [name]: value })
-  }
-},{
-  use: {
-    state: true,
-    render: true
-  }
-})
-
-const listeners = orph.order([
-  'NUMBER_ON_CHANGE',
-  'AGE_ON_CHANGE',
-  'OTHER_ON_CHANGE'
-])
+const listeners = store.order()
 
 export default class MonthSimu extends React.Component {
 
   constructor(props) {
     super(props)
-    orph.attach(this)
+    store.attach(this, { inherit: props.isContinued })
     this.spaces = {
       blockspace: <Space size={props.blockspace} />,
       selectspace: <Space size={props.selectspace} />
@@ -99,7 +70,7 @@ export default class MonthSimu extends React.Component {
   }
 
   componentWillUnmount() {
-    orph.detach(true)
+    store.detach()
   }
 
   render() {
@@ -184,7 +155,7 @@ export default class MonthSimu extends React.Component {
   SelectDay() {
     return (
       <Select {...{
-        onChange: listeners['OTHER_ON_CHANGE'],
+        onChange: listeners['VALUE_ON_CHANGE'],
         value: this.state.day,
         dataset: { name: 'day' },
         color: SELECT_COLOR
@@ -197,7 +168,7 @@ export default class MonthSimu extends React.Component {
   SelectTime() {
     return (
       <Select {...{
-        onChange: listeners['OTHER_ON_CHANGE'],
+        onChange: listeners['VALUE_ON_CHANGE'],
         value: this.state.time,
         dataset: { name: 'time' },
         color: SELECT_COLOR
@@ -210,7 +181,7 @@ export default class MonthSimu extends React.Component {
   SelectSpecialTime(name) {
     return (
       <Select {...{
-        onChange: listeners['OTHER_ON_CHANGE'],
+        onChange: listeners['VALUE_ON_CHANGE'],
         value: this.state[name],
         dataset: { name },
         color: SELECT_COLOR

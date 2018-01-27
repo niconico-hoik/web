@@ -44,6 +44,22 @@ export default Object.assign({},
         </html>
       },
       "PRODUCTION:MASTER": {
+        EmbedFavicons: {
+          appName: 'ニコニコ保育園 和泉中央園',
+          path: 'favicons',
+          icons: {
+            android: true,
+            appleIcon: true,
+            appleStartup: false,
+            coast: false,
+            favicons: true,
+            firefox: true,
+            opengraph: false,
+            twitter: false,
+            yandex: false,
+            windows: false
+          }
+        },
         props: ['favicons.png', 'ganalytics.js'],
         component: (props) =>
         <html lang="ja">

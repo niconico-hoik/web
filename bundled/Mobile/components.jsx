@@ -17,7 +17,7 @@ export const ExLayout = (a =>
     style: {
       width: '99%',
       margin: 'auto',
-      fontSize: '2em'
+      fontSize: '2.2em'
     }
   }
 }))

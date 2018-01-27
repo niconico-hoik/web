@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import Orph from 'orph'
+import Store from './Store.js'
 import Atra from 'atra'
 import { TempCare, tempAllday } from 'nicohoi-price-api'
 import { numToArr, scrape, sum, SELECT_COLOR } from './util.js'
@@ -55,48 +55,19 @@ const colorOfTo = (value) =>
   : value > 20 ? NIGHT_COLOR
   : SELECT_COLOR
 
-const orph = new Orph({
+const store = Store({
   ages: ['toddler'],
   from: 10,
   to: 19.5
 })
 
-orph.register({
-  NUMBER_ON_CHANGE: (e, { state, render }) => {
-    const ages = state('ages')
-    const agesLength = +e.target.value
-    render({ ages: numToArr(agesLength).map((n, index) => ages[index] || 'toddler') })
-  },
-  AGE_ON_CHANGE: (e, { state, render }) => {
-    const ages = state('ages')
-    const ageIndex = +e.target.dataset.ageIndex
-    const ageValue = e.target.value
-    ages[ageIndex] = ageValue
-    render({ ages })
-  },
-  FROMTO_ON_CHANGE: (e, { render }) => {
-    const from_or_to = e.target.dataset.name
-    const time = +e.target.value
-    render({ [from_or_to]: time })
-  }
-},{
-  use: {
-    state: true,
-    render: true
-  }
-})
-
-const listeners = orph.order([
-  'NUMBER_ON_CHANGE',
-  'AGE_ON_CHANGE',
-  'FROMTO_ON_CHANGE'
-])
+const listeners = store.order()
 
 export default class TempSimu extends React.Component {
 
   constructor(props) {
     super(props)
-    orph.attach(this)
+    store.attach(this, { inherit: props.isContinued })
     this.spaces = {
       blockspace: <Space size={props.blockspace} />,
       selectspace: <Space size={props.selectspace} />
@@ -114,7 +85,7 @@ export default class TempSimu extends React.Component {
   }
 
   componentWillUnmount() {
-    orph.detach(true)
+    store.detach()
   }
 
   render() {
@@ -192,7 +163,7 @@ export default class TempSimu extends React.Component {
     const { from, to } = this.state
     return (
       <Select {...{
-        onChange: listeners['FROMTO_ON_CHANGE'],
+        onChange: listeners['VALUE_ON_CHANGE'],
         value: from,
         dataset: { name: 'from' },
         color: colorOfFrom(from)
@@ -212,7 +183,7 @@ export default class TempSimu extends React.Component {
     const { from, to } = this.state
     return (
       <Select {...{
-        onChange: listeners['FROMTO_ON_CHANGE'],
+        onChange: listeners['VALUE_ON_CHANGE'],
         value: to,
         dataset: { name: 'to' },
         color: colorOfTo(to)

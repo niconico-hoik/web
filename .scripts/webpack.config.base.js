@@ -3,7 +3,7 @@ const { resolve } = require('path')
 
 module.exports = {
   context: process.cwd(),
-  entry: [resolve(`bundle/index.js`)],
+  entry: [resolve(`bundled/index.js`)],
   output: {
     filename: 'bundle.js'
   },
