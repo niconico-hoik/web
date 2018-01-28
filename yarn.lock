@@ -5634,9 +5634,9 @@ original@>=0.0.5:
   dependencies:
     url-parse "1.0.x"
 
-orph@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/orph/-/orph-3.0.0.tgz#41b224fee3f5f98206918367a19a2c91c51cbc84"
+orph@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/orph/-/orph-3.0.2.tgz#7a82bc195e6bd7a7bc9638706618e6833f581c75"
 
 os-browserify@^0.3.0:
   version "0.3.0"

@@ -10,7 +10,7 @@ import packageJson from '../package.json'
 if (packageJson.dependencies.lonogara) {
   Promise.resolve()
   .then(() =>
-    execa.shell('yarn lonogara:rm').then(({ stdout, stderr }) => {
+    execa.shell('yarn remove lonogara').then(({ stdout, stderr }) => {
       console.log(stdout)
       console.log(stderr)
     })
