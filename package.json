@@ -22,8 +22,7 @@
     "pro": "run-s pro:pipe_light pro:pack pro:serve",
     "lonogara:add": "env-cmd ./.env cross-var yarn add git+https://$GITHUB_ACCESS_TOKEN:x-oauth-basic@$npm_package_lonogara",
     "lonogara:rm": "yarn remove lonogara",
-    "git:add": "git add -u",
-    "precommit": "run-s lonogara:rm git:add lonogara:add",
+    "precommit": "cross-env BABEL_ENV=cjs node --require babel-register .scripts/precommit.js",
     "production:light": "run-s lonogara:add pro:pipe_light pro:pack",
     "production:master": "run-s lonogara:add pro:pipe_master pro:pack"
   },
@@ -60,6 +59,7 @@
     "css-loader": "^0.28.9",
     "dotenv-webpack": "^1.5.4",
     "env-cmd": "^7.0.0",
+    "execa": "^0.9.0",
     "flow-bin": "^0.63.1",
     "flow-typed": "^2.2.1",
     "http-server": "^0.11.1",
