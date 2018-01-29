@@ -1,5 +1,4 @@
 import execa from 'execa'
-import path from 'path'
 import packageJson from '../package.json'
 
 /**
@@ -7,25 +6,14 @@ import packageJson from '../package.json'
  * https://github.com/sindresorhus/execa
  */
 
+const shellThenOut = (command) =>
+  execa.shell(command)
+  .then(({ stdout }) => console.log(stdout))
+
 if (packageJson.dependencies.lonogara) {
   Promise.resolve()
-  .then(() =>
-    execa.shell('yarn remove lonogara').then(({ stdout, stderr }) => {
-      console.log(stdout)
-      console.log(stderr)
-    })
-  )
-  .then(() =>
-    execa.shell('git add -u').then(({ stdout, stderr }) => {
-      console.log(stdout)
-      console.log(stderr)
-    })
-  )
-  .then(() =>
-    execa.shell('yarn lonogara:add').then(({ stdout, stderr }) => {
-      console.log(stdout)
-      console.log(stderr)
-    })
-  )
-  .catch(err => console.error(err))
+  .then(() => shellThenOut('yarn remove lonogara'))
+  .then(() => shellThenOut('git add -u'))
+  .then(() => shellThenOut('yarn lonogara:add'))
+  .catch(({ stderr }) => console.error(stderr))
 }

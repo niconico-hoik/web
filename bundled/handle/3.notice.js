@@ -43,13 +43,15 @@ export default (hoComponents) => ({
     const store = new Orph({ posts, done })
     store.register({
       UPDATE: HO_UPDATE(feed),
-      RENDER_DETAIL_THEN: ({ index, isNew }, { state, render }) =>
-        renderDetail({ index }).then(() =>
+      RENDER_DETAIL_THEN: ({ detail, isNew, index }, { state, render }) =>
+        renderDetail({ detail }).then(() =>
           isNew &&
-          state('posts')
-          .then(posts => {
+          state('posts').then(posts => {
             posts[index].isNew = false
-            setInform(posts.filter(({ isNew }) => isNew).length).then(() => render({ posts }))
+            setInform(posts.filter(({ isNew }) => isNew).length)
+            .then(() =>
+              render({ posts })
+            )
           })
         )
     },{
@@ -73,12 +75,9 @@ export default (hoComponents) => ({
           }} />
         </Domestic>,
 
-      Detail: (props) =>
+      Detail: ({ data }) =>
         <Domestic>
-          <Detail {...{
-            customProps: props,
-            posts: store.getLatestState('posts', true)
-          }} />
+          <Detail {...{ body: data.detail.body }} />
         </Domestic>
     }
   }

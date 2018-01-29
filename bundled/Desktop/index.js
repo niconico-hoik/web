@@ -31,6 +31,7 @@ export default () =>
       background: 'rgba(0, 0, 0, 0.1)',
       preloader: 'rgb(241, 241, 241)',
       detail: 'rgb(255, 255, 255)',
-      detailQuit: 'rgb(215, 215, 215)'
+      detailQuit: 'rgb(215, 215, 215)',
+      links: 'rgba(0, 0, 0, 0.88)'
     }
   })} />

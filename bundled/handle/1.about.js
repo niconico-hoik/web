@@ -41,9 +41,13 @@ export default (hoComponents) => ({
           <Exhibit {...{ abouts, renderDetail }} />
         </Domestic>,
 
-      Detail: (props) =>
+      Detail: ({ data, isContinued }) =>
         <Domestic>
-          <Detail {...{ abouts, customProps: props }} />
+          <Detail {...{
+            elements: data.elements,
+            Component: data.Component,
+            isContinued
+          }} />
         </Domestic>
     }
   }

@@ -66,11 +66,11 @@ export default (hoComponents) => ({
           }} />
         </Domestic>,
 
-      Detail: (props) =>
+      Detail: ({ data }) =>
         <Domestic>
           <Detail {...{
-            customProps: props,
-            posts: store.getLatestState('posts', true),
+            type: data.type,
+            detail: data.detail,
             actions: { setPopdown }
           }} />
         </Domestic>

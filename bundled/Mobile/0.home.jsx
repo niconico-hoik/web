@@ -6,123 +6,121 @@ import { Home } from '../handle'
 import { Rogo } from '../Icons.jsx'
 import { Click } from './components.jsx'
 
-export default Home(() => {
+export default Home(() => ({
 
-  const rogo = <Rogo />
+  Exhibit: (a => {
 
-  const arrow = (
-    <span {...{
-      style: {
-        position: 'relative',
-        top: -2.5
-      }
-    }}>
-      {' → '}
-    </span>
-  )
+    const rogo = <Rogo />
 
-  const triple = (
-    <span {...{
-      style: {
-        display: 'inline-block',
-        background: 'rgb(24, 24, 35)',
-        color: '#ffffff',
-        fontWeight: 'bold',
-        lineHeight: 1.2,
-        padding: '4px 8px 2px'
-      }
-    }}>
+    const arrow = (
       <span {...{
         style: {
           position: 'relative',
-          left: 2.4
+          top: -2.5
         }
       }}>
-        {'≡'}
+        {' → '}
       </span>
-    </span>
-  )
+    )
 
-  return {
-
-    Exhibit: (a => ({ informations, renderDetail }) =>
-
-      <div {...a('ROOT')}>
-        <Center top={-60}>
-          <div {...a('ROGO')}>{rogo}</div>
-          <div {...a('TEXT')}>
-            <span>{informations.postal}</span><br />
-            <span>{informations.address}</span><br />
-            <span>{informations.building}</span>{arrow}{triple}<br />
-            <span {...a('PREVIEW_WRAP')}>
-              <span {...a('PREVIEW_TEXT')}>{'Preview'}</span>
-              <Click listener={renderDetail} />
-            </span>
-          </div>
-        </Center>
-      </div>
-
-    )(Atra({
-      ROOT: {
+    const triple = (
+      <span {...{
         style: {
-          height: '100%',
-          textAlign: 'center',
-          color: 'rgb(80, 80, 80)',
-          fontSize: '2.1em',
-          fontWeight: 'bold',
-          letterSpacing: 4
-        }
-      },
-      ROGO: {
-        style: {
-          width: '80%',
-          margin: 'auto'
-        }
-      },
-      TEXT: {
-        style: {
-          position: 'relative',
-          top: -54,
-          lineHeight: 2.1
-        }
-      },
-      MAP_LINK: {
-        href: 'https://goo.gl/maps/THnM3UX6ytF2',
-        target: '_blank',
-        style: {
-          color: 'white',
-          borderBottom: 'dashed 1.5px'
-        }
-      },
-      PREVIEW_WRAP: {
-        style: {
-          position: 'relative',
           display: 'inline-block',
-          marginTop: 24
-        }
-      },
-      PREVIEW_TEXT: {
-        style: {
-          borderBottomStyle: 'dashed',
-          borderColor: 'inherit',
-          borderWidth: 4,
-          padding: '0 4px'
-        }
-      },
-    })),
-
-    Detail: ({ preview }) =>
-      <div {...{
-        className: 'markdown-body',
-        style: {
-          fontSize: '2.6em',
-          color: 'rgb(72, 72, 72)',
-          letterSpacing: 2,
-          margin: '0px 20px'
+          background: 'rgb(24, 24, 35)',
+          color: '#ffffff',
+          fontWeight: 'bold',
+          lineHeight: 1.2,
+          padding: '4px 8px 2px'
         }
       }}>
-        {preview}
-      </div>
+        <span {...{
+          style: {
+            position: 'relative',
+            left: 2.4
+          }
+        }}>
+          {'≡'}
+        </span>
+      </span>
+    )
 
-  }
-})
+    return ({ informations, renderDetail }) =>
+    <div {...a('ROOT')}>
+      <Center top={-60}>
+        <div {...a('ROGO')}>{rogo}</div>
+        <div {...a('TEXT')}>
+          <span>{informations.postal}</span><br />
+          <span>{informations.address}</span><br />
+          <span>{informations.building}</span>{arrow}{triple}<br />
+          <span {...a('PREVIEW_WRAP')}>
+            <span {...a('PREVIEW_TEXT')}>{'Preview'}</span>
+            <Click listener={renderDetail} />
+          </span>
+        </div>
+      </Center>
+    </div>
+
+  })(Atra({
+    ROOT: {
+      style: {
+        height: '100%',
+        textAlign: 'center',
+        color: 'rgb(80, 80, 80)',
+        fontSize: '2.1em',
+        fontWeight: 'bold',
+        letterSpacing: 4
+      }
+    },
+    ROGO: {
+      style: {
+        width: '80%',
+        margin: 'auto'
+      }
+    },
+    TEXT: {
+      style: {
+        position: 'relative',
+        top: -54,
+        lineHeight: 2.1
+      }
+    },
+    MAP_LINK: {
+      href: 'https://goo.gl/maps/THnM3UX6ytF2',
+      target: '_blank',
+      style: {
+        color: 'white',
+        borderBottom: 'dashed 1.5px'
+      }
+    },
+    PREVIEW_WRAP: {
+      style: {
+        position: 'relative',
+        display: 'inline-block',
+        marginTop: 24
+      }
+    },
+    PREVIEW_TEXT: {
+      style: {
+        borderBottomStyle: 'dashed',
+        borderColor: 'inherit',
+        borderWidth: 4,
+        padding: '0 4px'
+      }
+    },
+  })),
+
+  Detail: ({ preview }) =>
+    <div {...{
+      className: 'markdown-body',
+      style: {
+        fontSize: '2.6em',
+        color: 'rgb(72, 72, 72)',
+        letterSpacing: 2,
+        margin: '0px 20px'
+      }
+    }}>
+      {preview}
+    </div>
+
+}))

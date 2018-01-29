@@ -10,14 +10,20 @@ export default Notice(() => ({
 
     <ExLayout>
       <div {...a('BLOCKS')}>
-        {posts.map(({ summary, date, isNew, season }, index) =>
+        {posts.map(({ summary, date, isNew, season, detail }, index) =>
         <Block key={index}>
           <div {...a('SEASON')}>{customProps.seasons[season]}</div>
           <Cover {...a('BG_COVER')} />
           <div {...a('SUMMARY')}>{summary}</div>
           <span {...a('DATE')}>{date}</span>
           {isNew && <span {...a('NEW')}>{`new!!`}</span>}
-          <Click listener={() => actions['renderDetailThen']({ index, isNew })} />
+          <Click listener={() =>
+            actions['renderDetailThen']({
+              detail,
+              isNew,
+              index
+            })
+          } />
         </Block>
         )}
       </div>
@@ -71,12 +77,8 @@ export default Notice(() => ({
     }
   })),
 
-  Detail: ({ customProps, posts }) => {
-    const { index } = customProps.data
-    const post = posts[index] || {}
-    const { body } = post.detail || {}
-
-    return <div {...{
+  Detail: ({ body }) =>
+    <div {...{
       className: 'markdown-body',
       style: {
         fontSize: '2.6em',
@@ -86,6 +88,5 @@ export default Notice(() => ({
       },
       children: body
     }} />
-  }
 
 }))

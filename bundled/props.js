@@ -14,7 +14,7 @@ export default ({
   colors,
   Preloader,
   views,
-  "sides": [
+  "links": [
     {
       "href": "https://bs.benefit-one.co.jp/bs/pages/bs/srch/menuPrticSrchRslt.faces?menuNo=643630",
       "buttonImage": "./image/benefit.png"

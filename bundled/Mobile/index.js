@@ -35,11 +35,11 @@ export default () => {
       preloader: 'rgb(241, 241, 241)',
       detail: 'rgb(243, 243, 243)',
       detailQuit: 'rgb(201, 201, 201)',
-      side: 'rgb(183, 220, 197)'
+      links: 'rgb(183, 220, 197)'
     }
   })
 
-  props.sides = [
+  props.links = [
     {
       href: 'tel:0725563396',
       buttonImage: './image/tel.png'
@@ -48,7 +48,7 @@ export default () => {
       "href": "https://goo.gl/maps/cZwNJkGV2FB2",
       "buttonImage": "./image/map.png"
     }
-  ].concat(props.sides)
+  ].concat(props.links)
 
   return <Lonogara {...props} />
 }

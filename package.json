@@ -20,7 +20,7 @@
     "pro:pack": "cross-env BABEL_ENV=esm webpack -p --config .scripts/webpack.config.pro.js",
     "pro:serve": "http-server .site -a localhost -p 7000 -o -c-1",
     "pro": "run-s pro:pipe_light pro:pack pro:serve",
-    "lonogara:add": "env-cmd ./.env cross-var yarn add git+https://$GITHUB_ACCESS_TOKEN:x-oauth-basic@$npm_package_lonogara",
+    "lonogara:add": "env-cmd ./.env cross-var yarn add git+https://$GITHUB_ACCESS_TOKEN@$npm_package_lonogara",
     "precommit": "cross-env BABEL_ENV=cjs node --require babel-register .scripts/precommit.js",
     "production:light": "run-s lonogara:add pro:pipe_light pro:pack",
     "production:master": "run-s lonogara:add pro:pipe_master pro:pack"
