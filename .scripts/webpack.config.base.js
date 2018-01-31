@@ -1,9 +1,10 @@
 const Dotenv = require('dotenv-webpack')
 const { resolve } = require('path')
+const { entry, dotenv } = require('./variables.js')
 
 module.exports = {
   context: process.cwd(),
-  entry: [resolve(`bundled/index.js`)],
+  entry: [entry],
   output: {
     filename: 'bundle.js'
   },
@@ -22,7 +23,7 @@ module.exports = {
   },
   plugins: [
     new Dotenv({
-      path: resolve(`./.env`),
+      path: dotenv,
       systemvars: true
     })
   ]

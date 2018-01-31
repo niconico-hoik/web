@@ -1,8 +1,6 @@
 const webpack = require('webpack')
 const { resolve } = require('path')
-
-const VAR_NAME = 'dll'
-const path = resolve('.local')
+const { dllVariable, devDir } = require('./variables.js')
 
 module.exports = {
   context: process.cwd(),
@@ -12,14 +10,14 @@ module.exports = {
     'atra'
   ],
   output: {
-    filename: `${VAR_NAME}.js`,
-    path,
-    library: VAR_NAME
+    filename: `${dllVariable}.js`,
+    path: devDir,
+    library: dllVariable
   },
   plugins: [
     new webpack.DllPlugin({
-      path: resolve(path, `${VAR_NAME}.manifest.json`),
-      name: VAR_NAME
+      path: resolve(devDir, `${dllVariable}.manifest.json`),
+      name: dllVariable
     })
   ]
 }

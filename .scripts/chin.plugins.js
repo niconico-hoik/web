@@ -1,5 +1,5 @@
 import React from 'react'
-import { markdownToHtml } from 'lonogara-tool/build'
+import { markdownToHtml } from 'lonogara-sdk/build'
 import chinPluginsInkscape from 'chin-plugins-inkscape'
 import chinPluginsImagemin from 'chin-plugins-imagemin'
 import chinPluginsHtmlEmbed from 'chin-plugins-html-embed'

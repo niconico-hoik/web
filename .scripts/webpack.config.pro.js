@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const { resolve } = require('path')
 const baseConfig = require('./webpack.config.base.js')
+const { proDir } = require('./variables.js')
 
 baseConfig.entry = [
   `whatwg-fetch`,
@@ -10,7 +10,7 @@ baseConfig.entry = [
 
 module.exports = merge(baseConfig, {
   output: {
-    path: resolve('.site')
+    path: proDir
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -18,9 +18,5 @@ module.exports = merge(baseConfig, {
         NODE_ENV: JSON.stringify('PRODUCTION')
       }
     })
-    // // new webpack.optimize.DedupePlugin(),
-    // // new webpack.optimize.AggressiveSplittingPlugin(),
-    // new webpack.optimize.UglifyJsPlugin(),
-    // new webpack.optimize.AggressiveMergingPlugin()
   ]
 })

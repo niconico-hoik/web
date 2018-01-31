@@ -1,20 +1,18 @@
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const { resolve } = require('path')
-const manifest = require('../.local/dll.manifest.json')
+const manifest = require('../_local/dll.manifest.json')
 const baseConfig = require('./webpack.config.base.js')
-
-const PORT = 7000
-const localPath = resolve('.local')
+const { devDir } = require('./variables.js')
+const port = 7000
 
 module.exports = merge(baseConfig, {
   output: {
-    path: localPath,
-    publicPath: `http://localhost:${PORT}/`
+    path: devDir,
+    publicPath: `http://localhost:${port}/`
   },
   devServer: {
-    port: PORT,
-    contentBase: localPath,
+    port,
+    contentBase: devDir,
     watchContentBase: true,
     publicPath: '/',
     overlay: true,
@@ -23,19 +21,10 @@ module.exports = merge(baseConfig, {
     hot: true,
     inline: true,
     open: true,
-    // proxy: {
-    //   '/tumblr/**': {
-    //     target: 'https://api.tumblr.com',
-    //     secure: false,
-    //     changeOrigin: true,
-    //     bypass: (req, res, options) => {}
-    //   }
-    // }
   },
   devtool: `source-map`,
   plugins: [
     new webpack.DllReferencePlugin({ manifest }),
     new webpack.HotModuleReplacementPlugin()
-    // https://webpack.js.org/plugins/hot-module-replacement-plugin/
   ]
 })

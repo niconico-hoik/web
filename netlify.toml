@@ -1,9 +1,9 @@
 [build]
-  publish = ".site"
-  command = "yarn production:light"
+  publish = "_site"
+  command = "yarn build:light"
 
 [context.production]
-  command = "yarn production:master"
+  command = "yarn build:master"
 
 [[redirects]]
   from = "/tumblr/*"

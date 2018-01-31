@@ -1,7 +1,7 @@
 {
   "DEVELOPMENT": {
     "put": "./frame",
-    "out": "./.local",
+    "out": "./_local",
     "process": {},
     "weirs": [
       ["./onerror.js", { "js": ["EmbedJs", "utf8"] }],
@@ -21,7 +21,7 @@
 
   "PRODUCTION:LIGHT": {
     "put": "./frame",
-    "out": "./.site",
+    "out": "./_site",
     "process": {},
     "weirs": [
       ["./onerror.js", { "js": ["EmbedJs", "utf8"] }],
@@ -40,7 +40,7 @@
 
   "PRODUCTION:MASTER": {
     "put": "./frame",
-    "out": "./.site",
+    "out": "./_site",
     "process": {},
     "weirs": [
       ["./ganalytics.js", { "js": ["EmbedJs", "utf8"] }],
