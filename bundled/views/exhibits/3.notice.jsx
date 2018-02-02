@@ -6,13 +6,13 @@ export default (isMobile, { ExhibitLayout, Block, More }) => {
 
   const Listener = isMobile ? Click : MouseDown
 
-  return (a => ({ customProps, actions, posts, done }) =>
+  return (a => ({ seasons, actions, posts, done }) =>
 
     <ExhibitLayout>
       <div {...a('BLOCKS')}>
         {posts.map(({ summary, date, isNew, season, detail }, index) =>
         <Block key={index}>
-          <div {...a('SEASON')}>{customProps.seasons[season]}</div>
+          <div {...a('SEASON')}>{seasons[season]}</div>
           <Cover {...a('BG_COVER')} />
           <div {...a('SUMMARY')}>{summary}</div>
           <span {...a('DATE')}>{date}</span>
