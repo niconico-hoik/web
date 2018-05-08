@@ -1,7 +1,8 @@
 {
   "presets": [
     "flow",
-    "react"
+    "react",
+    "env"
   ],
   "plugins": [
     ["transform-runtime", {
