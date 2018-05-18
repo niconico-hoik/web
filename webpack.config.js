@@ -1,8 +1,9 @@
-import webpack from 'webpack'
-import Dotenv from 'dotenv-webpack'
-import merge from 'webpack-merge'
-import { resolve } from 'path'
-import { entry, devdir, prodir, dotenv, dllname } from './.variables.js'
+const webpack = require('webpack')
+const Dotenv = require('dotenv-webpack')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const merge = require('webpack-merge')
+const { resolve } = require('path')
+const { entry, devdir, prodir, dotenv, dllname } = require('./.variables.js')
 
 let manifest
 try { manifest = require('./_local/dll.manifest.json') }
@@ -33,7 +34,8 @@ const BASE = {
 
 const configs = {
 
-  'dll': {
+  'dll': () => ({
+    mode: 'none',
     context,
     entry: [
       'react',
@@ -51,9 +53,10 @@ const configs = {
         name: dllname
       })
     ]
-  },
+  }),
 
-  'dev': merge(BASE, {
+  'dev': () => merge(BASE, {
+    mode: 'development',
     output: {
       path: resolve(devdir),
       publicPath: `http://localhost:${port}/`
@@ -77,20 +80,56 @@ const configs = {
     ]
   }),
 
-  'pro': merge(BASE, {
-    entry: [`whatwg-fetch`, `babel-polyfill`].concat([resolve(entry)]),
+  'pro': () => merge(BASE, {
+    mode: 'production',
+    entry: [
+      `whatwg-fetch`,
+      `babel-polyfill`
+    ].concat(
+      [resolve(entry)]
+    ),
     output: {
       path: resolve(prodir)
     },
-    plugins: [
-      new webpack.DefinePlugin({
-        'process.env': { NODE_ENV: JSON.stringify('production') }
-      })
-    ]
-  })
+    resolve: {
+      mainFields: ['jsnext:main', 'module', 'browser', 'main']
+    },
+    optimization: {
+      providedExports: true,
+      usedExports: true,
+      sideEffects: true,
+      // concatenateModules: false // <= important for tree-shaking???
+    }
+  }),
+
+  non() {
+    const pro = this.pro()
+    pro.mode = 'none'
+    pro.plugins = pro.plugins || []
+    pro.plugins.push(new webpack.DefinePlugin({ 'process.env': { NODE_ENV: JSON.stringify('production') } }))
+    return pro
+  },
+
+  ana() {
+    const pro = this.pro()
+    pro.plugins = pro.plugins || []
+    pro.plugins.push(new BundleAnalyzerPlugin({}))
+    return pro
+  },
+
+  spl() {
+    const pro = this.pro()
+    pro.optimization = Object.assign({}, pro.optimization, {
+      splitChunks: {
+        name: 'vendor',
+        chunks: 'initial'
+      }
+    })
+    return pro
+  }
 
 }
 
 const { npm_lifecycle_event } = process.env
 const suffix = npm_lifecycle_event.split(':')[1]
-export default configs[suffix]
+module.exports = configs[suffix]()

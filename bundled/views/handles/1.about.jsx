@@ -1,12 +1,12 @@
 import React from 'react'
 import { Question as Button } from 'lonogara-sdk/button'
 import { Domestic } from './Wrap.jsx'
-import fetchToReact from './fetchToReact.js'
+import { f2r } from './util.js'
 
 const HighOrderExhibit = ({ Exhibit, renderDetail }) =>
   Promise.all([
-    fetchToReact('./post/month.html'),
-    fetchToReact('./post/temp.html')
+    f2r('./post/month.html'),
+    f2r('./post/temp.html')
   ])
   .then((details) => ({
     month: {
@@ -44,7 +44,7 @@ export default ({ Exhibit, Detail }) => ({
   head: 'ご利用について',
 
   Button,
-  
+
   create: async ({ renderDetail, setPopdown, setInform }) => ({
 
     Exhibit: await HighOrderExhibit({ Exhibit, renderDetail }),

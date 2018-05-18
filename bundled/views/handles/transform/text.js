@@ -1,13 +1,37 @@
 // @flow
 import moment from 'moment'
-import rehype from 'rehype'
-import find from 'unist-util-find'
-import { externalHtml } from 'lonogara-sdk/toreact'
+import h2r from 'react-html-parser'
+import { processSync } from '../processor'
+import { parseFromString, nodes2array } from '../util.js'
 
 const SUMMARY_LENGTH = 12
 const PREFIX_TYPES = ['期限', 'limit']
 const EQUAL_TYPES = [' ', '=']
 const SPLIT_TYPES = ['/', '-']
+
+const separateBody = html => {
+  const result = { html: undefined, limitString: undefined }
+
+  const { body } = parseFromString(html)
+
+  const pContainLimit = nodes2array(body.querySelectorAll('p')).find(
+    ({ innerText }) =>
+      PREFIX_TYPES.some((prefix) =>
+        EQUAL_TYPES.some((equal) =>
+          innerText.includes(`${prefix}${equal}`)
+        )
+      )
+  )
+
+  if (pContainLimit) {
+    result.limitString = pContainLimit.innerText
+    pContainLimit.parentNode.removeChild(pContainLimit)
+  }
+
+  result.html = processSync(body.innerHTML)
+
+  return result
+}
 
 export default ({
   body,
@@ -18,7 +42,7 @@ export default ({
 }) => {
   const postMoment = moment.unix(timestamp)
   const date = postMoment.format('Y/M/D')
-  const { html, limitString } = separateBodyByRehype(body)
+  const { html, limitString } = separateBody(body)
 
   return {
     date,
@@ -26,7 +50,7 @@ export default ({
     season: monthToSeason(+postMoment.format('M')),
     isNew: (limitString ? moment(formatForISO(limitString)) : postMoment.add(10, 'days')).isAfter(moment()),
     detail: {
-      body: externalHtml(`<h5>${date}</h5>${title ? `<h1>${title}</h1>` : ``}${html}`)
+      body: h2r(`<h5>${date}</h5>${title ? `<h1>${title}</h1>` : ``}${html}`)
     }
   }
 }
@@ -41,37 +65,6 @@ const monthToSeason = month =>
   : month <= 5 ? 'spring'
   : month <= 8 ? 'summer'
   : 'fall'
-
-const separateBodyByRehype = body => {
-  const result = {}
-  result.html = rehype()
-                .data('settings', { fragment: true, position: false })
-                .use(rehypePluginForLimit, (limitString) => { result.limitString = limitString })
-                .processSync(body)
-                .contents
-  return result
-}
-
-const rehypePluginForLimit = (cb) =>
-  ast => {
-
-    const limitText = find(ast, ({ type, value }) =>
-      type === 'text' &&
-      value &&
-      PREFIX_TYPES.some((prefix) =>
-        EQUAL_TYPES.some((equal) =>
-          value.includes(`${prefix}${equal}`)
-        )
-      )
-    )
-
-    if (limitText) {
-      cb(limitText.value)
-      limitText.value = ''
-    }
-
-    return
-  }
 
 const formatForISO = limitString =>
   toStringISO(

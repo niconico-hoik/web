@@ -2,16 +2,16 @@ import React from 'react'
 import Orph from 'orph'
 import moment from 'moment'
 import { Camera as Button } from 'lonogara-sdk/button'
-import { TumblrPosts } from 'lonogara-sdk/api'
+import { generatePosts } from 'tumblrinbrowser'
 import postTransform from './transform'
 import { env, HO_UPDATE } from './util.js'
 import { Domestic, Provider } from './Wrap.jsx'
 
 const HighOrderFeed = async () => {
-  // const account = 'cinnamonbirbs' // for local test
-  const account = 'nicohoi'
+  // const name = 'cinnamonbirbs' // for local test
+  const name = 'nicohoi'
   const { api_key, proxy } = env()
-  const supply = await TumblrPosts(account, { query: { api_key }, proxy })
+  const supply = await generatePosts({ api_key, proxy, name })
   const validations = [
     ({ type }) => type === 'photo',
     ({ type, video_type }) => type === 'video' && video_type === 'tumblr'
@@ -19,9 +19,9 @@ const HighOrderFeed = async () => {
 
   return async (posts) => {
     posts = Object.assign({}, posts)
-    const { done, res } = await supply()
+    const { done, value: supplied_posts } = await supply()
 
-    res.response.posts
+    supplied_posts
     .filter((post) => validations.some((valid) => valid(post)))
     .forEach((post) => {
       const ym = moment.unix(post.timestamp).format('Y / M')
@@ -81,6 +81,6 @@ export default ({ Exhibit, Detail }) => ({
         actions: { setPopdown }
       }} />
     </Domestic>
-    
+
   })
 })

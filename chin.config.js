@@ -2,34 +2,18 @@ import inkscape from 'chin-plugin-inkscape'
 import favicons from 'chin-plugin-favicons'
 import unified from 'chin-plugin-unified'
 import imagemin from 'chin-plugin-imagemin'
-import mdast2hast from 'remark-rehype'
-import hastraw from 'rehype-raw'
-import hastalign from 'lonogara-sdk/.packages/rehype-align'
-import hastblank from 'lonogara-sdk/.packages/rehype-blank'
-import hastminify from 'rehype-minify-whitespace'
+import presetM2H from 'lonogara-sdk/unified/m2h'
 import { outputFile } from 'fs-extra'
 import { join } from 'path'
 import indexHtml, { TITLE } from './chin.indexHtml.js'
 import { devdir, prodir } from './.variables.js'
 
-console.log(process.cwd())
-
 /* extensions */
 
-const width = 1024
-const ink2pdf = inkscape('pdf', { width })
-const ink2png = inkscape('png', { width, background: '#ffffff' })
+const ink2pdf = inkscape('pdf')
+const ink2png = inkscape('png', { width: 1024, background: '#ffffff' })
 
-const m2h = unified('m2h', {
-  parse: { commonmark: true },
-  plugins: [
-    [mdast2hast, { allowDangerousHTML: true }],
-    hastraw,
-    hastalign,
-    hastblank,
-    hastminify
-  ]
-})
+const m2h = unified('.html', presetM2H())
 
 const img = imagemin({
   gifsicle: {},
@@ -64,7 +48,8 @@ const commonProcessors = {
 }
 
 const configs = {
-  'inkschin': {
+
+  'pre': {
     put: 'preframe',
     out: assets,
     processors: [
@@ -72,27 +57,30 @@ const configs = {
       ['*', { svg: ink2png }]
     ]
   },
-  'development': {
+
+  'dev': {
     put: assets,
     out: devdir,
     ignored: ignoredExMaster,
     processors: commonProcessors,
     before: () => outputFile(
       join(devdir, 'index.html'),
-      indexHtml('development')
+      indexHtml('dev')
     )
   },
-  'mirror': {
+
+  'mir': {
     put: assets,
     out: prodir,
     ignored: ignoredExMaster,
     processors: commonProcessors,
     before: () => outputFile(
       join(prodir, 'index.html'),
-      indexHtml('mirror')
+      indexHtml('mir')
     )
   },
-  'production': {
+
+  'pro': {
     put: assets,
     out: prodir,
     processors: [
@@ -101,9 +89,12 @@ const configs = {
     ],
     after: () => outputFile(
       join(prodir, 'index.html'),
-      indexHtml('production', png2favs.after())
+      indexHtml('pro', png2favs.after())
     )
   }
+
 }
 
-export default configs[process.env.CHIN_ENV]
+const { npm_lifecycle_event } = process.env
+const suffix = npm_lifecycle_event.split(':')[1]
+export default configs[suffix]

@@ -1,9 +1,31 @@
 import React, { Fragment } from 'react'
 import Atra from 'atra'
-import Player from 'react-player'
 import Widthing from './Widthing.jsx'
-import Video from './Video.jsx'
 import { MouseDown, Click } from '../Cover.jsx'
+
+const Video = (() => {
+  const a = Atra({
+    ROOT: {
+      style: {
+        position: 'relative',
+        backgroundColor: '#000',
+        width: '98%',
+        height: 650,
+        margin: 'auto'
+      }
+    },
+    PLAYER: {
+      width: '100%',
+      height: '100%',
+      controls: true
+    }
+  })
+
+  return ({ poster, video: src }) =>
+  <div {...a('ROOT')}>
+    <video {...a('PLAYER', { src, poster })} />
+  </div>
+})()
 
 export default (isMobile) =>
   isMobile
@@ -60,36 +82,7 @@ const HoMobile = () => {
       }
     })),
 
-    video: ((a) =>
-
-      ({ poster, video }) =>
-      <div {...a('ROOT')}>
-        <Player {...a('PLAYER', {
-          url: video,
-          controls: true,
-          config: {
-            file: {
-              attributes: { poster }
-            }
-          }
-        })} />
-      </div>
-
-    )(Atra({
-      ROOT: {
-        style: {
-          position: 'relative',
-          backgroundColor: '#000',
-          width: '98%',
-          height: 650,
-          margin: 'auto'
-        }
-      },
-      PLAYER: {
-        width: '100%',
-        height: '100%'
-      }
-    }))
+    video: Video
   }
 
   return (a =>
@@ -159,7 +152,7 @@ const HoDesktop = () => {
       }
     })),
 
-    video: ({ poster, video }) => <Video {...{ poster, video }} />
+    video: Video
 
   }
 

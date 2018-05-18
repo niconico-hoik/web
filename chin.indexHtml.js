@@ -3,10 +3,28 @@ import html2hast from 'rehype-parse'
 import hastformat from 'rehype-format'
 import hast2react from 'rehype-react'
 import hast2html from 'rehype-stringify'
-import React, { createElement } from 'react'
+import React, { createElement, Fragment } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 
 export const TITLE = 'ニコニコ保育園 和泉中央園'
+
+const GA_ID = 'UA-73760794-3'
+
+const DESCRIPTION =
+'生後2か月～小学校高学年を対象に「こどもの多彩な可能性が育まれるようサポート」する認可外保育園です。' +
+'日々の様子を画像・動画から紹介しています。' +
+'また、料金シミュレーションを月極・一時預かりともに用意しております。' +
+'申込みに限らず見学やお試し保育について等、お気軽にお問い合わせください。'
+
+const ogs = <Fragment>
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:url" content="https://niconico-hoik.com" />
+  <meta property="og:site_name" content="niconico-hoik.com" />
+  <meta property="og:image" content="./image/opengraph.png" />
+  <meta property="og:title" content={TITLE} />
+  <meta property="og:description" content="大阪府和泉市の「こどもの多彩な可能性が育まれるようサポート」する認可外保育園" />
+</Fragment>
 
 const createScript = (__html) => createElement('script', { dangerouslySetInnerHTML: { __html } })
 
@@ -30,19 +48,25 @@ const ga = createScript(`
     'https://www.google-analytics.com/analytics.js',
     'ga'
   )
-  ga('create', 'UA-73760794-3', 'auto')
-  ga('send', 'pageview')`
-)
+  ga('create', '${GA_ID}', 'auto')
+  ga('send', 'pageview')
+`)
 
 const onerror = createScript(`
   window.onerror = e => {
+    console.error(e);
     document.body.removeChild(document.getElementById('app'))
     const div = document.createElement('div')
     div.innerText = e
     div.style.fontSize = '40px'
     document.body.appendChild(div)
-  }`
-)
+  }
+`)
+
+const Head = ({ children }) =>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+  {children}
+</head>
 
 const DevIndexHtml = () =>
 <html lang="ja">
@@ -56,11 +80,12 @@ const DevIndexHtml = () =>
   </body>
 </html>
 
-const MirrorIndexHtml = () =>
+const MirIndexHtml = () =>
 <html lang="ja">
-  <head>
+  <Head>
+    {ogs}
     {onerror}
-  </head>
+  </Head>
   <body>
     <div id="app" />
     <script src="./bundle.js" />
@@ -69,22 +94,16 @@ const MirrorIndexHtml = () =>
 
 const ProIndexHtml = ({ favicons }) =>
 <html lang="ja">
-  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+  <Head>
     <title>{TITLE}</title>
     <meta charSet="utf-8" />
     <meta name="keywords" content="ニコニコ保育園,大阪,和泉市,いずみ,のぞみ野,保育園,ほいくえん,保育,ほいく,認可外,一時預かり,一時" />
-    <meta name="description" content="「子どもの持つ多彩な可能性が育まれるようサポートすること」を保育方針に日々を励むニコニコ保育園 和泉中央園は2016年11月にのぞみ野の2丁目から3丁目へと少しだけ場所を変えてリスタートしました" />
+    <meta name="description" content={DESCRIPTION} />
     <meta name="fragment" content="!" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="ja_JP" />
-    <meta property="og:url" content="https://niconico-hoik.com" />
-    <meta property="og:site_name" content="niconico-hoik.com" />
-    <meta property="og:image" content="./image/opengraph.png" />
-    <meta property="og:title" content={TITLE} />
-    <meta property="og:description" content="「子どもの持つ多彩な可能性が育まれるようサポートすること」、以上でも以下でもない当園の保育方針です" />
+    {ogs}
     {favicons}
     {ga}
-  </head>
+  </Head>
   <body>
     <div id="app" />
     <script src="./bundle.js" />
@@ -99,11 +118,11 @@ unified()
   hast2html
 ])
 .processSync('<!DOCTYPE html>' + renderToStaticMarkup(
-  type === 'development'
+  type === 'dev'
   ? <DevIndexHtml /> :
-  type === 'mirror'
-  ? <MirrorIndexHtml /> :
-  type === 'production'
+  type === 'mir'
+  ? <MirIndexHtml /> :
+  type === 'pro'
   ? <ProIndexHtml favicons={
     unified()
     .use([

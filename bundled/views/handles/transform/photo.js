@@ -1,19 +1,20 @@
 // @flow
-import { externalHtml } from 'lonogara-sdk/toreact'
+import h2r from 'react-html-parser'
+import { processSync } from '../processor'
 import { numToArr } from '../util.js'
 
 export default ({
   type,
-  summary,
+  slug,
   photos,
   caption,
   photoset_layout
 }) => ({
   type,
-  summary: summary && `${summary.slice(0, 7)}`,
+  summary: slug && `${slug.split('-')[0].slice(0, 7)}`,
   src: photos[0].alt_sizes[2].url,
   detail: {
-    caption: caption && externalHtml(caption),
+    caption: caption && h2r(processSync(caption)),
     layouts: createLayouts(photos, photoset_layout)
   }
 })

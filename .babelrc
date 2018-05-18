@@ -1,8 +1,7 @@
 {
   "presets": [
     "flow",
-    "react",
-    "env"
+    "react"
   ],
   "plugins": [
     ["transform-runtime", {
@@ -12,7 +11,18 @@
     }]
   ],
   "env": {
-    "cjs": { "presets": [ ["env", { "targets": { "browsers": ["last 2 versions", "safari >= 7"] } }] ] },
-    "esm": { "presets": [ ["env", { "targets": { "browsers": ["last 2 versions", "safari >= 7"] }, "modules": false }] ] }
+    "cjs": {
+      "presets": [
+        ["env", { "targets": { "browsers": ["last 2 versions", "safari >= 7"] } }]
+      ]
+    },
+    "esm": {
+      "presets": [
+        ["env", { "targets": { "browsers": ["last 2 versions", "safari >= 7"] }, "modules": false }]
+      ],
+      "plugins": [
+        "transform-react-constant-elements"
+      ]
+    }
   }
 }

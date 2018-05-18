@@ -1,22 +1,22 @@
 import React from 'react'
 import Orph from 'orph'
 import { Post as Button } from 'lonogara-sdk/button'
-import { TumblrPosts } from 'lonogara-sdk/api'
+import { generatePosts } from 'tumblrinbrowser'
 import postTransform from './transform'
 import { env, HO_UPDATE } from './util.js'
 import { Domestic, Provider } from './Wrap.jsx'
 import { Spring, Summer, Fall, Winter } from '../Icons.jsx'
 
 const HighOrderFeed = async (setInform) => {
-  const account = 'nicohoi-info'
+  const name = 'nicohoi-info'
   const { api_key, proxy } = env()
-  const supply = await TumblrPosts(account, { query: { api_key, type: 'text' }, proxy })
+  const supply = await generatePosts({ api_key, proxy, name, params: { type: 'text' } })
 
   return async (posts) => {
     posts = [].concat(posts)
-    const { done, res } = await supply()
+    const { done, value: supplied_posts } = await supply()
 
-    res.response.posts.forEach(post => posts.push(postTransform(post)))
+    supplied_posts.forEach(post => posts.push(postTransform(post)))
     await setInform(posts.filter(({ isNew }) => isNew).length)
 
     return { done, posts }
@@ -89,6 +89,6 @@ export default ({ Exhibit, Detail }) => ({
     <Domestic>
       <Detail {...{ body: data.detail.body }} />
     </Domestic>
-    
+
   })
 })

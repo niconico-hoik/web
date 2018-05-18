@@ -23,7 +23,8 @@ const hooks = {
       ? throws('.env is not exist')
       : Promise.all([
         execIf(!packageJson.dependencies.lonogara, 'yarn lonogara:add'),
-        isExist(`_local/${dllname}.manifest.json`).then(exist => execIf(!exist, 'yarn wpack:dll'))
+        isExist(`_local/${dllname}.manifest.json`).then(exist => execIf(!exist, 'yarn wpack:dll')),
+        exec('yarn upgrade imagemin-jpegtran')
       ])
     )
     .catch(errorhandler),
@@ -34,7 +35,8 @@ const hooks = {
       !exist
       ? throws('.env is not exist')
       : Promise.all([
-        execIf(!packageJson.dependencies.lonogara, 'yarn lonogara:add')
+        execIf(!packageJson.dependencies.lonogara, 'yarn lonogara:add'),
+        exec('yarn upgrade imagemin-jpegtran')
       ])
     )
     .catch(errorhandler),

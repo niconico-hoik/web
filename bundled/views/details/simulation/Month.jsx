@@ -2,7 +2,7 @@
 import React from 'react'
 import Store from './store.js'
 import Atra from 'atra'
-import { monthEntry, monthCare, monthSundry, monthSpecialTime } from 'nicohoi-price-api'
+import { monthEntry, monthCare, monthSundry, monthSpecialTime, food as foodPrice } from 'nicohoi-price-api'
 import { numToArr, scrape, sum, SELECT_COLOR } from './util.js'
 import {
   Space,
@@ -40,6 +40,13 @@ const TIME_OPTIONS = numToArr(5).map((value, index) => {
   return <option key={index} {...{ value: both, children: both }} />
 })
 
+const FOOD_OPTIONS = [
+  { value: 0, children: '利用しない' },
+  { value: 1, children: '利用する' }
+].map(({ value, children }, index) =>
+  <option key={index} {...{ value, children }} />
+)
+
 const SPECIAL_OPTIONS = [
   { value: 0, children: '含まない' },
   { value: 1, children: '含む' }
@@ -51,6 +58,7 @@ const store = Store({
   ages: ['toddler'],
   day: DAY_INIT,
   time: TIME_INIT,
+  food: 0,
   morning: 0,
   night: 0,
   sunday: 0
@@ -74,10 +82,11 @@ export default class MonthSimu extends React.Component {
   }
 
   render() {
-    const { blockspace, selectspace } = this.spaces
     const results = createResults(this.state)
     const totalPrice = sum(results.map(({ prices }) => prices.length ? sum(prices) : 0))
 
+    const { blockspace, selectspace } = this.spaces
+    
     return (
       <div {...{ style: { textAlign: 'center' } }}>
 
@@ -89,6 +98,8 @@ export default class MonthSimu extends React.Component {
           <div>{'週に'}{this.SelectDay()}{'日の'}</div>
           {selectspace}
           <div>{'1日に'}{this.SelectTime()}{'時間'}</div>
+          {selectspace}
+          <div>{'給食を'}{this.SelectFood()}</div>
           {selectspace}
           <div>{'7:00~8:00を'}{this.SelectSpecialTime('morning')}</div>
           {selectspace}
@@ -178,6 +189,19 @@ export default class MonthSimu extends React.Component {
     )
   }
 
+  SelectFood() {
+    return (
+      <Select {...{
+        onChange: listeners['VALUE_ON_CHANGE'],
+        value: this.state.food,
+        dataset: { name: 'food' },
+        color: SELECT_COLOR
+      }}>
+        {FOOD_OPTIONS}
+      </Select>
+    )
+  }
+
   SelectSpecialTime(name) {
     return (
       <Select {...{
@@ -196,6 +220,7 @@ const createResults = ({
   ages,
   day,
   time,
+  food,
   morning,
   night,
   sunday
@@ -219,6 +244,10 @@ const createResults = ({
     {
       string: '諸経費',
       prices: ages.map(() => monthSundry())
+    },
+    {
+      string: '給食費',
+      prices: food ? ages.map(() => foodPrice() * ((4 * day) + 1)) : []
     },
     {
       string: '早朝料金',

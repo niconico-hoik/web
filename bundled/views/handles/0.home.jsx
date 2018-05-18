@@ -1,7 +1,7 @@
 import React from 'react'
 import { House as Button } from 'lonogara-sdk/button'
 import { Domestic } from './Wrap.jsx'
-import fetchToReact from './fetchToReact.js'
+import { f2r } from './util.js'
 
 const HighOrderExhibit = ({ Exhibit, renderDetail }) => {
   const informations = {
@@ -19,7 +19,7 @@ const HighOrderExhibit = ({ Exhibit, renderDetail }) => {
 }
 
 const HighOrderDetail = ({ Detail }) =>
-  fetchToReact('./post/preview.html')
+  f2r('./post/preview.html')
   .then(preview =>
     () =>
     <Domestic>
