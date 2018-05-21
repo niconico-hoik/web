@@ -117,10 +117,10 @@ export default (isMobile) => {
   const attributesMarkdown = {
     className: 'markdown-body',
     style: isMobile ? {
-      margin: '0px 20px',
+      margin: '0px 7%',
       fontSize: '2.6em'
     } : {
-      margin: '0px 20px'
+      margin: '0px 10%'
     }
   }
 

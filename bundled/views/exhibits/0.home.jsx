@@ -90,19 +90,12 @@ const HoMobile = () => {
         lineHeight: 2.1
       }
     },
-    MAP_LINK: {
-      href: 'https://goo.gl/maps/THnM3UX6ytF2',
-      target: '_blank',
-      style: {
-        color: 'white',
-        borderBottom: 'dashed 1.5px'
-      }
-    },
     PREVIEW_WRAP: {
       style: {
         position: 'relative',
         display: 'inline-block',
-        marginTop: 24
+        marginTop: 24,
+        fontSize: '1.2em'
       }
     },
     PREVIEW_TEXT: {
@@ -110,7 +103,7 @@ const HoMobile = () => {
         borderBottomStyle: 'dashed',
         borderColor: 'inherit',
         borderWidth: 4,
-        padding: '0 4px'
+        padding: '0px 4px 6px'
       }
     }
   }))
@@ -207,7 +200,8 @@ const HoDesktop = () => {
       target: '_blank',
       style: {
         color: '#ffffff',
-        borderBottom: 'dashed 1.5px'
+        borderBottom: 'dashed 1.5px',
+        textDecoration: 'none'
       }
     },
     SHOWING: {

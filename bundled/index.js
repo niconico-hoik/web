@@ -13,7 +13,7 @@ const rendering = (isMobile) => {
     <Fragment>
       <style>{indexCss.toString()}</style>
       <style>{`
-        a { color: #83e0c4; }
+        a { color: #74bfa1; }
         figure { margin: 0px; }
         blockquote { margin-left: 20px; }
       `}</style>
@@ -114,11 +114,9 @@ const props = (isMobile) => ({
   )
 })
 
-window.addEventListener('load', () =>
-  rendering(
-    navigator
-    .userAgent
-    .toLowerCase()
-    .includes('mobile')
-  )
+rendering(
+  navigator
+  .userAgent
+  .toLowerCase()
+  .includes('mobile')
 )
