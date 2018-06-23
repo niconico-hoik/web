@@ -35,7 +35,7 @@
     "babel-runtime": "^6.26.0",
     "lonogara-sdk": "https://github.com/kthjm/lonogara-sdk#0.0.7",
     "moment": "^2.20.1",
-    "nicohoi-price-api": "https://github.com/kthjm/nicohoi-price-api#0.0.1",
+    "nicohoi-price-api": "https://github.com/kthjm/nicohoi-price-api#0.0.2",
     "orph": "^3.0.7",
     "react": "^16.2.0",
     "react-centpn": "^0.0.6",
