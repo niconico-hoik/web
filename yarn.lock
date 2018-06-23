@@ -5645,9 +5645,9 @@ longest@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
 
-"lonogara-sdk@https://github.com/kthjm/lonogara-sdk#0.0.6":
-  version "0.0.6"
-  resolved "https://github.com/kthjm/lonogara-sdk#1e5635a80afe15ccfa8dea076df331294a40d24b"
+"lonogara-sdk@https://github.com/kthjm/lonogara-sdk#0.0.7":
+  version "0.0.7"
+  resolved "https://github.com/kthjm/lonogara-sdk#6170840809e82c7606d68dab2d3d740b828612e5"
   dependencies:
     atra "^1.1.2"
     create-keyframes "^1.0.1"
