@@ -3,7 +3,7 @@
   "author": "kthjm <toxictoxer@gmail.com>",
   "repository": "kthjm/lonogara-app-nicohoi",
   "license": "MIT",
-  "lonogara": "github.com/kthjm/lonogara.git#0.0.9",
+  "lonogara": "github.com/kthjm/lonogara.git#0.0.10",
   "sideEffects": false,
   "scripts": {
     "nodule": "cross-env BABEL_ENV=cjs node -r babel-register",
