@@ -13,16 +13,16 @@ import { devdir, prodir } from './.variables.js'
 const ink2pdf = inkscape('pdf')
 const ink2png = inkscape('png', { width: 1024, background: '#ffffff' })
 
-const m2h = unified('.html', presetM2H())
+const md2html = unified('.html', presetM2H())
 
-const img = imagemin({
+const img2min = imagemin({
   gifsicle: {},
   jpegtran: {},
   optipng: {},
   svgo: {}
 })
 
-const png2favs = favicons({
+const svg2fav = favicons({
   nameAsDir: true,
   config: {
     path: 'favicons',
@@ -34,17 +34,11 @@ const png2favs = favicons({
 
 const assets = 'frame'
 
-const ignoredExMaster = [
-  'favicons.png',
-  '**.txt',
-  '**.xml'
-]
-
 const commonProcessors = {
-  md: m2h,
-  png: img,
-  jpg: img,
-  svg: img
+  md: md2html,
+  png: img2min,
+  jpg: img2min,
+  svg: img2min
 }
 
 const configs = {
@@ -61,7 +55,11 @@ const configs = {
   'dev': {
     put: assets,
     out: devdir,
-    ignored: ignoredExMaster,
+    ignored: [
+      'favicons.svg',
+      '**.txt',
+      '**.xml'
+    ],
     processors: commonProcessors,
     before: () => outputFile(
       join(devdir, 'index.html'),
@@ -72,11 +70,17 @@ const configs = {
   'mir': {
     put: assets,
     out: prodir,
-    ignored: ignoredExMaster,
-    processors: commonProcessors,
-    before: () => outputFile(
+    ignored: [
+      '**.txt',
+      '**.xml'
+    ],
+    processors: [
+      ['favicons.svg', { svg: svg2fav }],
+      ['*', commonProcessors]
+    ],
+    after: () => outputFile(
       join(prodir, 'index.html'),
-      indexHtml('mir')
+      indexHtml('mir', svg2fav.after())
     )
   },
 
@@ -84,12 +88,12 @@ const configs = {
     put: assets,
     out: prodir,
     processors: [
-      ['favicons.png', { png: png2favs }],
+      ['favicons.svg', { svg: svg2fav }],
       ['*', commonProcessors]
     ],
     after: () => outputFile(
       join(prodir, 'index.html'),
-      indexHtml('pro', png2favs.after())
+      indexHtml('pro', svg2fav.after())
     )
   }
 
