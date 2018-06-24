@@ -72,23 +72,24 @@ const DevIndexHtml = () =>
 <html lang="ja">
   <head>
     {onerror}
+    <script defer={true} src="./dll.js" />
+    <script defer={true} src="./bundle.js" />
   </head>
   <body>
     <div id="app" />
-    <script src="./dll.js" />
-    <script src="./bundle.js" />
   </body>
 </html>
 
-const MirIndexHtml = () =>
+const MirIndexHtml = ({ favicons }) =>
 <html lang="ja">
   <Head>
     {ogs}
+    {favicons}
     {onerror}
+    <script defer={true} src="./bundle.js" />
   </Head>
   <body>
     <div id="app" />
-    <script src="./bundle.js" />
   </body>
 </html>
 
@@ -103,14 +104,25 @@ const ProIndexHtml = ({ favicons }) =>
     {ogs}
     {favicons}
     {ga}
+    <script defer={true} src="./bundle.js" />
   </Head>
   <body>
     <div id="app" />
-    <script src="./bundle.js" />
   </body>
 </html>
 
-export default (type, faviconsElements) =>
+const favicons2elements = (favicons) =>
+unified()
+.use([
+  [html2hast, { fragment: true }],
+  [hast2react, { createElement }]
+])
+.processSync(favicons.join(''))
+.contents
+.props
+.children
+
+export default (type, favicons) =>
 unified()
 .use([
   html2hast,
@@ -121,19 +133,9 @@ unified()
   type === 'dev'
   ? <DevIndexHtml /> :
   type === 'mir'
-  ? <MirIndexHtml /> :
+  ? <MirIndexHtml favicons={favicons2elements(favicons)} /> :
   type === 'pro'
-  ? <ProIndexHtml favicons={
-    unified()
-    .use([
-      [html2hast, { fragment: true }],
-      [hast2react, { createElement }]
-    ])
-    .processSync(faviconsElements.join(''))
-    .contents
-    .props
-    .children
-  } />
+  ? <ProIndexHtml favicons={favicons2elements(favicons)} />
   : false
 ))
 .contents

@@ -461,6 +461,12 @@ atra@^1.2.2:
   dependencies:
     inline-style-prefixer "^3.0.8"
 
+atra@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/atra/-/atra-1.2.3.tgz#f6e56dbc8d227d24312c1b36f53a0c02918cfeaf"
+  dependencies:
+    inline-style-prefixer "^3.0.8"
+
 autoprefixer@^6.3.1:
   version "6.7.7"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-6.7.7.tgz#1dbd1c835658e35ce3f9984099db00585c782014"
@@ -5645,9 +5651,9 @@ longest@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
 
-"lonogara-sdk@https://github.com/kthjm/lonogara-sdk#0.0.6":
-  version "0.0.6"
-  resolved "https://github.com/kthjm/lonogara-sdk#1e5635a80afe15ccfa8dea076df331294a40d24b"
+"lonogara-sdk@https://github.com/lonogara/sdk#0.0.8":
+  version "0.0.8"
+  resolved "https://github.com/lonogara/sdk#1a447442ed6cbe82f97a8c8a1b55b2954efdc984"
   dependencies:
     atra "^1.1.2"
     create-keyframes "^1.0.1"
@@ -6155,9 +6161,13 @@ nice-try@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.4.tgz#d93962f6c52f2c1558c0fbda6d512819f1efe1c4"
 
-"nicohoi-price-api@https://github.com/kthjm/nicohoi-price-api#0.0.1":
-  version "0.0.1"
-  resolved "https://github.com/kthjm/nicohoi-price-api#12fa83e8e26e3b6f5de4daa65885c05901a7b9e5"
+"niconico-hoik-price@https://github.com/niconico-hoik/price#0.0.3":
+  version "0.0.3"
+  resolved "https://github.com/niconico-hoik/price#ab30e2e1965fa9d0b27d3c93247501f8c223d435"
+
+"niconico-hoik-price@https://github.com/niconico-hoik/price#0.0.4":
+  version "0.0.4"
+  resolved "https://github.com/niconico-hoik/price#85e6ea0f94893fb24d14dde5065da54a5132ced3"
 
 no-case@^2.2.0:
   version "2.3.2"
@@ -7385,6 +7395,16 @@ react-html-parser@^2.0.2:
   dependencies:
     htmlparser2 "^3.9.0"
 
+"react-lonogara@https://github.com/lonogara/react-lonogara":
+  version "0.0.11"
+  resolved "https://github.com/lonogara/react-lonogara#0a1492e44ddeaa36f6be0a014b30084bea1e5d4f"
+  dependencies:
+    atra "^1.2.2"
+    babel-runtime "^6.26.0"
+    orph "^3.0.7"
+    react-centpn "^0.0.6"
+    react-shut "^2.0.0"
+
 react-parade@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/react-parade/-/react-parade-0.0.1.tgz#384043cb7b7a10102af234d6347f97a0eb900067"
@@ -7396,6 +7416,12 @@ react-player@^1.1.1:
     deepmerge "^2.0.1"
     load-script "^1.0.0"
     prop-types "^15.5.6"
+
+react-shut@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-shut/-/react-shut-2.0.0.tgz#4f5594164e110fda98f1da87f27f8006a2dfa68a"
+  dependencies:
+    atra "^1.1.2"
 
 react@^16.2.0:
   version "16.2.0"
