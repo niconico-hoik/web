@@ -6161,9 +6161,13 @@ nice-try@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.4.tgz#d93962f6c52f2c1558c0fbda6d512819f1efe1c4"
 
-"niconico-hoik-price@https://github.com/niconico-hoik/price.js#0.0.3":
+"niconico-hoik-price@https://github.com/niconico-hoik/price#0.0.3":
   version "0.0.3"
-  resolved "https://github.com/niconico-hoik/price.js#ab30e2e1965fa9d0b27d3c93247501f8c223d435"
+  resolved "https://github.com/niconico-hoik/price#ab30e2e1965fa9d0b27d3c93247501f8c223d435"
+
+"niconico-hoik-price@https://github.com/niconico-hoik/price#0.0.4":
+  version "0.0.4"
+  resolved "https://github.com/niconico-hoik/price#85e6ea0f94893fb24d14dde5065da54a5132ced3"
 
 no-case@^2.2.0:
   version "2.3.2"
