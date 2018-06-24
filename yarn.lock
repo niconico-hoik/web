@@ -5653,7 +5653,7 @@ longest@^1.0.0:
 
 "lonogara-sdk@https://github.com/lonogara/sdk#0.0.8":
   version "0.0.8"
-  resolved "https://github.com/lonogara/sdk#274f0dfafb913ba5660c00c93684f6268e30521e"
+  resolved "https://github.com/lonogara/sdk#1a447442ed6cbe82f97a8c8a1b55b2954efdc984"
   dependencies:
     atra "^1.1.2"
     create-keyframes "^1.0.1"
@@ -7393,7 +7393,7 @@ react-html-parser@^2.0.2:
 
 "react-lonogara@https://github.com/lonogara/react-lonogara":
   version "0.0.11"
-  resolved "https://github.com/lonogara/react-lonogara#dfa5a0c617bb73b93b2f903703808823a7fb7ba7"
+  resolved "https://github.com/lonogara/react-lonogara#0a1492e44ddeaa36f6be0a014b30084bea1e5d4f"
   dependencies:
     atra "^1.2.2"
     babel-runtime "^6.26.0"
