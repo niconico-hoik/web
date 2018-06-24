@@ -17,37 +17,17 @@ const execIf = (condition, command) => Promise.resolve(!condition ? ignored(comm
 
 const hooks = {
   'prestart': () =>
-    isExist('.env')
-    .then(exist =>
-      !exist
-      ? throws('.env is not exist')
-      : Promise.all([
-        execIf(!packageJson.dependencies.lonogara, 'yarn lonogara:add'),
-        isExist(`_local/${dllname}.manifest.json`).then(exist => execIf(!exist, 'yarn wpack:dll')),
-        exec('yarn upgrade imagemin-jpegtran')
-      ])
-    )
+    Promise.all([
+      isExist(`_local/${dllname}.manifest.json`).then(exist => execIf(!exist, 'yarn wpack:dll')),
+      // exec('yarn upgrade imagemin-jpegtran')
+    ])
     .catch(errorhandler),
 
   'prebuild': () =>
-    isExist('.env')
-    .then(exist =>
-      !exist
-      ? throws('.env is not exist')
-      : Promise.all([
-        execIf(!packageJson.dependencies.lonogara, 'yarn lonogara:add'),
-        exec('yarn upgrade imagemin-jpegtran')
-      ])
-    )
-    .catch(errorhandler),
-
-  'precommit': () =>
-    !packageJson.dependencies.lonogara
-    ? ignored('remove lonogara')
-    : Promise.resolve()
-      .then(() => exec('yarn remove lonogara'))
-      .then(() => exec('git add -u'))
-      .catch(({ stderr }) => console.error(stderr))
+    Promise.all([
+      // exec('yarn upgrade imagemin-jpegtran')
+    ])
+    .catch(errorhandler)
 }
 
 const hook = hooks[process.env.HOOK_ENV]

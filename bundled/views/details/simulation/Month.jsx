@@ -2,7 +2,7 @@
 import React from 'react'
 import Store from './store.js'
 import Atra from 'atra'
-import { monthEntry, monthCare, monthSundry, monthSpecialTime, food as foodPrice } from 'nicohoi-price-api'
+import { monthEntry, monthCare, monthSundry, monthSpecialTime, food as foodPrice } from 'niconico-hoik-price'
 import { numToArr, scrape, sum, SELECT_COLOR } from './util.js'
 import {
   Space,

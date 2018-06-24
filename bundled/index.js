@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { render } from 'react-dom'
-import { Mobile, Desktop } from 'lonogara'
+import { Mobile, Desktop } from 'react-lonogara'
 import { WaveLoading } from 'lonogara-sdk/preloader'
 import indexCss from './index.css'
 import Views from './views'
