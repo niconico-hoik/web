@@ -57,6 +57,7 @@ const configs = {
     out: devdir,
     ignored: [
       'favicons.svg',
+      '_redirects',
       '**.txt',
       '**.xml'
     ],
@@ -71,6 +72,7 @@ const configs = {
     put: assets,
     out: prodir,
     ignored: [
+      '_redirects',
       '**.txt',
       '**.xml'
     ],

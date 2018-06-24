@@ -16,9 +16,3 @@
   to = "/index.html"
   status = 200
   force = false
-
-[[redirects]]
-  from = "https://niconico-hoik.netlify.com/*"
-  to = "https://niconico-hoik.com/:splat"
-  status = 301
-  force = true

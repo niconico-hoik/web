@@ -1,0 +1,2 @@
+# Redirect default Netlify subdomain to primary domain
+https://niconico-hoik.netlify.com/* https://niconico-hoik.com/:splat 301!
