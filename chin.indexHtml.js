@@ -72,11 +72,11 @@ const DevIndexHtml = () =>
 <html lang="ja">
   <head>
     {onerror}
+    <script defer={true} src="./dll.js" />
+    <script defer={true} src="./bundle.js" />
   </head>
   <body>
     <div id="app" />
-    <script src="./dll.js" />
-    <script src="./bundle.js" />
   </body>
 </html>
 
@@ -85,10 +85,10 @@ const MirIndexHtml = () =>
   <Head>
     {ogs}
     {onerror}
+    <script defer={true} src="./bundle.js" />
   </Head>
   <body>
     <div id="app" />
-    <script src="./bundle.js" />
   </body>
 </html>
 
@@ -103,10 +103,10 @@ const ProIndexHtml = ({ favicons }) =>
     {ogs}
     {favicons}
     {ga}
+    <script defer={true} src="./bundle.js" />
   </Head>
   <body>
     <div id="app" />
-    <script src="./bundle.js" />
   </body>
 </html>
 
