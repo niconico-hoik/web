@@ -1,7 +1,6 @@
 import React from 'react'
 import { Question as Button } from 'lonogara-sdk/button'
-import { Domestic } from './Wrap.jsx'
-import { f2r } from './util.js'
+import { f2r, Domestic } from './util.js'
 
 const HighOrderExhibit = ({ Exhibit, renderDetail }) =>
   Promise.all([

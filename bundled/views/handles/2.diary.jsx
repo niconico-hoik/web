@@ -1,11 +1,10 @@
 import React from 'react'
-import Orph from 'orph'
+import Redam from 'redam'
 import moment from 'moment'
 import { Camera as Button } from 'lonogara-sdk/button'
 import { generatePosts } from 'tumblrinbrowser'
 import postTransform from './transform'
-import { env, HO_UPDATE } from './util.js'
-import { Domestic, Provider } from './Wrap.jsx'
+import { env, HO_UPDATE, Domestic } from './util.js'
 
 const HighOrderFeed = async () => {
   // const name = 'cinnamonbirbs' // for local test
@@ -33,35 +32,24 @@ const HighOrderFeed = async () => {
   }
 }
 
-const HighOrderExhibit = ({ Exhibit, renderDetail }) =>
-  HighOrderFeed()
-  .then(feed =>
-    feed({})
-    .then(({ posts, done }) => new Orph({ posts, done }))
-    .then(store => {
+const HighOrderExhibit = async ({ Exhibit, renderDetail }) => {
 
-      store.register(
-        { UPDATE: HO_UPDATE(feed) },
-        { use: { render: true, state: true } }
-      )
+  const feed = await HighOrderFeed()
+  const { posts, done } = await feed({})
 
-      return {
-        store,
-        actions: {
-          renderDetail,
-          update: () => store.dispatch('UPDATE')
-        }
-      }
-    })
-  )
-  .then(({ store, actions }) =>
-    () =>
-    <Domestic>
-      <Provider {...{ store }}>
-        <Exhibit {...{ actions }} />
-      </Provider>
-    </Domestic>
-  )
+  const initialState = (initialProps, prevState) => prevState || { posts, done }
+
+  const actions = { UPDATE: HO_UPDATE(feed) }
+
+  const Consumer = ({ provided: { dispatch, state: { posts, done } } }) =>
+  <Exhibit {...{ posts, done }} actions={{
+    renderDetail,
+    update: () => dispatch('UPDATE')
+  }} />
+
+  const Redamed = Redam(initialState, actions, Consumer, { singleton: true })
+  return () => <Domestic><Redamed /></Domestic>
+}
 
 export default ({ Exhibit, Detail }) => ({
 
