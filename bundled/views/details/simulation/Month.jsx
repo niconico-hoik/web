@@ -1,6 +1,7 @@
 // @flow
 import React from 'react'
-import Store from './store.js'
+import Redam from 'redam'
+import actions from './actions.js'
 import Atra from 'atra'
 import { monthEntry, monthCare, monthSundry, monthSpecialTime, food as foodPrice } from 'niconico-hoik-price'
 import { numToArr, scrape, sum, SELECT_COLOR } from './util.js'
@@ -54,167 +55,170 @@ const SPECIAL_OPTIONS = [
   <option key={index} {...{ value, children }} />
 )
 
-const store = Store({
-  ages: ['toddler'],
-  day: DAY_INIT,
-  time: TIME_INIT,
-  food: 0,
-  morning: 0,
-  night: 0,
-  sunday: 0
-})
+export default Redam(
+  (initialProps, prevState) => prevState || {
+    ages: ['toddler'],
+    day: DAY_INIT,
+    time: TIME_INIT,
+    food: 0,
+    morning: 0,
+    night: 0,
+    sunday: 0
+  },
+  actions,
+  class MonthSimu extends React.Component {
 
-const listeners = store.order()
-
-export default class MonthSimu extends React.Component {
-
-  constructor(props) {
-    super(props)
-    store.attach(this, { inherit: props.isContinued })
-    this.spaces = {
-      blockspace: <Space size={props.blockspace} />,
-      selectspace: <Space size={props.selectspace} />
+    constructor(props) {
+      super(props)
+      this.spaces = {
+        blockspace: <Space size={props.blockspace} />,
+        selectspace: <Space size={props.selectspace} />
+      }
     }
-  }
 
-  componentWillUnmount() {
-    store.detach()
-  }
+    render() {
+      const { state } = this.props.provided
+      const results = createResults(state)
+      const totalPrice = sum(results.map(({ prices }) => prices.length ? sum(prices) : 0))
 
-  render() {
-    const results = createResults(this.state)
-    const totalPrice = sum(results.map(({ prices }) => prices.length ? sum(prices) : 0))
+      const { blockspace, selectspace } = this.spaces
 
-    const { blockspace, selectspace } = this.spaces
-    
-    return (
-      <div {...{ style: { textAlign: 'center' } }}>
+      return (
+        <div {...{ style: { textAlign: 'center' } }}>
 
-        <div>
-          <div>{this.SelectNumber()}{'人のお子さま'}</div>
-          {selectspace}
-          <div>{'('}{this.state.ages.map((value, index) => this.SelectAge(value, index))}{')を'}</div>
-          {selectspace}
-          <div>{'週に'}{this.SelectDay()}{'日の'}</div>
-          {selectspace}
-          <div>{'1日に'}{this.SelectTime()}{'時間'}</div>
-          {selectspace}
-          <div>{'給食を'}{this.SelectFood()}</div>
-          {selectspace}
-          <div>{'7:00~8:00を'}{this.SelectSpecialTime('morning')}</div>
-          {selectspace}
-          <div>{'18:00以降を'}{this.SelectSpecialTime('night')}</div>
-          {selectspace}
-          <div>{'日曜日を'}{this.SelectSpecialTime('sunday')}</div>
+          <div>
+            <div>{this.SelectNumber()}{'人のお子さま'}</div>
+            {selectspace}
+            <div>{'('}{state.ages.map((value, index) => this.SelectAge(value, index))}{')を'}</div>
+            {selectspace}
+            <div>{'週に'}{this.SelectDay()}{'日の'}</div>
+            {selectspace}
+            <div>{'1日に'}{this.SelectTime()}{'時間'}</div>
+            {selectspace}
+            <div>{'給食を'}{this.SelectFood()}</div>
+            {selectspace}
+            <div>{'7:00~8:00を'}{this.SelectSpecialTime('morning')}</div>
+            {selectspace}
+            <div>{'18:00以降を'}{this.SelectSpecialTime('night')}</div>
+            {selectspace}
+            <div>{'日曜日を'}{this.SelectSpecialTime('sunday')}</div>
+          </div>
+
+          {blockspace}
+
+          <div>
+            <TotalWithoutTax total={totalPrice} />
+            <Results left={this.props.resultsLeft} children={results.map(({ string, prices, isHalfOne }, index) =>
+              <Relative key={index}>
+
+                {blockspace}
+
+                <Result {...{ string, prices }} />
+
+                {prices.length > 1 && <ResultDetails left={0} children={prices.map((price, index) =>
+                  <span key={index}>
+                    {index !== 0 && ' + '}
+                    {`￥${price}`}
+                    {isHalfOne && index === 0 && '(半額)'}
+                  </span>
+                )} />}
+
+              </Relative>
+            )} />
+          </div>
+
         </div>
+      )
+    }
 
-        {blockspace}
-
-        <div>
-          <TotalWithoutTax total={totalPrice} />
-          <Results left={this.props.resultsLeft} children={results.map(({ string, prices, isHalfOne }, index) =>
-            <Relative key={index}>
-
-              {blockspace}
-
-              <Result {...{ string, prices }} />
-
-              {prices.length > 1 && <ResultDetails left={0} children={prices.map((price, index) =>
-                <span key={index}>
-                  {index !== 0 && ' + '}
-                  {`￥${price}`}
-                  {isHalfOne && index === 0 && '(半額)'}
-                </span>
-              )} />}
-
-            </Relative>
-          )} />
-        </div>
-
-      </div>
-    )
-  }
-
-  SelectNumber() {
-    return (
-      <Select {...{
-        onChange: listeners['NUMBER_ON_CHANGE'],
-        value: this.state.ages.length,
-        color: SELECT_COLOR
-      }}>
-        {NUMBER_OPTIONS}
-      </Select>
-    )
-  }
-
-  SelectAge(ageValue, ageIndex) {
-    return (
-      <span key={ageIndex}>
-        {ageIndex !== 0 && 'と'}
+    SelectNumber() {
+      const { dispatch, state } = this.props.provided
+      return (
         <Select {...{
-          onChange: listeners['AGE_ON_CHANGE'],
-          value: ageValue,
-          dataset: { 'age-index': ageIndex },
+          onChange: ({ target }) => dispatch('NUMBER_ON_CHANGE', target),
+          value: state.ages.length,
           color: SELECT_COLOR
         }}>
-          {AGES_OPTIONS}
+          {NUMBER_OPTIONS}
         </Select>
-      </span>
-    )
-  }
+      )
+    }
 
-  SelectDay() {
-    return (
-      <Select {...{
-        onChange: listeners['VALUE_ON_CHANGE'],
-        value: this.state.day,
-        dataset: { name: 'day' },
-        color: SELECT_COLOR
-      }}>
-        {DAY_OPTIONS}
-      </Select>
-    )
-  }
+    SelectAge(ageValue, ageIndex) {
+      const { dispatch } = this.props.provided
+      return (
+        <span key={ageIndex}>
+          {ageIndex !== 0 && 'と'}
+          <Select {...{
+            onChange: ({ target }) => dispatch('AGE_ON_CHANGE', target),
+            value: ageValue,
+            dataset: { 'age-index': ageIndex },
+            color: SELECT_COLOR
+          }}>
+            {AGES_OPTIONS}
+          </Select>
+        </span>
+      )
+    }
 
-  SelectTime() {
-    return (
-      <Select {...{
-        onChange: listeners['VALUE_ON_CHANGE'],
-        value: this.state.time,
-        dataset: { name: 'time' },
-        color: SELECT_COLOR
-      }}>
-        {TIME_OPTIONS}
-      </Select>
-    )
-  }
+    SelectDay() {
+      const { dispatch, state } = this.props.provided
+      return (
+        <Select {...{
+          onChange: ({ target }) => dispatch('VALUE_ON_CHANGE', target),
+          value: state.day,
+          dataset: { name: 'day' },
+          color: SELECT_COLOR
+        }}>
+          {DAY_OPTIONS}
+        </Select>
+      )
+    }
 
-  SelectFood() {
-    return (
-      <Select {...{
-        onChange: listeners['VALUE_ON_CHANGE'],
-        value: this.state.food,
-        dataset: { name: 'food' },
-        color: SELECT_COLOR
-      }}>
-        {FOOD_OPTIONS}
-      </Select>
-    )
-  }
+    SelectTime() {
+      const { dispatch, state } = this.props.provided
+      return (
+        <Select {...{
+          onChange: ({ target }) => dispatch('VALUE_ON_CHANGE', target),
+          value: state.time,
+          dataset: { name: 'time' },
+          color: SELECT_COLOR
+        }}>
+          {TIME_OPTIONS}
+        </Select>
+      )
+    }
 
-  SelectSpecialTime(name) {
-    return (
-      <Select {...{
-        onChange: listeners['VALUE_ON_CHANGE'],
-        value: this.state[name],
-        dataset: { name },
-        color: SELECT_COLOR
-      }}>
-        {SPECIAL_OPTIONS}
-      </Select>
-    )
-  }
-}
+    SelectFood() {
+      const { dispatch, state } = this.props.provided
+      return (
+        <Select {...{
+          onChange: ({ target }) => dispatch('VALUE_ON_CHANGE', target),
+          value: state.food,
+          dataset: { name: 'food' },
+          color: SELECT_COLOR
+        }}>
+          {FOOD_OPTIONS}
+        </Select>
+      )
+    }
+
+    SelectSpecialTime(name) {
+      const { dispatch, state } = this.props.provided
+      return (
+        <Select {...{
+          onChange: ({ target }) => dispatch('VALUE_ON_CHANGE', target),
+          value: state[name],
+          dataset: { name },
+          color: SELECT_COLOR
+        }}>
+          {SPECIAL_OPTIONS}
+        </Select>
+      )
+    }
+  },
+  { singleton: true }
+)
 
 const createResults = ({
   ages,
