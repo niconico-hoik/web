@@ -19,8 +19,7 @@ const HighOrderExhibit = ({ Exhibit, renderDetail }) => {
 }
 
 const HighOrderDetail = ({ Detail }) =>
-  f2r('./post/preview.html')
-  .then(preview =>
+  f2r('./post/preview.html').then(preview =>
     () =>
     <Domestic>
       <Detail {...{ preview }} />

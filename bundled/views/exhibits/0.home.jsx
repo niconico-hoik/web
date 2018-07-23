@@ -17,7 +17,7 @@ const HoMobile = () => {
 
   return (a =>
 
-    ({ informations, renderDetail }) =>
+    ({ renderDetail }) =>
     <div {...a('ROOT')}>
       <Centpn top={-90}>
         <div {...a('ROGO')}>{rogo}</div>
@@ -116,7 +116,6 @@ const HoDesktop = () => {
               <span>{`Preview`}</span>
               <MouseDown listener={renderDetail} />
             </span>
-            <a {...a('MAP_LINK')}>{'Map'}</a>
           </div>
         </div>
       </Centpn>
@@ -169,7 +168,6 @@ const HoDesktop = () => {
     SHOWING: {
       style: {
         position: 'relative',
-        marginRight: 45,
         borderBottom: 'dashed 1.5px',
         cursor: 'pointer'
       }

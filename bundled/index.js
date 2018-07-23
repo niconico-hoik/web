@@ -13,7 +13,7 @@ const rendering = (isMobile) => {
     <Fragment>
       <style>{indexCss.toString()}</style>
       <style>{`
-        a { color: #74bfa1; }
+        a { color: #4cb78c; }
         figure { margin: 0px; }
         blockquote { margin-left: 20px; }
       `}</style>
