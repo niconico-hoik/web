@@ -40,6 +40,7 @@
     "react-lonogara": "https://github.com/lonogara/react-lonogara",
     "react-parade": "^0.0.1",
     "react-player": "^1.1.1",
+    "redam": "^0.0.7",
     "screenfull": "^3.3.2",
     "tumblrinbrowser": "^0.0.3",
     "whatwg-fetch": "^2.0.3"

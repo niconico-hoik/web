@@ -7543,6 +7543,10 @@ recursive-readdir@^2.2.1:
   dependencies:
     minimatch "3.0.4"
 
+redam@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/redam/-/redam-0.0.7.tgz#d242c74767891e1b26f3e691c763a86b462d5189"
+
 redent@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/redent/-/redent-1.0.0.tgz#cf916ab1fd5f1f16dfb20822dd6ec7f730c2afde"
