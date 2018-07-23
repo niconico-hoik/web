@@ -52,7 +52,7 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-react": "^6.24.1",
-    "chin": "^3.0.6",
+    "chin": "^3.1.1",
     "chin-plugin-favicons": "^0.0.1",
     "chin-plugin-imagemin": "^0.0.2",
     "chin-plugin-inkscape": "^0.0.5",
