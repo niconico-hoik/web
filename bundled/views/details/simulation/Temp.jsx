@@ -3,7 +3,7 @@ import React from 'react'
 import Redam from 'redam'
 import actions from './actions.js'
 import Atra from 'atra'
-import { TempCare, tempAllday } from 'niconico-hoik-price'
+import { TempCare, tempAllday, food as foodPrice } from 'niconico-hoik-price'
 import { numToArr, scrape, sum, SELECT_COLOR } from './util.js'
 import {
   Space,
@@ -57,10 +57,11 @@ const colorOfTo = (value) =>
   : SELECT_COLOR
 
 export default Redam(
-  (initialProps, prevState) => prevState || {
+  ({ isContinued }, prevState) => isContinued ? prevState : {
     ages: ['toddler'],
     from: 10,
-    to: 19.5
+    to: 19.5,
+    food: 0
   },
   actions,
   class TempSimu extends React.Component {
@@ -84,11 +85,11 @@ export default Redam(
     }
 
     render() {
-      const { from, to, ages } = this.props.provided.state
-      const prepareOpts = { from, to, ages, badges: this.badges }
+      const { from, to, ages, food } = this.props.provided.state
+      const foodPrices = numToArr(food).map(() => foodPrice())
+      const prepareOpts = { from, to, ages, badges: this.badges, foodPrices }
       const { totalPrice, results } = prepareAllday(prepareOpts) || prepare(prepareOpts)
       const { blockspace, selectspace } = this.spaces
-
       return (
         <div {...{ style: { textAlign: 'center' } }}>
 
@@ -98,6 +99,8 @@ export default Redam(
             <div>{'('}{ages.map((value, index) => this.SelectAge(value, index))}{')を'}</div>
             {selectspace}
             <div>{this.SelectFrom()}{'から'}{this.SelectTo()}{'まで'}</div>
+            {selectspace}
+            <div>{'給食を'}{this.selectFood()}</div>
           </div>
 
           {blockspace}
@@ -130,9 +133,9 @@ export default Redam(
       const { dispatch, state } = this.props.provided
       return (
         <Select {...{
-          onChange: ({ target }) => dispatch('NUMBER_ON_CHANGE', target),
           value: state.ages.length,
-          color: SELECT_COLOR
+          color: SELECT_COLOR,
+          onChange: ({ target }) => dispatch('NUMBER_ON_CHANGE', target)
         }}>
           {NUMBER_OPTIONS}
         </Select>
@@ -145,10 +148,10 @@ export default Redam(
         <span key={ageIndex}>
           {ageIndex !== 0 && 'と'}
           <Select {...{
-            onChange: ({ target }) => dispatch('AGE_ON_CHANGE', target),
             value: ageValue,
             dataset: { 'age-index': ageIndex },
-            color: SELECT_COLOR
+            color: SELECT_COLOR,
+            onChange: ({ target }) => dispatch('AGE_ON_CHANGE', target)
           }}>
             {AGES_OPTIONS}
           </Select>
@@ -160,10 +163,10 @@ export default Redam(
       const { dispatch, state: { from, to } } = this.props.provided
       return (
         <Select {...{
-          onChange: ({ target }) => dispatch('VALUE_ON_CHANGE', target),
           value: from,
           dataset: { name: 'from' },
-          color: colorOfFrom(from)
+          color: colorOfFrom(from),
+          onChange: ({ target }) => dispatch('VALUE_ON_CHANGE', target)
         }}>
         {ftOptions({ from: 7, to: to - 0.5 }).map((value, index) =>
           <option key={index} {...{
@@ -180,10 +183,10 @@ export default Redam(
       const { dispatch, state: { from, to } } = this.props.provided
       return (
         <Select {...{
-          onChange: ({ target }) => dispatch('VALUE_ON_CHANGE', target),
           value: to,
           dataset: { name: 'to' },
-          color: colorOfTo(to)
+          color: colorOfTo(to),
+          onChange: ({ target }) => dispatch('VALUE_ON_CHANGE', target)
         }}>
         {ftOptions({ from: from + 0.5, to: 23 }).map((value, index) =>
           <option key={index} {...{
@@ -195,33 +198,61 @@ export default Redam(
         </Select>
       )
     }
+
+    selectFood() {
+      const { dispatch, state: { ages, food } } = this.props.provided
+      return (
+        <Select {...{
+          value: food,
+          dataset: { name: 'food' },
+          color: SELECT_COLOR,
+          onChange: ({ target }) => dispatch('VALUE_ON_CHANGE', target)
+        }}>
+          {numToArr(ages.length + 1).map((a, index, { length }) =>
+            <option key={index} {...{
+              value: index,
+              children: index === 0 ? '利用しない' : length === 2 ? '利用する' : `${index}食分`
+            }} />
+          )}
+        </Select>
+      )
+    }
   },
   { singleton: true }
 )
 
-const prepareAllday = ({ from, to, ages, badges }) =>
-  from === 9 && to === 17 && {
-    totalPrice: sum(ages.map((age) => tempAllday(age))),
+const prepareAllday = ({ from, to, ages, badges, foodPrices }) => {
+  return from === 9 && to === 17 && {
+    totalPrice: sum([].concat(
+      ages.map((age) => tempAllday(age)),
+      foodPrices
+    )),
     results: createResults({
       times: { day: 8 },
       pricesByTime: ages.map((age) => ({ day: tempAllday(age) })),
-      badges: { day: badges.day }
-    })
-  }
-
-const prepare = ({ from, to, ages, badges }) => {
-  const care = new TempCare(from, to)
-  return {
-    totalPrice: sum(ages.map((age) => care.price(age))),
-    results: createResults({
-      times: care.timeByTime(),
-      pricesByTime: ages.map((age) => care.priceByTime(age)),
-      badges: { night: to > 20 && badges.night }
+      badges: { day: badges.day },
+      foodPrices
     })
   }
 }
 
-const createResults = ({ times, pricesByTime, badges }) => [
+const prepare = ({ from, to, ages, badges, foodPrices }) => {
+  const care = new TempCare(from, to)
+  return {
+    totalPrice: sum([].concat(
+      ages.map((age) => care.price(age)),
+      foodPrices
+    )),
+    results: createResults({
+      times: care.timeByTime(),
+      pricesByTime: ages.map((age) => care.priceByTime(age)),
+      badges: { night: to > 20 && badges.night },
+      foodPrices
+    })
+  }
+}
+
+const createResults = ({ times, pricesByTime, badges, foodPrices }) => [
   {
     string: '7:00~',
     time: times.morning || 0,
@@ -243,6 +274,11 @@ const createResults = ({ times, pricesByTime, badges }) => [
     time: times.night || 0,
     prices: scrape(pricesByTime.map(({ night }) => night)),
     badge: badges.night
+  },
+  {
+    string: '給食費',
+    time: 0,
+    prices: foodPrices
   }
 ]
 

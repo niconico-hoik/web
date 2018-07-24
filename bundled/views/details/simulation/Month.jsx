@@ -41,13 +41,6 @@ const TIME_OPTIONS = numToArr(5).map((value, index) => {
   return <option key={index} {...{ value: both, children: both }} />
 })
 
-const FOOD_OPTIONS = [
-  { value: 0, children: '利用しない' },
-  { value: 1, children: '利用する' }
-].map(({ value, children }, index) =>
-  <option key={index} {...{ value, children }} />
-)
-
 const SPECIAL_OPTIONS = [
   { value: 0, children: '含まない' },
   { value: 1, children: '含む' }
@@ -56,7 +49,7 @@ const SPECIAL_OPTIONS = [
 )
 
 export default Redam(
-  (initialProps, prevState) => prevState || {
+  ({ isContinued }, prevState) => isContinued ? prevState : {
     ages: ['toddler'],
     day: DAY_INIT,
     time: TIME_INIT,
@@ -198,7 +191,12 @@ export default Redam(
           dataset: { name: 'food' },
           color: SELECT_COLOR
         }}>
-          {FOOD_OPTIONS}
+          {numToArr(state.ages.length + 1).map((a, index, { length }) =>
+            <option key={index} {...{
+              value: index,
+              children: index === 0 ? '利用しない' : length === 2 ? '利用する' : `${index}食分`
+            }} />
+          )}
         </Select>
       )
     }
@@ -251,7 +249,7 @@ const createResults = ({
     },
     {
       string: '給食費',
-      prices: food ? ages.map(() => foodPrice() * ((4 * day) + 1)) : []
+      prices: food > 0 ? numToArr(food).map(() => foodPrice() * ((4 * day) + 1)) : []
     },
     {
       string: '早朝料金',
