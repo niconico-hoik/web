@@ -109,7 +109,7 @@ const HoDesktop = () => {
           <span>{`tel: ${informations.tel}`}</span>
           <div {...a('LINKS')}>
             <span {...a('SHOWING')}>
-              <span>{`Preview`}</span>
+              <span>{`preview`}</span>
               <MouseDown listener={renderDetail} />
             </span>
           </div>
