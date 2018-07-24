@@ -19,11 +19,11 @@ const HoMobile = () => {
 
     ({ renderDetail }) =>
     <div {...a('ROOT')}>
-      <Centpn top={-90}>
+      <Centpn top={'-12%'}>
         <div {...a('ROGO')}>{rogo}</div>
         <div {...a('TEXT')}>
           <span {...a('PREVIEW_WRAP')}>
-            <span {...a('PREVIEW_TEXT')}>{'preview'}</span>
+            <span>{'preview'}</span>
             <Click listener={renderDetail} />
           </span>
         </div>
@@ -52,11 +52,7 @@ const HoMobile = () => {
     PREVIEW_WRAP: {
       style: {
         position: 'relative',
-        display: 'inline-block'
-      }
-    },
-    PREVIEW_TEXT: {
-      style: {
+        display: 'inline-block',
         color: 'rgb(12, 26, 79)',
         fontSize: '2.1em',
         fontWeight: 'bold',
