@@ -25,7 +25,7 @@ const NUMBER_OPTIONS = numToArr(4).map((n, index) =>
 )
 
 const AGES_OPTIONS = [
-  { value: 'toddler', children: '小学以下' },
+  { value: 'toddler', children: '乳児 / 幼児' },
   { value: 'lower', children: '小学低学年' },
   { value: 'higher', children: '小学高学年' }
 ].map(({ value, children }, index) =>
@@ -45,16 +45,6 @@ const timenize = (num) => {
   const [hour,half] = String(num).split('.')
   return `${hour}:${half ? 3 : 0}0`
 }
-
-const colorOfFrom = (value) =>
-  value === 9 ? ALL_DAY_COLOR
-  : value > 20 ? NIGHT_COLOR
-  : SELECT_COLOR
-
-const colorOfTo = (value) =>
-  value === 17 ? ALL_DAY_COLOR
-  : value > 20 ? NIGHT_COLOR
-  : SELECT_COLOR
 
 export default Redam(
   ({ isContinued }, prevState) => isContinued ? prevState : {
@@ -85,11 +75,17 @@ export default Redam(
     }
 
     render() {
-      const { from, to, ages, food } = this.props.provided.state
+      
+      const {
+        badges,
+        spaces: { blockspace, selectspace },
+        props: { provided: { state: { from, to, ages, food } } }
+      } = this
+      
       const foodPrices = numToArr(food).map(() => foodPrice())
-      const prepareOpts = { from, to, ages, badges: this.badges, foodPrices }
-      const { totalPrice, results } = prepareAllday(prepareOpts) || prepare(prepareOpts)
-      const { blockspace, selectspace } = this.spaces
+      
+      const { totalPrice, results } = prepare({ from, to, ages, badges, foodPrices })
+      
       return (
         <div {...{ style: { textAlign: 'center' } }}>
 
@@ -100,7 +96,7 @@ export default Redam(
             {selectspace}
             <div>{this.SelectFrom()}{'から'}{this.SelectTo()}{'まで'}</div>
             {selectspace}
-            <div>{'給食を'}{this.selectFood()}</div>
+            <div>{'給食を'}{this.SelectFood()}</div>
           </div>
 
           {blockspace}
@@ -161,18 +157,19 @@ export default Redam(
 
     SelectFrom() {
       const { dispatch, state: { from, to } } = this.props.provided
+      const color = from > 20 ? NIGHT_COLOR : SELECT_COLOR
       return (
         <Select {...{
           value: from,
           dataset: { name: 'from' },
-          color: colorOfFrom(from),
+          color,
           onChange: ({ target }) => dispatch('VALUE_ON_CHANGE', target)
         }}>
         {ftOptions({ from: 7, to: to - 0.5 }).map((value, index) =>
           <option key={index} {...{
             value,
             children: timenize(value),
-            style: { color: colorOfFrom(value) }
+            style: { color }
           }} />
         )}
         </Select>
@@ -181,25 +178,26 @@ export default Redam(
 
     SelectTo() {
       const { dispatch, state: { from, to } } = this.props.provided
+      const color = to > 20 ? NIGHT_COLOR : SELECT_COLOR
       return (
         <Select {...{
           value: to,
           dataset: { name: 'to' },
-          color: colorOfTo(to),
+          color,
           onChange: ({ target }) => dispatch('VALUE_ON_CHANGE', target)
         }}>
         {ftOptions({ from: from + 0.5, to: 23 }).map((value, index) =>
           <option key={index} {...{
             value,
             children: timenize(value),
-            style: { color:  colorOfTo(value) }
+            style: { color }
           }} />
         )}
         </Select>
       )
     }
 
-    selectFood() {
+    SelectFood() {
       const { dispatch, state: { ages, food } } = this.props.provided
       return (
         <Select {...{
@@ -221,32 +219,31 @@ export default Redam(
   { singleton: true }
 )
 
-const prepareAllday = ({ from, to, ages, badges, foodPrices }) => {
-  return from === 9 && to === 17 && {
-    totalPrice: sum([].concat(
-      ages.map((age) => tempAllday(age)),
-      foodPrices
-    )),
-    results: createResults({
-      times: { day: 8 },
-      pricesByTime: ages.map((age) => ({ day: tempAllday(age) })),
-      badges: { day: badges.day },
-      foodPrices
-    })
-  }
-}
-
 const prepare = ({ from, to, ages, badges, foodPrices }) => {
   const care = new TempCare(from, to)
+  const isAllDayPrice = from >= 9 && to <= 17 && care.price(ages[0]) > tempAllday(ages[0])
   return {
     totalPrice: sum([].concat(
-      ages.map((age) => care.price(age)),
-      foodPrices
+      foodPrices,
+      isAllDayPrice
+      ? ages.map((age) => tempAllday(age))
+      : ages.map((age) => care.price(age))
     )),
     results: createResults({
-      times: care.timeByTime(),
-      pricesByTime: ages.map((age) => care.priceByTime(age)),
-      badges: { night: to > 20 && badges.night },
+      times: (
+        isAllDayPrice
+        ? { day: to - from }
+        : care.timeByTime()
+      ),
+      pricesByTime: (
+        isAllDayPrice
+        ? ages.map((age) => ({ day: tempAllday(age) }))
+        : ages.map((age) => care.priceByTime(age))
+      ),
+      badges: {
+        day: isAllDayPrice && badges.day,
+        night: to > 20 && badges.night
+      },
       foodPrices
     })
   }

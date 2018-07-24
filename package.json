@@ -11,7 +11,7 @@
     "prebuild": "cross-env HOOK_ENV=prebuild yarn hook",
     "postbuild": "http-server _site -a localhost -p 7000 -o -c-1",
     "chin:pre": "cross-env BABEL_ENV=cjs chin -c -r babel-register",
-    "chin:dev": "cross-env BABEL_ENV=cjs chin -c -r babel-register",
+    "chin:dev": "cross-env BABEL_ENV=cjs chin watch -c -r babel-register",
     "chin:mir": "cross-env BABEL_ENV=cjs chin -c -r babel-register",
     "chin:pro": "cross-env BABEL_ENV=cjs chin -c -r babel-register",
     "wpack:dll": "webpack",
@@ -20,7 +20,7 @@
     "wpack:non": "cross-env BABEL_ENV=esm webpack",
     "wpack:ana": "cross-env BABEL_ENV=esm webpack --display-used-exports",
     "wpack:spl": "cross-env BABEL_ENV=esm webpack",
-    "start": "run-s chin:dev wpack:dev",
+    "start": "run-p chin:dev wpack:dev",
     "build": "run-s chin:mir wpack:pro",
     "build:mirror": "run-s chin:mir wpack:pro",
     "build:master": "run-s chin:pro wpack:pro"
