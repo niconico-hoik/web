@@ -1,6 +1,6 @@
 # Preview
 
-住所: [〒594-1105 大阪府和泉市のぞみ野３丁目 のぞみ野三丁目1237-58 Shima.B.L.D.G 1F](https://goo.gl/maps/wMkEvpDmiUB2)
+住所: [〒594-1105 大阪府和泉市 のぞみ野三丁目1237-58 Shima.B.L.D.G 1F](https://goo.gl/maps/wMkEvpDmiUB2)
 
 電話番号: [0725-56-3396](tel:0725563396)
 
