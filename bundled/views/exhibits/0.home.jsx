@@ -15,51 +15,15 @@ const HoMobile = () => {
 
   const rogo = <Rogo />
 
-  const arrow = (
-    <span {...{
-      style: {
-        position: 'relative',
-        top: -2.5
-      }
-    }}>
-      {' → '}
-    </span>
-  )
-
-  const triple = (
-    <span {...{
-      style: {
-        display: 'inline-block',
-        background: 'rgb(24, 24, 35)',
-        color: '#ffffff',
-        fontWeight: 'bold',
-        lineHeight: 1.2,
-        padding: '4px 8px 2px'
-      }
-    }}>
-      <span {...{
-        style: {
-          position: 'relative',
-          left: 2.4
-        }
-      }}>
-        {'≡'}
-      </span>
-    </span>
-  )
-
   return (a =>
 
-    ({ informations, renderDetail }) =>
+    ({ renderDetail }) =>
     <div {...a('ROOT')}>
-      <Centpn top={-60}>
+      <Centpn top={'-12%'}>
         <div {...a('ROGO')}>{rogo}</div>
         <div {...a('TEXT')}>
-          <span>{informations.postal}</span><br />
-          <span>{informations.address}</span><br />
-          <span>{informations.building}</span>{arrow}{triple}<br />
           <span {...a('PREVIEW_WRAP')}>
-            <span {...a('PREVIEW_TEXT')}>{'Preview'}</span>
+            <span>{'preview'}</span>
             <Click listener={renderDetail} />
           </span>
         </div>
@@ -70,11 +34,7 @@ const HoMobile = () => {
     ROOT: {
       style: {
         height: '100%',
-        textAlign: 'center',
-        color: 'rgb(80, 80, 80)',
-        fontSize: '2.1em',
-        fontWeight: 'bold',
-        letterSpacing: 4
+        textAlign: 'center'
       }
     },
     ROGO: {
@@ -86,24 +46,22 @@ const HoMobile = () => {
     TEXT: {
       style: {
         position: 'relative',
-        top: -54,
-        lineHeight: 2.1
+        top: -12
       }
     },
     PREVIEW_WRAP: {
       style: {
         position: 'relative',
         display: 'inline-block',
-        marginTop: 24,
-        fontSize: '1.2em'
-      }
-    },
-    PREVIEW_TEXT: {
-      style: {
-        borderBottomStyle: 'dashed',
+        color: 'rgb(12, 26, 79)',
+        fontSize: '2.1em',
+        fontWeight: 'bold',
+        letterSpacing: 3,
+        borderStyle: 'dashed',
         borderColor: 'inherit',
         borderWidth: 4,
-        padding: '0px 4px 6px'
+        padding: '14px 28px',
+        backgroundColor: 'rgba(255, 255, 255, 0.45)'
       }
     }
   }))
@@ -151,10 +109,9 @@ const HoDesktop = () => {
           <span>{`tel: ${informations.tel}`}</span>
           <div {...a('LINKS')}>
             <span {...a('SHOWING')}>
-              <span>{`Preview`}</span>
+              <span>{`preview`}</span>
               <MouseDown listener={renderDetail} />
             </span>
-            <a {...a('MAP_LINK')}>{'Map'}</a>
           </div>
         </div>
       </Centpn>
@@ -207,7 +164,6 @@ const HoDesktop = () => {
     SHOWING: {
       style: {
         position: 'relative',
-        marginRight: 45,
         borderBottom: 'dashed 1.5px',
         cursor: 'pointer'
       }

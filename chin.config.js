@@ -11,7 +11,7 @@ import { devdir, prodir } from './.variables.js'
 /* extensions */
 
 const ink2pdf = inkscape('pdf')
-const ink2png = inkscape('png', { width: 1024, background: '#ffffff' })
+const ink2png = inkscape('png', { width: 2000, background: '#ffffff' })
 
 const md2html = unified('.html', presetM2H())
 

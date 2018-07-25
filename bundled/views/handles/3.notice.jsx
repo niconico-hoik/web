@@ -1,11 +1,17 @@
 import React from 'react'
-import Orph from 'orph'
+import Redam from 'redam'
 import { Post as Button } from 'lonogara-sdk/button'
 import { generatePosts } from 'tumblrinbrowser'
 import postTransform from './transform'
-import { env, HO_UPDATE } from './util.js'
-import { Domestic, Provider } from './Wrap.jsx'
+import { env, HO_UPDATE, Domestic } from './util.js'
 import { Spring, Summer, Fall, Winter } from '../Icons.jsx'
+
+const seasons = {
+  spring: <Spring />,
+  summer: <Summer />,
+  fall: <Fall />,
+  winter: <Winter />
+}
 
 const HighOrderFeed = async (setInform) => {
   const name = 'nicohoi-info'
@@ -23,57 +29,34 @@ const HighOrderFeed = async (setInform) => {
   }
 }
 
-const HighOrderExhibit = ({ Exhibit, renderDetail, setInform }) =>
-  HighOrderFeed(setInform)
-  .then(feed =>
-    feed([])
-    .then(({ posts, done }) => new Orph({ posts, done }))
-    .then(store => {
+const HighOrderExhibit = async ({ Exhibit, renderDetail, setInform }) => {
 
-      store.register({
-        UPDATE: HO_UPDATE(feed),
-        RENDER_DETAIL_THEN: ({ detail, isNew, index }, { state, render }) =>
-          renderDetail({ detail }).then(() =>
-            isNew &&
-            state('posts').then(posts => {
-              posts[index].isNew = false
-              setInform(posts.filter(({ isNew }) => isNew).length)
-              .then(() =>
-                render({ posts })
-              )
-            })
-          )
-      },{
-        use: {
-          render: true,
-          state: true
-        }
-      })
+  const feed = await HighOrderFeed(setInform)
+  const { posts, done } = await feed([])
 
-      return {
-        store,
-        actions: {
-          update: () => store.dispatch('UPDATE'),
-          renderDetailThen: (data) => store.dispatch('RENDER_DETAIL_THEN', data)
-        },
-        seasons: {
-          spring: <Spring />,
-          summer: <Summer />,
-          fall: <Fall />,
-          winter: <Winter />
-        }
-      }
-    })
-  )
-  .then(({ store, actions, seasons }) =>
-    () =>
-    <Domestic>
-      <Provider {...{ store }}>
-        <Exhibit {...{ actions, seasons }} />
-      </Provider>
-    </Domestic>
-  )
+  const initialState = (initialProps, prevState) => prevState || { posts, done }
 
+  const actions = {
+    UPDATE: HO_UPDATE(feed),
+    RENDER_DETAIL_THEN: ({ payload: { detail, isNew, index }, state, setState }) =>
+      renderDetail({ detail }).then(() =>
+        isNew &&
+        state('posts').then(Array.from).then(posts => {
+          posts[index].isNew = false
+          setInform(posts.filter(({ isNew }) => isNew).length).then(() => setState({ posts }))
+        })
+      )
+  }
+
+  const Consumer = ({ provided: { dispatch, state: { posts, done }} }) =>
+  <Exhibit {...{ posts, done, seasons }} actions={{
+    renderDetailThen: (data) => dispatch('RENDER_DETAIL_THEN', data),
+    update: () => dispatch('UPDATE')
+  }} />
+
+  const Redamed = Redam(initialState, actions, Consumer, { singleton: true })
+  return () => <Domestic><Redamed /></Domestic>
+}
 
 export default ({ Exhibit, Detail }) => ({
 
