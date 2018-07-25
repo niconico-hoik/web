@@ -10,7 +10,7 @@
 
 [![as?fetch=hast](../svg/preview.room.svg)](../svg/preview.room.svg)
 
-### 1日の過ごし方
+#### 1日の過ごし方
 
 [![as?fetch=hast](../svg/preview.day.svg)](../svg/preview.day.svg)
 
@@ -27,7 +27,7 @@
 
 -->
 
-### 1年の過ごし方
+#### 1年の過ごし方
 
 [![as?fetch=hast](../svg/preview.year.svg)](../svg/preview.year.svg)
 
