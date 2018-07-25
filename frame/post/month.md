@@ -16,7 +16,7 @@
 |日曜料金|￥3000|日曜日をご利用の場合|
 
 ##### 保育料:
-![as?fetch=hast](../svg/month.fee.svg)
+[![as?fetch=hast](../svg/month.fee.svg)](../svg/month.fee.svg)
 
 ### 毎日の持ち物
 

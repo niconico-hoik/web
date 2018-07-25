@@ -2,12 +2,11 @@
 <urlset
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+>
   <url>
-  
     <loc>https://niconico-hoik.com/</loc>
-    
-    <!--/image-->
     <image:image>
       <image:loc>https://niconico-hoik.com/image/top.mobile.jpg</image:loc>
     </image:image>
@@ -20,8 +19,9 @@
     <image:image>
       <image:loc>https://niconico-hoik.com/image/room.2.jpg</image:loc>
     </image:image>
-    
-    <!--/svg-->
+    <image:image>
+      <image:loc>https://niconico-hoik.com/image/trial.coupon.png</image:loc>
+    </image:image>
     <image:image>
       <image:loc>https://niconico-hoik.com/svg/month.fee.svg</image:loc>
     </image:image>
@@ -37,7 +37,6 @@
     <image:image>
       <image:loc>https://niconico-hoik.com/svg/temp.fee.svg</image:loc>
     </image:image>
-    
   </url>
   <url>
     <loc>https://niconico-hoik.com/post/month.html</loc>

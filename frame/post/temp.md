@@ -3,7 +3,7 @@
 ご利用は30分単位から可能です😼  
 20:00 ~ 23:00 のご利用は**前日までの予約が必要**となります。
 
-![as?fetch=hast](../svg/temp.fee.svg)
+[![as?fetch=hast](../svg/temp.fee.svg)](../svg/temp.fee.svg)
 
 #### 1日保育パック
 
