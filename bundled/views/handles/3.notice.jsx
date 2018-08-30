@@ -2,7 +2,7 @@ import React from 'react'
 import Redam from 'redam'
 import { Post as Button } from 'lonogara-sdk/button'
 import { generatePosts } from 'tumblrinbrowser'
-import postTransform from './transform'
+import postTransform from './transform/notice.text.js'
 import { env, HO_UPDATE, Domestic } from './util.js'
 import { Spring, Summer, Fall, Winter } from '../Icons.jsx'
 
@@ -19,10 +19,13 @@ const HighOrderFeed = async (setInform) => {
   const supply = await generatePosts({ api_key, proxy, name, params: { type: 'text' } })
 
   return async (posts) => {
+    
     posts = [].concat(posts)
+
     const { done, value: supplied_posts } = await supply()
 
     supplied_posts.forEach(post => posts.push(postTransform(post)))
+
     await setInform(posts.filter(({ isNew }) => isNew).length)
 
     return { done, posts }

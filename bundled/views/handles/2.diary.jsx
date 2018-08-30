@@ -3,8 +3,16 @@ import Redam from 'redam'
 import moment from 'moment'
 import { Camera as Button } from 'lonogara-sdk/button'
 import { generatePosts } from 'tumblrinbrowser'
-import postTransform from './transform'
+import diaryPhoto from './transform/diary.photo.js'
+import diaryVideo from './transform/diary.video.js'
+import diaryTextMock from './transform/diary.textmock.js'
 import { env, HO_UPDATE, Domestic } from './util.js'
+
+const postTransform = (post) =>
+  post.type === 'photo' ? diaryPhoto(post) :
+  post.type === 'video' ? diaryVideo(post) :
+  post.type === 'text' ? diaryTextMock(post) :
+  false
 
 const HighOrderFeed = async () => {
   // const name = 'cinnamonbirbs' // for local test
@@ -13,19 +21,24 @@ const HighOrderFeed = async () => {
   const supply = await generatePosts({ api_key, proxy, name })
   const validations = [
     ({ type }) => type === 'photo',
-    ({ type, video_type }) => type === 'video' && video_type === 'tumblr'
+    ({ type, video_type }) => type === 'video' && video_type === 'tumblr',
+    ({ type }) => type === 'text'
   ]
 
   return async (posts) => {
+
     posts = Object.assign({}, posts)
+
     const { done, value: supplied_posts } = await supply()
 
     supplied_posts
-    .filter((post) => validations.some((valid) => valid(post)))
-    .forEach((post) => {
-      const ym = moment.unix(post.timestamp).format('Y / M')
+    .filter(post => validations.some((valid) => valid(post)))
+    .map(post => ({ timestamp: post.timestamp, post: postTransform(post) }))
+    .filter(({ post }) => post)
+    .forEach(({ timestamp, post }) => {
+      const ym = moment.unix(timestamp).format('Y / M')
       posts[ym] = Array.isArray(posts[ym]) ? [].concat(posts[ym]) : []
-      posts[ym].push(postTransform(post))
+      posts[ym].push(post)
     })
 
     return { posts, done }

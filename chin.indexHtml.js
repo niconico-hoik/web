@@ -71,7 +71,7 @@ const Head = ({ children }) =>
 const DevIndexHtml = () =>
 <html lang="ja">
   <head>
-    {onerror}
+    {/* {onerror} */}
     <script defer={true} src="./dll.js" />
     <script defer={true} src="./bundle.js" />
   </head>
