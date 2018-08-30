@@ -11,7 +11,7 @@ const captionalTagNames = [
 ]
 
 export default ({ summary, body }) => {
-  
+
   const { body: bodyDOM } = parseFromString(body)
 
   return {
@@ -21,16 +21,10 @@ export default ({ summary, body }) => {
       body.includes('<h2') ? bodyDOM.querySelector('h2').innerText :
       summary
     ),
-    caption: (
-      Array
-      .from(bodyDOM.childNodes)
-      .map(({ tagName, innerHTML }) => {
-        const tag = tagName.toLowerCase()
-        return captionalTagNames.includes(tag) && `<${tag}>${innerHTML}</${tag}>`
-      })
-      .filter(html => html)
-      .join('')
-    ),
+    caption: Array.from(bodyDOM.childNodes).map(({ tagName, innerHTML }) => {
+      const tag = tagName.toLowerCase()
+      return captionalTagNames.includes(tag) ? `<${tag}>${innerHTML}</${tag}>` : ''
+    }).join(''),
     thumbnail_url: (bodyDOM.querySelector('video') || {}).poster,
     video_url: (bodyDOM.querySelector('source') || {}).src
   }
