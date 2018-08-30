@@ -1,24 +1,23 @@
 {
   "presets": [
-    "flow",
-    "react"
+    "@babel/preset-flow",
+    "@babel/preset-react"
   ],
   "plugins": [
-    ["transform-runtime", {
+    ["@babel/plugin-transform-runtime", {
       "helpers": false,
-      "polyfill": false,
       "regenerator": true
     }]
   ],
   "env": {
     "cjs": {
       "presets": [
-        ["env", { "targets": { "browsers": ["last 2 versions", "safari >= 7"] } }]
+        ["@babel/preset-env", { "targets": { "browsers": ["last 2 versions", "safari >= 7"] } }]
       ]
     },
     "esm": {
       "presets": [
-        ["env", { "targets": { "browsers": ["last 2 versions", "safari >= 7"] }, "modules": false }]
+        ["@babel/preset-env", { "targets": { "browsers": ["last 2 versions", "safari >= 7"] }, "modules": false }]
       ],
       "plugins": [
         "transform-react-constant-elements"
