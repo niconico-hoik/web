@@ -5,13 +5,19 @@ import { Camera as Button } from 'lonogara-sdk/button'
 import { generatePosts } from 'tumblrinbrowser'
 import diaryPhoto from './transform/diary.photo.js'
 import diaryVideo from './transform/diary.video.js'
-import diaryTextMock from './transform/diary.textmock.js'
+import text2video from './transform/diary.text2video.js'
 import { env, HO_UPDATE, Domestic } from './util.js'
 
 const postTransform = (post) =>
-  post.type === 'photo' ? diaryPhoto(post) :
-  post.type === 'video' ? diaryVideo(post) :
-  post.type === 'text' ? diaryTextMock(post) :
+  post.type === 'photo' ? diaryPhoto(post)
+  :
+  post.type === 'video' ? diaryVideo(post)
+  :
+  post.type === 'text' ?
+    post.body.includes('<video') ? diaryVideo(text2video(post))
+    :
+    false
+  :
   false
 
 const HighOrderFeed = async () => {
