@@ -4,7 +4,7 @@
 
 📞 [0725-56-3396](tel:0725563396)
 
-ご来園の際、保育士が見当たらない場合にはインターフォンよりお知らせください🙇
+ご来園の際、保育士が見当たらない場合には下記のインターフォンよりお知らせください🙇
 
 [![as?fetch=bloburl](../image/room.2.jpg)](../image/room.2.jpg)
 
@@ -31,6 +31,8 @@
 
 [![as?fetch=hast](../svg/preview.year.svg)](../svg/preview.year.svg)
 
+日々の模様は**ほいくダイヤリー**📷に随時アップしております。合わせて是非ご覧ください。
+
 <!--
 ![as?fetch=bloburl&className=preview_square](../image/preview.spring.jpg)
 ![as?fetch=bloburl&className=preview_square](../image/preview.summer.jpg)
@@ -41,7 +43,7 @@
 <!--
 #### [🌏地図🏃](https://drive.google.com/open?id=183-KK2iIdtZssIV-K_zXllTHb5YFmec4&usp=sharing)
 
-↑お散歩に利用する街のお気に入りスポットをまとめています。(随時更新) 
+↑お散歩に利用する街のお気に入りスポットをまとめています。(随時更新)
 -->
 
 
@@ -58,8 +60,7 @@
 [![as?fetch=bloburl](../image/trial.coupon.png)](../image/trial.coupon.png)
 <span style="font-size:0.6em;">> お試し保育のクーポンはこんな感じです😺</span>
 
-見学・お試し保育に限らず、ご不明な点等がございましたらお気軽にお問い合わせください📞
 
 ***
 
-日々の模様は**ほいくダイヤリー**に随時アップしております。合わせて是非ご覧ください。
+見学・お試し保育に限らず、ご不明な点等がございましたらお気軽にお問い合わせください📞
