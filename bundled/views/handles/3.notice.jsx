@@ -16,15 +16,20 @@ const seasons = {
 const HighOrderFeed = async (setInform) => {
   const name = 'nicohoi-info'
   const { api_key, proxy } = env()
-  const supply = await generatePosts({ api_key, proxy, name, params: { type: 'text' } })
+  const supply = await generatePosts({ api_key, proxy, name })
+  const validations = [
+    ({ type }) => type === 'text'
+  ]
 
   return async (posts) => {
-    
+
     posts = [].concat(posts)
 
     const { done, value: supplied_posts } = await supply()
 
-    supplied_posts.forEach(post => posts.push(postTransform(post)))
+    supplied_posts
+    .filter(post => validations.some((valid) => valid(post)))
+    .forEach(post => posts.push(postTransform(post)))
 
     await setInform(posts.filter(({ isNew }) => isNew).length)
 
