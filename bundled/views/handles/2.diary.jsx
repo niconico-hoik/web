@@ -6,6 +6,7 @@ import { generatePosts } from 'tumblrinbrowser'
 import diaryPhoto from './transform/diary.photo.js'
 import diaryVideo from './transform/diary.video.js'
 import text2video from './transform/diary.text2video.js'
+import text2photo from './transform/diary.text2photo.js'
 import { env, HO_UPDATE, Domestic } from './util.js'
 
 const postTransform = (post) =>
@@ -15,6 +16,8 @@ const postTransform = (post) =>
   :
   post.type === 'text' ?
     post.body.includes('<video') ? diaryVideo(text2video(post))
+    :
+    post.body.includes('<img') ? diaryPhoto(text2photo(post))
     :
     false
   :

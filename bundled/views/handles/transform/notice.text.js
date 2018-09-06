@@ -3,18 +3,17 @@ import moment from 'moment'
 import h2r from 'react-html-parser'
 import { processSync } from '../processor'
 import { parseFromString, nodes2array } from '../util.js'
+import { extractTitle } from './util.js'
 
 const SUMMARY_LENGTH = 12
 const PREFIX_TYPES = ['期限', 'limit']
 const EQUAL_TYPES = [' ', '=']
 const SPLIT_TYPES = ['/', '-']
 
-const separateBody = html => {
+const separateBody = bodyDOM => {
   const result = { html: undefined, limitString: undefined }
 
-  const { body } = parseFromString(html)
-
-  const pContainLimit = nodes2array(body.querySelectorAll('p')).find(
+  const pContainLimit = nodes2array(bodyDOM.querySelectorAll('p')).find(
     ({ innerText }) =>
       PREFIX_TYPES.some((prefix) =>
         EQUAL_TYPES.some((equal) =>
@@ -28,7 +27,7 @@ const separateBody = html => {
     pContainLimit.parentNode.removeChild(pContainLimit)
   }
 
-  result.html = processSync(body.innerHTML)
+  result.html = processSync(bodyDOM.innerHTML)
 
   return result
 }
@@ -42,11 +41,11 @@ export default ({
 }) => {
   const postMoment = moment.unix(timestamp)
   const date = postMoment.format('Y/M/D')
-  const { html, limitString } = separateBody(body)
-
+  const { body: bodyDOM } = parseFromString(body)
+  const { html, limitString } = separateBody(bodyDOM)
   return {
     date,
-    summary: createSummary(title || summary || slug),
+    summary: createSummary(extractTitle(bodyDOM) || title || summary || slug),
     season: monthToSeason(+postMoment.format('M')),
     isNew: (limitString ? moment(formatForISO(limitString)) : postMoment.add(10, 'days')).isAfter(moment()),
     detail: {
