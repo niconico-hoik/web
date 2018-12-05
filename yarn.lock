@@ -592,6 +592,12 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
+"@babel/runtime@^7.2.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.2.0.tgz#b03e42eeddf5898e00646e4c840fa07ba8dcad7f"
+  dependencies:
+    regenerator-runtime "^0.12.0"
+
 "@babel/template@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.0.0.tgz#c2bc9870405959c89a9c814376a2ecb247838c80"
@@ -6845,12 +6851,12 @@ react-html-parser@^2.0.2:
   dependencies:
     htmlparser2 "^3.9.0"
 
-"react-lonogara@https://github.com/lonogara/react-lonogara":
-  version "0.0.11"
-  resolved "https://github.com/lonogara/react-lonogara#0a1492e44ddeaa36f6be0a014b30084bea1e5d4f"
+"react-lonogara@https://github.com/lonogara/react-lonogara#0.0.12":
+  version "0.0.12"
+  resolved "https://github.com/lonogara/react-lonogara#f0a2c1da9db0753b804e56cd27415bf99faadf8d"
   dependencies:
+    "@babel/runtime" "^7.2.0"
     atra "^1.2.2"
-    babel-runtime "^6.26.0"
     orph "^3.0.7"
     react-centpn "^0.0.6"
     react-shut "^2.0.0"

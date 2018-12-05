@@ -73,6 +73,14 @@ const props = (isMobile) => ({
     : [],
     [
       {
+        href: 'https://twitter.com/niconico_hoik',
+        buttonImage: './image/twitter.png'
+      },
+      {
+        href: 'https://www.facebook.com/nicohoizumi/',
+        buttonImage: './image/facebook.png'
+      },
+      {
         href: 'https://bs.benefit-one.co.jp/bs/pages/bs/srch/menuPrticSrchRslt.faces?menuNo=643630',
         buttonImage: './image/benefit.png'
       },

@@ -37,7 +37,7 @@
     "react-centpn": "^0.0.7",
     "react-dom": "^16.4.2",
     "react-html-parser": "^2.0.2",
-    "react-lonogara": "https://github.com/lonogara/react-lonogara",
+    "react-lonogara": "https://github.com/lonogara/react-lonogara#0.0.12",
     "react-parade": "^0.0.1",
     "react-player": "^1.6.4",
     "redam": "^0.0.7",
