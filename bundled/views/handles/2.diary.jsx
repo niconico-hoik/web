@@ -75,7 +75,7 @@ const HighOrderExhibit = async ({ Exhibit, renderDetail }) => {
 
 export default ({ Exhibit, Detail }) => ({
 
-  head: 'ほいくダイヤリー',
+  head: 'ほいくダイアリー',
 
   Button,
 

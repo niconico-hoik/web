@@ -31,7 +31,7 @@
 
 [![as?fetch=hast](../svg/preview.year.svg)](../svg/preview.year.svg)
 
-日々の模様は**ほいくダイヤリー**📷に随時アップしております。合わせて是非ご覧ください。
+日々の模様は**ほいくダイアリー**📷に随時アップしております。合わせて是非ご覧ください。
 
 <!--
 ![as?fetch=bloburl&className=preview_square](../image/preview.spring.jpg)
