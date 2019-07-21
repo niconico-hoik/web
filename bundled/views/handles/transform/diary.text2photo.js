@@ -31,7 +31,9 @@ export default ({ summary, body }) => {
     caption: body2caption(bodyDOM),
     photoset_layout: imgs.map(() => 1).join(''),
     photos: imgs.map(({ src, dataset }) => {
-      const urls   = url2urls(src)
+      const urls = new URL(src).pathname.includes('tumblr_')
+      ? url2urls(src)
+      : [...new Array(sizes.length)].map(() => src)
       const height = +dataset['origHeight']
       const width  = +dataset['origWidth']
       return {
