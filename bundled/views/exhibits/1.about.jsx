@@ -14,15 +14,29 @@ export default (isMobile, { ExhibitLayout, Block }) => {
       <Block key={index}>
         <Cover {...a('BG_COLOR', { style: { backgroundColor } })} />
         <Cover {...a('BG_COVER')} />
-        <div {...a('WRAP')}>
+        <div {...a('WRAP', { style: { textDecoration: 'line-through' }})}>
           <div {...a('TITLE')}>{title}</div>
           <div {...a('DESCRIPTION')}>{description}</div>
         </div>
+        <div {...{
+          style: {
+            position: 'relative',
+            fontSize: '3em',
+            textAlign: 'center',
+            ...isMobile && {
+              top: -15,
+            }
+          }
+        }}>
+          {'🛠'}
+        </div>
+        {/*
         <Listener listener={() =>
           abouts[key].detail
             ? renderDetail({ elements: abouts[key].detail })
             : renderDetail({ simulationKey: key })}
         />
+        */}
       </Block>
       )}
     </ExhibitLayout>
