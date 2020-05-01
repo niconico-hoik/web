@@ -4,14 +4,14 @@ import { parseFromString, nodes2array } from '../util.js'
 export const processSync = (html) =>
   execPluginsSync(parseFromString(html).body, [
     pluginTargetBlank,
-    pluginTbodyModify
+    // pluginTbodyModify
   ])
   .innerHTML
 
 export const processAsync = (html, reference) =>
   execPluginsAsync(parseFromString(html).body, reference, [
     pluginTargetBlank,
-    pluginTbodyModify,
+    // pluginTbodyModify,
     pluginImgAs
   ])
   .then(body => body.innerHTML)

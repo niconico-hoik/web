@@ -10,14 +10,22 @@ export default (isMobile, { ExhibitLayout, Block }) => {
 
     ({ abouts, renderDetail }) =>
     <ExhibitLayout>
-      {Object.entries(abouts).map(([key, { title, description, backgroundColor }], index) =>
+      {Object.entries(abouts).map(([key, { title, description, backgroundColor, detail, unready }], index) =>
       <Block key={index}>
         <Cover {...a('BG_COLOR', { style: { backgroundColor } })} />
         <Cover {...a('BG_COVER')} />
-        <div {...a('WRAP', { style: { textDecoration: 'line-through' }})}>
+        <div {...a('WRAP', {
+          style: {
+            ...unready && {
+              textDecoration: 'line-through',
+            }
+          }
+        })}>
           <div {...a('TITLE')}>{title}</div>
           <div {...a('DESCRIPTION')}>{description}</div>
         </div>
+        
+        {unready ?
         <div {...{
           style: {
             position: 'relative',
@@ -26,17 +34,16 @@ export default (isMobile, { ExhibitLayout, Block }) => {
             ...isMobile && {
               top: -15,
             }
-          }
-        }}>
-          {'🛠'}
-        </div>
-        {/*
-        <Listener listener={() =>
-          abouts[key].detail
-            ? renderDetail({ elements: abouts[key].detail })
-            : renderDetail({ simulationKey: key })}
-        />
-        */}
+          },
+          children: '🛠',
+        }} />
+        :
+        <Listener listener={
+          detail
+          ? () => renderDetail({ elements: detail })
+          : () => renderDetail({ simulationKey: key })
+        } />}
+        
       </Block>
       )}
     </ExhibitLayout>
