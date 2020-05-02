@@ -616,7 +616,7 @@
 }
 
 .markdown-body thead {
-  line-height: 0.8em;
+  /*line-height: 0.8em;*/
 }
 
 .markdown-body table tr {
