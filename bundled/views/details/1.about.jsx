@@ -156,7 +156,7 @@ export default (isMobile) => {
     ROOT: {
       style: isMobile ? {
         color: 'rgb(72, 72, 72)',
-        letterSpacing: 2
+        letterSpacing: 4,
       } : {
         color: 'rgb(72, 72, 72)',
         letterSpacing: 2,
