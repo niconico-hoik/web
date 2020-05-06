@@ -8,7 +8,7 @@ export default (isMobile) => {
       margin: '0px 7%',
       fontSize: '2.6em',
       color: 'rgb(72, 72, 72)',
-      letterSpacing: 2
+      letterSpacing: 4
     } : {
       margin: '0px 10%',
       fontSize: '1.3em',

@@ -117,7 +117,7 @@ export default (isMobile) => {
   const attributesMarkdown = {
     className: 'markdown-body',
     style: isMobile ? {
-      margin: '0px 7%',
+      margin: '0px 4%',
       fontSize: '2.6em'
     } : {
       margin: '0px 10%'
@@ -146,14 +146,17 @@ export default (isMobile) => {
       </div>
 
       : <div {...a('ROOT', attributesSimulation)}>
-        {jsx(simulations[simulationKey], { isContinued })}
+        {
+          !!simulations[simulationKey] &&
+          jsx(simulations[simulationKey], { isContinued })
+        }
       </div>
 
   )(Atra({
     ROOT: {
       style: isMobile ? {
         color: 'rgb(72, 72, 72)',
-        letterSpacing: 2
+        letterSpacing: 4,
       } : {
         color: 'rgb(72, 72, 72)',
         letterSpacing: 2,

@@ -100,7 +100,7 @@ const HoMobile = () => {
         marginLeft: '4%',
         color: 'rgb(72, 72, 72)',
         fontSize: '2.6em',
-        letterSpacing: 3,
+        letterSpacing: 4,
         lineHeight: 2,
         overflowX: 'hidden'
       }
