@@ -5,7 +5,7 @@ export default (isMobile) => {
   const attributes = {
     className: 'markdown-body',
     style: isMobile ? {
-      margin: '0px 7%',
+      margin: '0px 4%',
       fontSize: '2.6em',
       color: 'rgb(72, 72, 72)',
       letterSpacing: 4

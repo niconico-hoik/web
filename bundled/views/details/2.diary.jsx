@@ -95,6 +95,7 @@ const HoMobile = () => {
 
   )(Atra({
     CAPTION: {
+      className: 'markdown-body',
       style: {
         width: '85%',
         marginLeft: '4%',
@@ -166,6 +167,7 @@ const HoDesktop = () => {
 
   )(Atra({
     CAPTION: {
+      className: 'markdown-body',
       style: {
         width: '90%',
         marginTop: 10,

@@ -45,7 +45,8 @@ const props = (isMobile) => ({
     sub: 'rgb(255, 255, 255)',
     background: 'rgba(242, 242, 242, 0.78)',
     preloader: 'rgb(241, 241, 241)',
-    detail: 'rgb(243, 243, 243)',
+    // detail: 'rgb(243, 243, 243)',
+    detail: 'rgb(250, 250, 250)',
     detailQuit: 'rgb(201, 201, 201)',
     links: 'rgb(183, 220, 197)'
   } : {
