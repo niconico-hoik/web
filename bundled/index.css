@@ -250,8 +250,8 @@
 
 .markdown-body table {
   border-spacing: 0;
-  border-collapse: collapse;
-  /*border-collapse: separate;*/
+  /*border-collapse: collapse;*/
+  border-collapse: separate;
 }
 
 .markdown-body td,
@@ -621,6 +621,8 @@
   /*color: #ffffff;*/
   color: #3a6f4b;
   background: rgb(253, 253, 253);
+  /*border-left: solid #114e33 0.3em;*/
+  /*border-bottom: solid #114e33 0.3em;*/
 }
 
 .markdown-body table th {
@@ -631,6 +633,14 @@
   padding: 0px 30px;
   line-height: 2.75;
 }
+
+/*.markdown-body td:first-child {*/
+/*  border-left: solid #114e33 0.3em;*/
+/*}*/
+
+/*.markdown-body tr:last-child > td {*/
+/*  border-bottom: solid #114e33 0.3em;*/
+/*}*/
 
 .markdown-body table td {
   /* padding: 6px 13px; */
