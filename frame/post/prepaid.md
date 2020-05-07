@@ -7,7 +7,10 @@
 -->
 <style>
 .timezone {
-  font-size: 0.75em;
+  font-size: 0.60em;
+}
+.caution {
+  font-size: 0.50em;
 }
 </style>
 
@@ -28,11 +31,21 @@
 
 |🕓|1歳以上 👧|1歳未満 👶|
 |:-:|:-:|:-:|
-|<div class='timezone'>*07:00~<br>08:00*</div>|**¥450/h**|**¥620/h**|
-|<div class='timezone'>*08:00~<br>18:00*</div>|<div style='text-align:right;'>*~119h*: **¥300/h**<br>*120h~*: **¥250/h**<br>*250h~*: **¥220/h**</div>|<div style='text-align:right;'>*~119h*: **¥480/h**<br>*120h~*: **¥420/h**</div>|
+|<div class='timezone'>*7:00~<br>8:00*</div>|**¥450/h**|**¥620/h**|
+|<div class='timezone'>*8:00~<br>18:00*</div>|<div style='text-align:right;'>*~119h*: **¥300/h**<br>*120h~*: **¥250/h**<br>*250h~*: **¥220/h**</div>|<div style='text-align:right;'>*~119h*: **¥480/h**<br>*120h~*: **¥420/h**</div>|
 |<div class='timezone'>*18:00~<br>20:00*</div>|**¥450/h**|**¥620/h**|
 |<div class='timezone'>*20:00~<br>23:00*</div>|**¥900/h**|**¥900/h**|
+<!--
 > 下部に保育料の例がございます。併せてご参照ください。
+-->
+#### 例. 1歳以上のお子さまを7:00~18:30で合計12日（おおまかに週3日）預ける予定の場合
+|🕓|時間量 ⏳|保育料 💡|
+|:-:|-:|-:|
+|<div class='timezone'>*7:00~<br>8:00*</div>|*12h*<div class='caution'>*(1h × 12d)*</div>|*¥5400*<div class='caution'>*(12h × ¥450/h)*</div>|
+|<div class='timezone'>*8:00~<br>18:00*</div>|*120h*<div class='caution'>*(10h × 12d)*</div>|*¥30000*<div class='caution'>*(120h × ¥250/h)*</div>|
+|<div class='timezone'>*18:00~<br>20:00*</div>|*6h*<div class='caution'>*(0.5h × 12d)*</div>|*¥2700*<div class='caution'>*(6h × ¥450/h)*</div>|
+|<div class='timezone'>*20:00~<br>23:00*</div>|*0h*<div class='caution'>*(0h × 12d)*</div>|*¥0*<div class='caution'>*(0h × ¥900/h)*</div>|
+|<div class='timezone'>*total*</div>|*138h*|***¥38100***|
 
 ## 🎒 持ち物
 
@@ -90,7 +103,8 @@
 ##### 1歳未満の繰上
 - *105h ~ 119h → 120h: ¥50400*
 
-## 🧐 例
+<!--
+## 📅 例
 
 便宜上、以下は全て【1歳以上のお子さま】に統一することとします。
 
@@ -129,6 +143,7 @@
 |<div class='timezone'>*18:00~<br>20:00*</div>|*2h × 8d<br>= 16h*|***¥7200***|
 |<div class='timezone'>*20:00~<br>23:00*</div>|*0h × 4d<br>= 0h*|***¥0***|
 |<div class='timezone'>*total*</div>|*104h*|**¥33600**|
+-->
 
 ***
 料金や持ち物に関わらず、ご不明な点等がございましたらお気軽にご相談ください☎️
