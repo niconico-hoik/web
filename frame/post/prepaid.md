@@ -1,16 +1,13 @@
 ﻿# ⽉極/プリペイド
-
-<!--
-<h3 style='margin-top:48px;'>
-⽉極/プリペイド
-</h3>
--->
 <style>
 .timezone {
 	font-size: 0.60em;
 }
 .caution {
 	font-size: 0.50em;
+}
+.separate {
+	font-size: 0.85em;
 }
 .question {
 	color: #6f5050;
@@ -50,45 +47,16 @@
 |<div class='timezone'>8:00~<br>18:00</div>|<div style='text-align:right;'>~119h: **¥300/h**<br>120h~: **¥250/h**<br>250h~: **¥220/h**</div>|<div style='text-align:right;'>~119h: **¥480/h**<br>120h~: **¥420/h**</div>|
 |<div class='timezone'>18:00~<br>20:00</div>|**¥450/h**|**¥620/h**|
 |<div class='timezone'>20:00~<br>23:00</div>|**¥900/h**|**¥900/h**|
-<!--
-> 下部に保育料の例がございます。併せてご参照ください。
--->
-#### 例. 1歳以上のお子さまを7:00~18:30で合計12日（おおまかに週3日）預ける予定の場合
-<!--
-```
-12h × ¥450/h = ¥5400
-120h × ¥250/h = ¥30000
-6h × ¥450/h = ¥2700
-0h × ¥900/h = ¥0
-```
--->
-<!--
-##### 7:00~8:00
-```
-12h × ¥450/h = ¥5400
-```
-##### 8:00~18:00
-```
-120h × ¥250/h = ¥30000
-```
-##### 18:00~20:00
-```
-6h × ¥450/h = ¥2700
-```
-##### 20:00~23:00
-```
-0h × ¥900/h = ¥0
-```
-|🕓|時間量 ⏳|保育料 💡|
--->
+
+##### 例. 1歳以上のお子さまを7:00~18:30で合計12日（おおまかに週3日）預ける予定の場合
 
 ||||
-|-:|-:|-:|
-|<div class='timezone'>7:00~8:00</div>|<div class='caution'>*(1h × 12d)*</div>12h|<div class='caution'>*(12h × ¥450/h)*</div>¥5400|
-|<div class='timezone'>8:00~18:00</div>|<div class='caution'>*(10h × 12d)*</div>120h|<div class='caution'>*(120h × ¥250/h)*</div>¥30000|
-|<div class='timezone'>18:00~20:00</div>|<div class='caution'>*(0.5h × 12d)*</div>6h|<div class='caution'>*(6h × ¥450/h)*</div>¥2700|
-|<div class='timezone'>20:00~23:00</div>|<div class='caution'>*(0h × 12d)*</div>0h|<div class='caution'>*(0h × ¥900/h)*</div>¥0|
-|<div class='timezone'>*total*</div>|138h|**¥38100**|
+|:-:|-:|-:|
+|<div class='separate'>**7:00~8:00**</div>|<div class='caution'>*(1h × 12d)*</div>**12h**|<div class='caution'>*(12h × ¥450/h)*</div>**¥5400**|
+|<div class='separate'>**8:00~18:00**</div>|<div class='caution'>*(10h × 12d)*</div>**120h**|<div class='caution'>*(120h × ¥250/h)*</div>**¥30000**|
+|<div class='separate'>**18:00~20:00**</div>|<div class='caution'>*(0.5h × 12d)*</div>**6h**|<div class='caution'>*(6h × ¥450/h)*</div>**¥2700**|
+|<div class='separate'>**20:00~23:00**</div>|<div class='caution'>*(0h × 12d)*</div>**0h**|<div class='caution'>*(0h × ¥900/h)*</div>**¥0**|
+|<div class='separate'>**合計**</div>|**138h**|**¥38100**|
 
 ## 🎒 持ち物
 
@@ -134,6 +102,13 @@
 <div class='answer'>
 
 今現在、保育可能時間を繰り越せる仕組みは整っておりません。ご利用の際はあらかじめご了承ください。
+
+</div>
+
+#### <span class='question'>Q. 1週間の予定を変えずにサイクルしているのに月によって保育料が変わるのは何故？</span>
+<div class='answer'>
+
+月によって曜日毎の日数は4日or5日と変わります。保育料は純粋な時間量をもとに計算されるため、曜日固定のスケジュールでサイクルした場合は保育料に多少のバラつきが生じます。
 
 </div>
 
