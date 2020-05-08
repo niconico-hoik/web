@@ -474,7 +474,7 @@
   /*margin-bottom: 20px;*/
   /*margin-bottom: 70px;*/
   /*font-weight: 100;*/
-  line-height: 1.25;
+  line-height: 1.5;
 }
 
 .markdown-body h2,
@@ -485,17 +485,17 @@
   /*margin-bottom: 20px;*/
   /*margin-bottom: 70px;*/
   /*font-weight: 100;*/
-  line-height: 1.25;
+  line-height: 1.5;
 }
 
 .markdown-body h4,
 .markdown-body h5,
 .markdown-body h6 {
-  margin-top: 60px;
+  margin-top: 80px;
   margin-bottom: 30px;
   /*margin-bottom: 40px;*/
   /*font-weight: 600;*/
-  line-height: 1.25;
+  line-height: 1.5;
 }
 
 .markdown-body h1 .octicon-link,
@@ -612,14 +612,16 @@
   /*line-height: 0.8em;*/
   /* background: #3a6f4b; */
   color: #ffffff;
-  background: #114e33;
+  /*background: #114e33;*/
+  background: #2c7962;
 }
 
 .markdown-body tbody {
   /*line-height: 0.8em;*/
   /* background: #3a6f4b; */
   /*color: #ffffff;*/
-  color: #3a6f4b;
+  /*color: #3a6f4b;*/
+  color: #2c7962;
   background: rgb(253, 253, 253);
   /*border-left: solid #114e33 0.3em;*/
   /*border-bottom: solid #114e33 0.3em;*/

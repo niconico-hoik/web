@@ -12,6 +12,21 @@
 .caution {
 	font-size: 0.7em;
 }
+.question {
+	color: #6f5050;
+}
+.answer {
+	 padding: 1.2em 1em 1.2em;
+	 color: #636363;
+	 font-size: 0.8em;
+	 line-height: 1.8;
+	 background: #ffffff;
+	 border-radius: 8px;
+	 border: solid 0.15em #e4e4e4;
+}
+.answer > p:last-child {
+	margin-bottom:  0;
+}
 </style>
 
 ご利用は30分単位から可能です👌
@@ -62,11 +77,19 @@
 
 ## 🤔 FAQ
 
-#### Q. 利用するのに必要な書類はある？
+#### <span class='question'>Q. 利用するのに必要な書類はある？</span>
+<div class='answer'>
+
 上記の持ち物に加えて【氏名】【住所】【電話番号】を用紙に記入して頂くだけでOKです。
 
-#### Q. 頻繁に利用するので保育料が高額になって困る…
+</div>
+
+#### <span class='question'>Q. 頻繁に利用するので保育料が高額になって困る…</span>
+<div class='answer'>
+
 月極/プリペイドが**月50時間**からご利用できますので、一時預かりを頻繁にご利用の方は是非ご相談下さい。
+
+</div>
 
 ***
 料金や持ち物に関わらず、ご不明な点等がございましたらお気軽にご相談ください☎️
