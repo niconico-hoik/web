@@ -601,9 +601,10 @@
 }
 
 .markdown-body table {
-  display: block;
+  /*display: block;*/
+  /*overflow: auto;*/
   width: 100%;
-  overflow: auto;
+  margin: 0;
   /*color: #3a6f4b;*/
   /*border-color: #cee0d4;*/
 }
@@ -657,7 +658,7 @@
   /*border-color: #797979;*/
   /*border-color: #e8e8e8;*/
   /*padding: 18px 24px;*/
-  padding: 26px 30px;
+  padding: 36px 30px;
   white-space: nowrap;
   /*border-color: #dcdcdc;*/
   /*border-color: #e2e2e2;*/

@@ -37,19 +37,19 @@
 
 ## 📝 料金
 
-1. **入園料** *¥6000*
-2. **給食費** *¥330/食*
-3. **諸経費** *¥500/月*
-4. **保育料** *¥????*
+1. 入園料 **¥6000**
+2. 給食費 **¥330/食**
+3. 諸経費 **¥500/月**
+4. 保育料 **¥????**
 
 ### 保育料
 
 |🕓|1歳以上 👧|1歳未満 👶|
 |:-:|:-:|:-:|
-|<div class='timezone'>*7:00~<br>8:00*</div>|**¥450/h**|**¥620/h**|
-|<div class='timezone'>*8:00~<br>18:00*</div>|<div style='text-align:right;'>*~119h*: **¥300/h**<br>*120h~*: **¥250/h**<br>*250h~*: **¥220/h**</div>|<div style='text-align:right;'>*~119h*: **¥480/h**<br>*120h~*: **¥420/h**</div>|
-|<div class='timezone'>*18:00~<br>20:00*</div>|**¥450/h**|**¥620/h**|
-|<div class='timezone'>*20:00~<br>23:00*</div>|**¥900/h**|**¥900/h**|
+|<div class='timezone'>7:00~<br>8:00</div>|**¥450/h**|**¥620/h**|
+|<div class='timezone'>8:00~<br>18:00</div>|<div style='text-align:right;'>~119h: **¥300/h**<br>120h~: **¥250/h**<br>250h~: **¥220/h**</div>|<div style='text-align:right;'>~119h: **¥480/h**<br>120h~: **¥420/h**</div>|
+|<div class='timezone'>18:00~<br>20:00</div>|**¥450/h**|**¥620/h**|
+|<div class='timezone'>20:00~<br>23:00</div>|**¥900/h**|**¥900/h**|
 <!--
 > 下部に保育料の例がございます。併せてご参照ください。
 -->
@@ -79,15 +79,16 @@
 ```
 0h × ¥900/h = ¥0
 ```
+|🕓|時間量 ⏳|保育料 💡|
 -->
 
-|🕓|時間量 ⏳|保育料 💡|
-|:-:|-:|-:|
-|<div class='timezone'>*7:00~<br>8:00*</div>|*12h*<div class='caution'>*(1h × 12d)*</div>|*¥5400*<div class='caution'>*(12h × ¥450/h)*</div>|
-|<div class='timezone'>*8:00~<br>18:00*</div>|*120h*<div class='caution'>*(10h × 12d)*</div>|*¥30000*<div class='caution'>*(120h × ¥250/h)*</div>|
-|<div class='timezone'>*18:00~<br>20:00*</div>|*6h*<div class='caution'>*(0.5h × 12d)*</div>|*¥2700*<div class='caution'>*(6h × ¥450/h)*</div>|
-|<div class='timezone'>*20:00~<br>23:00*</div>|*0h*<div class='caution'>*(0h × 12d)*</div>|*¥0*<div class='caution'>*(0h × ¥900/h)*</div>|
-|<div class='timezone'>*total*</div>|*138h*|***¥38100***|
+||||
+|-:|-:|-:|
+|<div class='timezone'>7:00~8:00</div>|<div class='caution'>*(1h × 12d)*</div>12h|<div class='caution'>*(12h × ¥450/h)*</div>¥5400|
+|<div class='timezone'>8:00~18:00</div>|<div class='caution'>*(10h × 12d)*</div>120h|<div class='caution'>*(120h × ¥250/h)*</div>¥30000|
+|<div class='timezone'>18:00~20:00</div>|<div class='caution'>*(0.5h × 12d)*</div>6h|<div class='caution'>*(6h × ¥450/h)*</div>¥2700|
+|<div class='timezone'>20:00~23:00</div>|<div class='caution'>*(0h × 12d)*</div>0h|<div class='caution'>*(0h × ¥900/h)*</div>¥0|
+|<div class='timezone'>*total*</div>|138h|**¥38100**|
 
 ## 🎒 持ち物
 
