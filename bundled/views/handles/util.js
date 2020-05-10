@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import h2r from 'react-html-parser'
+import h2r, { convertNodeToElement } from 'react-html-parser'
 import { processAsync } from './processor'
 import { numToArr } from '../util.js'
 export { numToArr }
@@ -25,7 +25,26 @@ export const f2r = (src) =>
   fetch(src)
   .then(res => res.text())
   .then(html => processAsync(html, src))
-  .then(html => h2r(html))
+  .then(html => {
+    return h2r(html, {
+      transform: (node, index) => {
+        switch(node.name) {
+          case 'table': {
+            return <div {...{
+              key: index,
+              children: convertNodeToElement(node),
+              style: {
+                overflow: 'auto',
+              },
+            }}/>
+          }
+          default: {
+            return undefined
+          }
+        }
+      }
+    })
+  })
 
 export class Domestic extends Component {
   render() { return this.props.children }
