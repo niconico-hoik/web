@@ -1,10 +1,5 @@
 ﻿# 一時預かり/ポストペイド
 
-<!--
-<h3 style='margin-top:48px;'>
-一時預かり/ポストペイド
-</h3>
--->
 <style>
 .timezone {
 	font-size: 0.75em;

@@ -23,9 +23,6 @@
       <image:loc>https://niconico-hoik.com/image/trial.coupon.png</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://niconico-hoik.com/svg/month.fee.svg</image:loc>
-    </image:image>
-    <image:image>
       <image:loc>https://niconico-hoik.com/svg/preview.day.svg</image:loc>
     </image:image>
     <image:image>
@@ -35,16 +32,10 @@
       <image:loc>https://niconico-hoik.com/svg/preview.year.svg</image:loc>
     </image:image>
     <image:image>
-      <image:loc>https://niconico-hoik.com/svg/temp.fee.svg</image:loc>
+      <image:loc>https://niconico-hoik.com/svg/prepaid.8_18.infant.svg</image:loc>
     </image:image>
-  </url>
-  <url>
-    <loc>https://niconico-hoik.com/post/month.html</loc>
-  </url>
-  <url>
-    <loc>https://niconico-hoik.com/post/preview.html</loc>
-  </url>
-  <url>
-    <loc>https://niconico-hoik.com/post/temp.html</loc>
+    <image:image>
+      <image:loc>https://niconico-hoik.com/svg/prepaid.8_18.baby.svg</image:loc>
+    </image:image>
   </url>
 </urlset>
