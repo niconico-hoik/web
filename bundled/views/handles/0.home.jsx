@@ -6,7 +6,7 @@ const HighOrderExhibit = ({ Exhibit, renderDetail }) => {
   const informations = {
     name: 'ニコニコ保育園 和泉中央園',
     postal: '〒594-1105',
-    address: '大阪府和泉市のぞみ野三丁目1237-58',
+    address: '大阪府和泉市のぞみ野3丁目4-17',
     building: 'Shima.B.L.D.G 1F',
     tel: '0725-56-3396'
   }
