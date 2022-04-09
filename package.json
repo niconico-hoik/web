@@ -30,7 +30,7 @@
     "@babel/runtime": "^7.0.0",
     "atra": "^1.2.3",
     "lonogara-sdk": "https://github.com/lonogara/sdk#0.0.8",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "niconico-hoik-price": "https://github.com/niconico-hoik/price#0.0.4",
     "orph": "^3.0.7",
     "react": "^16.4.2",
