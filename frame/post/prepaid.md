@@ -43,20 +43,20 @@
 
 |🕓|1歳以上 👧|1歳未満 👶|
 |:-:|:-:|:-:|
-|<div class='timezone'>7:00~<br>8:00</div>|**¥450/h**|**¥620/h**|
-|<div class='timezone'>8:00~<br>18:00</div>|<div style='text-align:right;'>~119h: **¥300/h**<br>120h~: **¥250/h**<br>250h~: **¥220/h**</div>|<div style='text-align:right;'>~119h: **¥480/h**<br>120h~: **¥420/h**</div>|
-|<div class='timezone'>18:00~<br>20:00</div>|**¥450/h**|**¥620/h**|
-|<div class='timezone'>20:00~<br>23:00</div>|**¥900/h**|**¥900/h**|
+|<div class='timezone'>7:00~<br>8:00</div>|**¥540/h**|**¥680/h**|
+|<div class='timezone'>8:00~<br>18:00</div>|<div style='text-align:right;'>\~119h: **¥360/h**<br>120h\~: **¥300/h**</div>|<div style='text-align:right;'>\~119h: **¥500/h**<br>120h\~: **¥450/h**</div>|
+|<div class='timezone'>18:00~<br>20:00</div>|**¥540/h**|**¥680/h**|
+|<div class='timezone'>20:00~<br>23:00</div>|**¥1080/h**|**¥1080/h**|
 
 ##### 例. 1歳以上のお子さまを7:00~18:30で合計12日（おおまかに週3日）預ける予定の場合
 
 ||||
 |:-:|-:|-:|
-|<div class='separate'>**7:00~8:00**</div>|<div class='caution'>*(1h × 12d)*</div>**12h**|<div class='caution'>*(12h × ¥450/h)*</div>**¥5400**|
-|<div class='separate'>**8:00~18:00**</div>|<div class='caution'>*(10h × 12d)*</div>**120h**|<div class='caution'>*(120h × ¥250/h)*</div>**¥30000**|
-|<div class='separate'>**18:00~20:00**</div>|<div class='caution'>*(0.5h × 12d)*</div>**6h**|<div class='caution'>*(6h × ¥450/h)*</div>**¥2700**|
-|<div class='separate'>**20:00~23:00**</div>|<div class='caution'>*(0h × 12d)*</div>**0h**|<div class='caution'>*(0h × ¥900/h)*</div>**¥0**|
-|<div class='separate'>**合計**</div>|**138h**|**¥38100**|
+|<div class='separate'>**7:00~8:00**</div>|<div class='caution'>*(1h × 12d)*</div>**12h**|<div class='caution'>*(12h × ¥540/h)*</div>**¥6480**|
+|<div class='separate'>**8:00~18:00**</div>|<div class='caution'>*(10h × 12d)*</div>**120h**|<div class='caution'>*(120h × ¥300/h)*</div>**¥36000**|
+|<div class='separate'>**18:00~20:00**</div>|<div class='caution'>*(0.5h × 12d)*</div>**6h**|<div class='caution'>*(6h × ¥540/h)*</div>**¥3240**|
+|<div class='separate'>**20:00~23:00**</div>|<div class='caution'>*(0h × 12d)*</div>**0h**|<div class='caution'>*(0h × ¥1080/h)*</div>**¥0**|
+|<div class='separate'>**合計**</div>|**138h**|**¥45720**|
 
 ## 🎒 持ち物
 
@@ -86,8 +86,8 @@
 追加購⼊は**月30時間**より受け付けております。スケジュールの見通しが立たない場合は予定が確定したタイミング毎に購入いただけます。
 
 ##### 最低価格
-- 1歳以上: **¥9000** (30h × ¥300/h)
-- 1歳未満: **¥14400** (30h × ¥480/h)
+- 1歳以上: **¥10800** (30h × ¥360/h)
+- 1歳未満: **¥15000** (30h × ¥500/h)
 </div>
 
 #### <span class='question'>Q. 仕事の時間が不安定で、日によって利用したい時間帯が変わるけど大丈夫？</span>
@@ -141,29 +141,29 @@
 
 時間量によって料金が変わる08:00~18:00では、例えば1歳以上のお子さまであれば以下のような計算が起こってしまいます。
 
-- _119h × ¥300 = **¥35700**_
-- _120h × ¥250 = **¥30000**_
+- _119h × ¥350 = **¥41650**_
+- _120h × ¥300 = **¥36000**_
 
 こういった事態を避けて適正な価格を保つために特定の保育時間は繰り上げられます。繰り上げに該当した場合は予定よりも少しゆとりをもってご利用いただける形となります。
 
 ##### 1歳以上の繰上
 <div class='nomargin'>
 
-[![as?fetch=hast](./svg/prepaid.8_18.infant.svg)](./svg/prepaid.8_18.infant.svg)
+<!-- [![as?fetch=hast](./svg/prepaid.8_18.infant.svg)](./svg/prepaid.8_18.infant.svg) -->
 
 </div>
 
-- *100h ~ 119h → 120h: ¥30000*
-- *220h ~ 249h → 250h: ¥55000*
+- *100h ~ 119h → 120h: ¥36000*
+<!-- - *220h ~ 249h → 250h: ¥55000* -->
 
 ##### 1歳未満の繰上
 <div class='nomargin'>
 
-[![as?fetch=hast](./svg/prepaid.8_18.baby.svg)](./svg/prepaid.8_18.baby.svg)
+<!-- [![as?fetch=hast](./svg/prepaid.8_18.baby.svg)](./svg/prepaid.8_18.baby.svg) -->
 
 </div>
 
-- *105h ~ 119h → 120h: ¥50400*
+- *108h ~ 119h → 120h: ¥54000*
 
 </div>
 
