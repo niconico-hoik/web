@@ -28,10 +28,10 @@
 
 ## 📝 料金
 
-|🕓|1歳以上 👧|1歳未満 👶|
+|🕓|1歳以上👧|0歳👶|
 |:-:|:-:|:-:|
-|<div class='timezone'>7:00~<br>8:00</div>|**¥1320/h**|**¥1540/h**|
-|<div class='timezone'>8:00~<br>18:00</div>|**¥600/h**|**¥750/h**|
+|<div class='timezone'>07:00~<br>08:00</div>|**¥1320/h**|**¥1540/h**|
+|<div class='timezone'>08:00~<br>18:00</div>|**¥600/h**|**¥750/h**|
 |<div class='timezone'>18:00~<br>20:00</div>|**¥1320/h**|**¥1540/h**|
 |<div class='timezone'>20:00~<br>23:00\*</div>|**¥1920/h**|**¥2200/h**|
 <span class='caution'>
