@@ -42,6 +42,7 @@
 ## 📝 料金
 
 #### 入園料 ¥6000
+入園料は以下を含みます
 - 通園バッグ
 - タレ付き帽子
 - 連絡ノート（1冊目のみ）
@@ -54,17 +55,17 @@
 
 |🕓|1歳以上 👧|1歳未満 👶|
 |:-:|:-:|:-:|
-|<div class='timezone'>7:00~<br>8:00</div>|**¥580/h**|**¥720/h**|
-|<div class='timezone'>8:00~<br>18:00</div>|<div style='text-align:right;'>\~105h: **¥400/h**<br>120h\~: **¥350/h**</div>|**¥520/h**|
-|<div class='timezone'>18:00~<br>20:00</div>|**¥580/h**|**¥720/h**|
-|<div class='timezone'>20:00~<br>23:00</div>|**¥1160/h**|**¥1160/h**|
+|<div class='timezone'>07:00~08:00</div>|**¥580/h**|**¥720/h**|
+|<div class='timezone'>08:00~18:00</div>|<div style='text-align:right;'>\~105h: **¥400/h**<br>120h\~: **¥350/h**</div>|**¥520/h**|
+|<div class='timezone'>18:00~20:00</div>|**¥580/h**|**¥720/h**|
+|<div class='timezone'>20:00~23:00</div>|**¥1160/h**|**¥1160/h**|
 
 ##### 例. 1歳以上のお子さまを7:00~18:30で合計12日（おおまかに週3日）預ける予定の場合
 
 ||||
 |:-:|-:|-:|
-|<div class='separate'>**7:00~8:00**</div>|<div class='caution'>*(1h × 12d)*</div>**12h**|<div class='caution'>*(12h × ¥580/h)*</div>**¥6960**|
-|<div class='separate'>**8:00~18:00**</div>|<div class='caution'>*(10h × 12d)*</div>**120h**|<div class='caution'>*(120h × ¥350/h)*</div>**¥42000**|
+|<div class='separate'>**07:00~08:00**</div>|<div class='caution'>*(1h × 12d)*</div>**12h**|<div class='caution'>*(12h × ¥580/h)*</div>**¥6960**|
+|<div class='separate'>**08:00~18:00**</div>|<div class='caution'>*(10h × 12d)*</div>**120h**|<div class='caution'>*(120h × ¥350/h)*</div>**¥42000**|
 |<div class='separate'>**18:00~20:00**</div>|<div class='caution'>*(0.5h × 12d)*</div>**6h**|<div class='caution'>*(6h × ¥580/h)*</div>**¥3480**|
 |<div class='separate'>**20:00~23:00**</div>|<div class='caution'>*(0h × 12d)*</div>**0h**|<div class='caution'>*(0h × ¥1160/h)*</div>**¥0**|
 |<div class='separate'>**合計**</div>|**138h**|**¥52440**|
@@ -77,13 +78,14 @@
 - スプーン+フォーク
 - 食事用エプロン
 - スタイ
-- おやつ（9:45と17:15に機会あり）
-- 連絡ノート（1冊目は当園が用意）
+- おやつ（9:45と17:15）
+- 連絡ノート
 
 #### お預かりする物
 - 歯ブラシ+コップ
 - ミルク+哺乳瓶
 - オムツ
+- ビニール袋
 - 着替えの服一式
 - 母子手帳のコピー
 - 健康保険証のコピー
@@ -192,4 +194,4 @@
 </div>
 
 ***
-その他ご不明な点がございましたら[0725-56-3396](tel:0725563396)までお気軽にご相談ください😉
+その他ご不明な点がございましたら [0725-56-3396](tel:0725563396) までお気軽にご相談ください😉
