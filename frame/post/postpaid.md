@@ -30,10 +30,10 @@
 
 |🕓|1歳以上👧|0歳👶|
 |:-:|:-:|:-:|
-|<div class='timezone'>07:00~<br>08:00</div>|**¥1320/h**|**¥1540/h**|
-|<div class='timezone'>08:00~<br>18:00</div>|**¥600/h**|**¥750/h**|
-|<div class='timezone'>18:00~<br>20:00</div>|**¥1320/h**|**¥1540/h**|
-|<div class='timezone'>20:00~<br>23:00\*</div>|**¥1920/h**|**¥2200/h**|
+|<div class='timezone'>07:00~08:00</div>|**¥1320/h**|**¥1540/h**|
+|<div class='timezone'>08:00~18:00</div>|**¥600/h**|**¥750/h**|
+|<div class='timezone'>18:00~20:00</div>|**¥1320/h**|**¥1540/h**|
+|<div class='timezone'>20:00~23:00\*</div>|**¥1920/h**|**¥2200/h**|
 <span class='caution'>
 *前日までの予約が必要です
 </span>
