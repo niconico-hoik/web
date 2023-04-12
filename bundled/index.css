@@ -421,7 +421,7 @@
 .markdown-body table,
 .markdown-body pre {
   margin-top: 0;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   /* margin-bottom: 70px; */
   /*margin-bottom: 55px;*/
   /*margin-bottom: 10px;*/
@@ -621,7 +621,7 @@
   /* background: #3a6f4b; */
   color: #ffffff;
   /*background: #114e33;*/
-  background: #2c7962;
+  background: #310b08;
 }
 
 .markdown-body tbody {
@@ -629,7 +629,7 @@
   /* background: #3a6f4b; */
   /*color: #ffffff;*/
   /*color: #3a6f4b;*/
-  color: #2c7962;
+  color: #310b08;
   background: rgb(253, 253, 253);
   /*border-left: solid #114e33 0.3em;*/
   /*border-bottom: solid #114e33 0.3em;*/
