@@ -41,7 +41,7 @@ const props = (isMobile) => ({
   ],
 
   colors: isMobile ? {
-    base: 'rgb(24, 24, 35)',
+    base: 'rgb(42, 97, 76)',
     sub: 'rgb(255, 255, 255)',
     background: 'rgba(242, 242, 242, 0.78)',
     preloader: 'rgb(241, 241, 241)',
