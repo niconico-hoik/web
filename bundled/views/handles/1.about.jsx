@@ -20,24 +20,28 @@ const HighOrderExhibit = async ({ Exhibit, renderDetail }) => {
       backgroundColor: 'rgb(175, 196, 72)',
       detail: details.prepaid,
     },
+    /*
     prepaid_simu: {
       title: '月極保育シミュレーション',
       description: 'ケースに応じた実際の料金を算出頂けます',
       backgroundColor: 'rgb(108, 184, 64)',
       unready: true,
     },
+    */
     postpaid: {
       title: '一時預かり/ポストペイド',
       description: '持ち物や料金体系について',
       backgroundColor: 'rgb(90, 147, 190)',
       detail: details.postpaid,
     },
+    /*
     postpaid_simu: {
       title: '一時預かりシミュレーション',
       description: 'ケースに応じた実際の料金を算出頂けます',
       backgroundColor: 'rgb(117, 104, 182)',
       unready: true,
     },
+    */
   }
   
   const props = { abouts, renderDetail }

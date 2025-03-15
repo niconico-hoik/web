@@ -55,20 +55,20 @@
 
 |🕓|1歳以上👧|0歳👶|
 |:-:|:-:|:-:|
-|<div class='timezone'>07:00~08:00</div>|**¥580/h**|**¥720/h**|
-|<div class='timezone'>08:00~18:00</div>|<div style='text-align:right;'>\~105h: **¥400/h**<br>120h\~: **¥350/h**</div>|**¥520/h**|
-|<div class='timezone'>18:00~20:00</div>|**¥580/h**|**¥720/h**|
-|<div class='timezone'>20:00~23:00</div>|**¥1160/h**|**¥1160/h**|
+|<div class='timezone'>07:00~08:00</div>|**¥640/h**|**¥800/h**|
+|<div class='timezone'>08:00~18:00</div>|<div style='text-align:right;'>50h\~: **¥420/h**<br>112h\~: **¥390/h**<br>156h\~: **¥375/h**</div>|**¥560/h**|
+|<div class='timezone'>18:00~20:00</div>|**¥640/h**|**¥800/h**|
+|<div class='timezone'>20:00~23:00</div>|**¥1280/h**|**¥1280/h**|
 
 ##### 例. 1歳以上のお子さまを7:00~18:30で合計12日（おおまかに週3日）預ける予定の場合
 
 ||||
 |:-:|-:|-:|
-|<div class='separate'>**07:00~08:00**</div>|<div class='caution'>*(1h × 12d)*</div>**12h**|<div class='caution'>*(12h × ¥580/h)*</div>**¥6960**|
-|<div class='separate'>**08:00~18:00**</div>|<div class='caution'>*(10h × 12d)*</div>**120h**|<div class='caution'>*(120h × ¥350/h)*</div>**¥42000**|
-|<div class='separate'>**18:00~20:00**</div>|<div class='caution'>*(0.5h × 12d)*</div>**6h**|<div class='caution'>*(6h × ¥580/h)*</div>**¥3480**|
+|<div class='separate'>**07:00~08:00**</div>|<div class='caution'>*(1h × 12d)*</div>**12h**|<div class='caution'>*(12h × ¥640/h)*</div>**¥7680**|
+|<div class='separate'>**08:00~18:00**</div>|<div class='caution'>*(10h × 12d)*</div>**120h**|<div class='caution'>*(120h × ¥390/h)*</div>**¥46800**|
+|<div class='separate'>**18:00~20:00**</div>|<div class='caution'>*(0.5h × 12d)*</div>**6h**|<div class='caution'>*(6h × ¥640/h)*</div>**¥3840**|
 |<div class='separate'>**20:00~23:00**</div>|<div class='caution'>*(0h × 12d)*</div>**0h**|<div class='caution'>*(0h × ¥1160/h)*</div>**¥0**|
-|<div class='separate'>**合計**</div>|**138h**|**¥52440**|
+|<div class='separate'>**合計**</div>|**138h**|**¥58320**|
 
 ## 🎒 持ち物
 
@@ -93,20 +93,20 @@
 
 ## 🤔 FAQ
 
-#### <span class='question'>Q. 1歳以上の8:00\~18:00は106h\~119hの場合はどうなる？</span>
+#### <span class='question'>Q. 1歳以上の8:00\~18:00は複数の料金をどのように扱う？</span>
 <div class='answer'>
 
-1歳以上のご利用の場合、時間量によって料金が変わる8:00\~18:00は105hと120hの料金が等しくなるため、105h\~119hは自動的に120hに繰り上げられます。
+1歳以上の8:00\~18:00は時間量によって料金が変わるため、104h\~111hは112hに、150h\~155hは156hに、それぞれ自動的に繰り上げられます。
 
-- _105h × ¥400 = **¥42000**_
-- _120h × ¥350 = **¥42000**_
+- _104h × ¥420 = 112h × ¥390 = **¥43680**_
+- _150h × ¥390 = 156h × ¥375 = **¥58500**_
 
-*105h ~ 119h → 120h*
+<!-- *104h ~ 111h → 112h* -->
 
 <!-- ##### 1歳以上の繰上 -->
 <!-- <div class='nomargin'> -->
 
-<!-- [![as?fetch=hast](./svg/prepaid.8_18.infant.svg)](./svg/prepaid.8_18.infant.svg) -->
+[![as?fetch=hast](./svg/prepaid.8_18.infant.svg)](./svg/prepaid.8_18.infant.svg)
 
 <!-- </div> -->
 
@@ -129,8 +129,8 @@
 
 追加購⼊は**25時間**より受け付けております。
 
-- 1歳以上: 25h × ¥400/h = **¥10000**
-- 1歳未満: 25h × ¥520/h = **¥13000**
+- 1歳以上: 25h × ¥420/h = **¥10500**
+- 1歳未満: 25h × ¥560/h = **¥14000**
 </div>
 
 #### <span class='question'>Q. 余った保育時間は来月に繰り越せる？</span>
