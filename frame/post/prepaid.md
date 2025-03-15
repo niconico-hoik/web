@@ -101,12 +101,12 @@
 - _104h × ¥420 = **¥43680**_
 - _112h × ¥390 = **¥43680**_
 
-*104h ~ 111h → 112h*
+<!-- *104h ~ 111h → 112h* -->
 
 <!-- ##### 1歳以上の繰上 -->
 <!-- <div class='nomargin'> -->
 
-<!-- [![as?fetch=hast](./svg/prepaid.8_18.infant.svg)](./svg/prepaid.8_18.infant.svg) -->
+[![as?fetch=hast](/frame/svg/prepaid.8_18.infant.svg)](/frame/svg/prepaid.8_18.infant.svg)
 
 <!-- </div> -->
 
