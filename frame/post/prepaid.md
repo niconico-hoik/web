@@ -106,7 +106,7 @@
 <!-- ##### 1歳以上の繰上 -->
 <!-- <div class='nomargin'> -->
 
-[![as?fetch=hast](/frame/svg/prepaid.8_18.infant.svg)](/frame/svg/prepaid.8_18.infant.svg)
+[![as?fetch=hast](./svg/prepaid.8_18.infant.svg)](./svg/prepaid.8_18.infant.svg)
 
 <!-- </div> -->
 
