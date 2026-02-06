@@ -1,9 +1,9 @@
 [build]
   publish = "_site"
-  command = "npm run build:mirror"
+  command = "npm run chin:mir"
 
 [context.production]
-  command = "npm run build:master"
+  command = "npm run chin:pro"
 
 [[redirects]]
   from = "/tumblr/*"
