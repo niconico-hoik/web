@@ -14,8 +14,6 @@ import Branch, { stylestring, generateProps } from './src/pages/branch'
 
 export const TITLE = 'ニコニコ保育園 和泉中央園'
 
-const GA_ID = 'UA-73760794-3'
-
 const DESCRIPTION =
 '生後2か月～小学校高学年を対象に「こどもの多彩な可能性が育まれるようサポート」する認可外保育園です。' +
 '日々の様子を画像・動画から紹介しています。' +
@@ -56,29 +54,6 @@ const LINKINGDATA = {
     }
   ]
 }
-
-const ga = 
-`;(function(i, s, o, g, r, a, m) {
-  i['GoogleAnalyticsObject'] = r
-  ;(i[r] =
-    i[r] ||
-    function() {
-      ;(i[r].q = i[r].q || []).push(arguments)
-    }),
-    (i[r].l = 1 * new Date())
-  ;(a = s.createElement(o)), (m = s.getElementsByTagName(o)[0])
-  a.async = 1
-  a.src = g
-  m.parentNode.insertBefore(a, m)
-})(
-  window,
-  document,
-  'script',
-  'https://www.google-analytics.com/analytics.js',
-  'ga'
-)
-ga('create', '${GA_ID}', 'auto')
-ga('send', 'pageview')`
 
 const Script = ({ children: __html, ...props }) => {
   return createElement('script', {
@@ -131,10 +106,6 @@ const Head = ({ type, children: favicons }) =>
     <Script {...{ type: 'application/ld+json' }}>
       {JSON.stringify(LINKINGDATA)}
     </Script>
-
-    {/* <Script {...{ type: 'text/javascript' }}>
-      {ga}
-    </Script> */}
   </Fragment>
   :
   <Fragment>
