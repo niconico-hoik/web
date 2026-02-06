@@ -1,10 +1,17 @@
+import { readFile, outputFile } from 'fs-extra'
 import unified from 'unified'
 import html2hast from 'rehype-parse'
 import hastformat from 'rehype-format'
 import hast2react from 'rehype-react'
+import md2mdast from 'remark-parse'
+import mdast2gfm from 'remark-gfm'
+import mdast2hast from 'remark-rehype'
 import hast2html from 'rehype-stringify'
+import mdast2html from 'remark-html'
 import React, { createElement, Fragment } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
+// import { JSDOM } from 'jsdom'
+import Branch, { stylestring, generateProps } from './src/pages/branch'
 
 export const TITLE = 'ニコニコ保育園 和泉中央園'
 
@@ -16,7 +23,8 @@ const DESCRIPTION =
 'また、料金シミュレーションを月極・一時預かりともに用意しております。' +
 '申込みに限らず見学やお試し保育について等、お気軽にお問い合わせください。'
 
-const ogs = <Fragment>
+const ogs =
+<Fragment>
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="ja_JP" />
   <meta property="og:url" content="https://niconico-hoik.com" />
@@ -63,52 +71,58 @@ const onerror = createScript(`
   }
 `)
 
+/*
 const Head = ({ children }) =>
 <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
   {children}
 </head>
+*/
 
-const DevIndexHtml = () =>
-<html lang="ja">
-  <head>
-    {/* {onerror} */}
-    <script defer={true} src="./dll.js" />
-    <script defer={true} src="./bundle.js" />
-  </head>
-  <body>
-    <div id="app" />
-  </body>
-</html>
+const HeadDev = () =>
+<Fragment>
+  {/* {onerror} */}
+  <script defer={true} src="./dll.js" />
+  <script defer={true} src="./bundle.js" />
+</Fragment>
 
-const MirIndexHtml = ({ favicons }) =>
-<html lang="ja">
-  <Head>
-    {ogs}
-    {favicons}
-    {onerror}
-    <script defer={true} src="./bundle.js" />
-  </Head>
-  <body>
-    <div id="app" />
-  </body>
-</html>
+const HeadMir = ({ favicons }) =>
+<Fragment>
+  {ogs}
+  {favicons}
+  {/* {onerror} */}
+  <script defer={true} src="./bundle.js" />
+</Fragment>
 
-const ProIndexHtml = ({ favicons }) =>
+const HeadPro = ({ favicons }) =>
+<Fragment>
+  <title>{TITLE}</title>
+  {/* <meta charSet="utf-8" /> */}
+  <meta name="keywords" content="ニコニコ保育園,大阪,和泉市,いずみ,のぞみ野,保育園,ほいくえん,保育,ほいく,認可外,一時預かり,一時" />
+  <meta name="description" content={DESCRIPTION} />
+  <meta name="fragment" content="!" />
+  {ogs}
+  {favicons}
+  {ga}
+  <script defer={true} src="./bundle.js" />
+</Fragment>
+
+const IndexHtml = ({ type, favicons, style, children }) =>
 <html lang="ja">
-  <Head>
-    <title>{TITLE}</title>
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
     <meta charSet="utf-8" />
-    <meta name="keywords" content="ニコニコ保育園,大阪,和泉市,いずみ,のぞみ野,保育園,ほいくえん,保育,ほいく,認可外,一時預かり,一時" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ニコニコ保育園 和泉中央園</title>
     <meta name="description" content={DESCRIPTION} />
-    <meta name="fragment" content="!" />
-    {ogs}
-    {favicons}
-    {ga}
-    <script defer={true} src="./bundle.js" />
-  </Head>
-  <body>
-    <div id="app" />
-  </body>
+    <meta name="keywords" content="ニコニコ保育園,大阪,和泉市,いずみ,のぞみ野,保育園,ほいくえん,保育,ほいく,認可外,一時預かり,一時" />
+    {
+      type === 'dev' ? <HeadDev /> :
+      type === 'mir' ? <HeadMir {...{ favicons }} /> :
+      type === 'pro' ? <HeadPro {...{ favicons }} /> :
+      <Fragment></Fragment>
+    }
+    <style>{style}</style>
+  </head>
+  {children}
 </html>
 
 const favicons2elements = (favicons) =>
@@ -122,20 +136,60 @@ unified()
 .props
 .children
 
-export default (type, favicons) =>
-unified()
-.use([
-  html2hast,
-  hastformat,
-  hast2html
-])
-.processSync('<!DOCTYPE html>' + renderToStaticMarkup(
-  type === 'dev'
-  ? <DevIndexHtml /> :
-  type === 'mir'
-  ? <MirIndexHtml favicons={favicons2elements(favicons)} /> :
-  type === 'pro'
-  ? <ProIndexHtml favicons={favicons2elements(favicons)} />
-  : false
-))
-.contents
+export default async (config, markdown, { type, favicons } = {}) => {
+  return unified().use([
+    [md2mdast, {}],
+    [mdast2gfm, {}],
+    [mdast2hast, { allowDangerousHtml: true }],
+    [hast2html, { allowDangerousHtml: true }],
+  ]).process(
+    markdown
+  ).then(({ contents }) => {
+    return contents.split('&#x3C;').join('<')
+    // return contents.replaceAll(/&#x3C;/g, '<')
+  }).then(main => {
+    return renderToStaticMarkup(
+      <IndexHtml {...{
+        type,
+        favicons: favicons && favicons2elements(favicons) || null,
+        style: stylestring,
+      }}>
+        <Branch {...generateProps(config)}>
+          {main}
+        </Branch>
+      </IndexHtml>
+    )
+  }).then(rendered => {
+    return unified().use([
+      [html2hast, {}],
+      [hastformat, {}],
+      [hast2html, {}],
+    ]).process(
+      `<!DOCTYPE html>${rendered}`
+    )
+  }).then(({ contents }) => {
+    return contents
+  })
+}
+
+/*
+export const IndexMarkdown2IndexHtml = async ({ put, out, type, favicons }) => {
+  // return readFile()
+  return outputFile(
+    out,
+    unified()
+    .use([
+      html2hast,
+      hastformat,
+      hast2html
+    ])
+    .processSync('<!DOCTYPE html>' + renderToStaticMarkup(
+      <IndexHtml {...{
+        type,
+        favicons: favicons && favicons2elements(favicons) || null,
+      }} />
+    ))
+    .contents
+  )
+}
+*/

@@ -18,7 +18,7 @@ const execIf = (condition, command) => Promise.resolve(!condition ? ignored(comm
 const hooks = {
   'prestart': () =>
     Promise.all([
-      isExist(`_local/${dllname}.manifest.json`).then(exist => execIf(!exist, 'yarn wpack:dll')),
+      isExist(`_local/${dllname}.manifest.json`).then(exist => execIf(!exist, 'npm run wpack:dll')),
       // exec('yarn upgrade imagemin-jpegtran')
     ])
     .catch(errorhandler),

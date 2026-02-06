@@ -1,9 +1,9 @@
 [build]
   publish = "_site"
-  command = "yarn build:mirror"
+  command = "npm run build:mirror"
 
 [context.production]
-  command = "yarn build:master"
+  command = "npm run build:master"
 
 [[redirects]]
   from = "/tumblr/*"
