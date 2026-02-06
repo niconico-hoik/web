@@ -290,37 +290,6 @@ const Article = ({ brings, prices, auths, children, ...props }) => {
 }
 
 export const stylestring = `
-table {
-  width: 100%;
-  margin: 1em 0em;
-}
-thead {
-  font-weight: 500;
-}
-th,td {
-  font-weight: inherit;
-  padding: 0.2em 0.2em 0.2em 0.2em;
-  font-size: 0.85em;
-  text-align: center;
-}
-li {
-  margin: 0.5em 0em;
-}
-a {
-  color: dimgray;
-}
-main img {
-  width: 100%;
-}
-section {
-
-}
-p {
-  margin: 1.2em 0em;
-}
-footer p {
-  margin: 0;
-}
 h1,h2,h3,h4,h5,h6 {
   font-weight: 500;
 }
@@ -350,6 +319,12 @@ hr {
   border-color: gainsboro;
   border-width: 0em 0em 0.12em;
 }
+p {
+  margin: 1.2em 0em;
+}
+footer p {
+  margin: 0;
+}
 dl {
   padding: 0.7em 0.85em 0.7em;
   background-color: #fcfcfc;
@@ -364,8 +339,31 @@ dt {
 dd {
   margin: 0.6em 0.85em;
 }
-`.split('\n').join('')
-
+li {
+  margin: 0.5em 0em;
+}
+table {
+  width: 100%;
+  margin: 1em 0em;
+}
+thead {
+  font-weight: 500;
+}
+th,td {
+  font-weight: inherit;
+  padding: 0.2em 0.2em 0.2em 0.2em;
+  font-size: 0.85em;
+  text-align: center;
+}
+a {
+  color: dimgray;
+}
+main img {
+  width: 100%;
+}
+`
+.split('  ').join('')
+.split('\n').join(' ')
 
 export default ({
   name,
