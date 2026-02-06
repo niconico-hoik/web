@@ -57,6 +57,12 @@ export default {
       "option": null
     },
     {
+      "name": "スタイ（必要な場合）",
+      "in_prepaid": "毎日の持ち物",
+      "in_postpaid": "場合によるもの",
+      "option": null
+    },
+    {
       "name": "水筒",
       "in_prepaid": "毎日の持ち物",
       "in_postpaid": "必要なもの",
@@ -75,19 +81,13 @@ export default {
       "option": null
     },
     {
-      "name": "スタイ",
-      "in_prepaid": "毎日の持ち物",
-      "in_postpaid": "必要なもの",
-      "option": null
-    },
-    {
       "name": "昼食",
       "in_prepaid": "毎日の持ち物",
       "in_postpaid": "必要なもの",
       "option": {
         "value": 450,
         "unit": "食",
-        "description": "ご注文・キャンセルは【昼食 9:00】【夕食 17:00】までにご連絡ください。メニューはtumblrにて毎週公開中です"
+        "description": "ご注文・キャンセルは前日17:00（月曜日の分は土曜日の13:00）までにご連絡ください。昼食のメニューはtumblrにて毎週公開中です。"
       }
     },
     {
@@ -109,33 +109,27 @@ export default {
       "option": null
     },
     {
-      "name": "着替えの服（二式）",
+      "name": "着替えの服（１~２セット）",
       "in_prepaid": "お預かりする物",
       "in_postpaid": "必要なもの",
       "option": null
     },
     {
-      "name": "バスタオルとシーツ（お昼寝用）",
-      "in_prepaid": "お預かりする物",
-      "in_postpaid": "場合によるもの",
-      "option": null
-    },
-    {
-      "name": "歯ブラシ",
-      "in_prepaid": "お預かりする物",
-      "in_postpaid": "場合によるもの",
-      "option": null
-    },
-    {
-      "name": "コップ",
-      "in_prepaid": "お預かりする物",
-      "in_postpaid": "場合によるもの",
-      "option": null
-    },
-    {
-      "name": "ビニール袋",
+      "name": "ビニール袋（汚れた衣服用）",
       "in_prepaid": "お預かりする物",
       "in_postpaid": "",
+      "option": null
+    },
+    {
+      "name": "バスタオル・シーツ（お昼寝用）",
+      "in_prepaid": "お預かりする物",
+      "in_postpaid": "場合によるもの",
+      "option": null
+    },
+    {
+      "name": "歯ブラシ・コップ",
+      "in_prepaid": "お預かりする物",
+      "in_postpaid": "場合によるもの",
       "option": null
     },
     {

@@ -10,6 +10,21 @@ import izumichuoConfig from './src/branches/izumichuo/config.js'
 import { devdir, prodir } from './.variables.js'
 import { type } from 'os'
 
+export const outputIndexHtml = async (out, type, favicons) => {
+  const izumichuoMarkdown = await readFile(
+    join('src', 'branches', 'izumichuo', 'main.md'),
+    'utf8'
+  )
+
+  const indexHtml = await generateIndexHtml(
+    izumichuoConfig,
+    izumichuoMarkdown,
+    { type, favicons }
+  )
+
+  return outputFile(out, indexHtml)
+}
+
 /* extensions */
 
 const ink2pdf = inkscape('pdf')
@@ -33,22 +48,6 @@ const svg2fav = favicons({
   }
 })
 */
-
-export const outputIndexHtml = async (out, type, favicons) => {
-  const izumichuoMarkdown = await readFile(
-    join('src', 'branches', 'izumichuo', 'main.md'),
-    'utf8'
-  )
-
-  const indexHtml = await generateIndexHtml(
-    izumichuoConfig,
-    izumichuoMarkdown,
-    { type, favicons }
-  )
-
-  return outputFile(out, indexHtml)
-}
-
 
 /* configs */
 

@@ -253,7 +253,7 @@ const deeplit = (string, sepructures, end, grab, deepindex = 0) => {
   )
 }
 
-const Main = ({ brings, prices, auths, children }) => {
+const Article = ({ brings, prices, auths, children, ...props }) => {
 
   const sepructures = [
     ['<hr>','<h2>'],
@@ -268,7 +268,6 @@ const Main = ({ brings, prices, auths, children }) => {
   : string.split('</h6>').reduce((acc, chunk, index) => {
     const [block, component] = chunk.split('<h6>')
     return [...acc, ...html2react(block), ...(
-      // component === 'Brings' ? [Brings({ brings })] :
       component === 'PrepaidBrings' ? [PrepaidBrings({ brings })] :
       component === 'PostpaidBrings' ? [PostpaidBrings({ brings })] :
       component === 'Options' ? [Options({ brings })] :
@@ -281,11 +280,13 @@ const Main = ({ brings, prices, auths, children }) => {
   const grab = (string, deepindex, index, { length }, children) =>
   deepindex > 0 && (index === 0 && length > 1)
   ? children
-  : /^\<hr\>/.test(string)
-  ? createElement('div', { key: `${deepindex}_${index}` }, children)
-  : createElement('section', { key: `${deepindex}_${index}` }, children)
+  : deepindex === 0 && index === 0
+  ? createElement('header', {}, children)
+  : deepindex === 0 && index === length - 1
+  ? createElement('footer', {}, children)
+  : createElement('section', {}, children)
 
-  return deeplit(children, sepructures, end, grab)
+  return <article {...props}>{deeplit(children, sepructures, end, grab)}</article>
 }
 
 export const stylestring = `
@@ -524,6 +525,7 @@ export default ({
           </tbody>
         </table>
       </nav>
+      <hr />
     </div>
   </header>
   <main {...{
@@ -534,9 +536,9 @@ export default ({
       color: BASIC_COLOR,
     }
   }}>
-    <Main {...{ brings, prices, auths }}>
+    <Article {...{ brings, prices, auths }}>
       {children}
-    </Main>
+    </Article>
   </main>
   <footer {...{ style: { background: BASIC_COLOR, color: '#81756c', padding: '1.5em 1.5em' } }}>
     <div {...{ style: { fontSize: '0.85em', lineHeight: 'normal', textAlign: 'right' } }}>
