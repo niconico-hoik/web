@@ -4,15 +4,3 @@
 
 [context.production]
   command = "npm run chin:pro"
-
-[[redirects]]
-  from = "/tumblr/*"
-  to = "https://api.tumblr.com/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = false

@@ -364,14 +364,8 @@ dt {
 dd {
   margin: 0.6em 0.85em;
 }
-.answer {
-  padding: 1.2em 1em 1.2em;
-  color: #636363;
-  background: #ffffff;
-  border-radius: 0.4em;
-  border: solid 0.15em #e4e4e4;
-}
-`
+`.split('\n').join('')
+
 
 export default ({
   name,

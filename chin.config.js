@@ -17,9 +17,10 @@ export const outputIndexHtml = async (out, type, favicons) => {
   )
 
   const indexHtml = await generateIndexHtml(
+    type,
     izumichuoConfig,
     izumichuoMarkdown,
-    { type, favicons }
+    favicons
   )
 
   return outputFile(out, indexHtml)
@@ -74,7 +75,15 @@ const { svg2fav, result: faviconsProcessors } = {
     nameAsDir: true,
     config: {
       path: 'favicons',
-      appName: TITLE
+      appName: TITLE,
+      description: null,
+      // dir: "auto",
+      lang: "ja-JP",
+      display: "browser",
+      orientation: "any",
+      start_url: "/",
+      background_color: "#ffffff",
+      theme_color: "#ffffff",
     }
   }),
   get result() { return {

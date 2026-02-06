@@ -23,8 +23,8 @@
     "wpack:spl": "cross-env BABEL_ENV=esm webpack",
     "start": "npm run chin:dev",
     "build": "npm run chin:mir",
-    "build:mirror": "run-s chin:mir wpack:pro",
-    "build:master": "run-s chin:pro wpack:pro"
+    "build:mirror": "npm run chin:mir",
+    "build:master": "npm run chin:pro"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
