@@ -422,6 +422,7 @@ const Body = ({
           right: '0.4em',
           backgroundColor: BASIC_COLOR,
           color: '#ffffff',
+          borderRadius: '0.2em',
         },
       }}>
         <a {...{
@@ -443,6 +444,7 @@ const Body = ({
               style: {
                 width: '1.75em',
                 height: '1.75em',
+                borderRadius: '0.2em',
                 borderWidth: '0.1em',
                 borderStyle: 'dashed',
                 borderColor: '#604e43',
