@@ -1,13 +1,6 @@
 import React, { Fragment, createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { Style, Script, Elements, Favicons, html2react } from '../utils'
-import unified from 'unified'
-import html2hast from 'rehype-parse'
-import hastformat from 'rehype-format'
-import md2mdast from 'remark-parse'
-import mdast2gfm from 'remark-gfm'
-import mdast2hast from 'remark-rehype'
-import hast2html from 'rehype-stringify'
+import { html2html, markdown2html, html2react, Style, Script, Elements, Favicons } from '../../utils'
 
 const generateProps = ({ prices, ...config }) => {
   return {
@@ -28,32 +21,19 @@ const generateProps = ({ prices, ...config }) => {
 }
 
 export const render = async (type, config, markdown, favicons) => {
-
-  config = generateProps(config)
-
-  return unified().use([
-    [md2mdast, {}],
-    [mdast2gfm, {}],
-    [mdast2hast, { allowDangerousHtml: true }],
-    [hast2html, { allowDangerousHtml: true }],
-  ]).process(
-    markdown
-  ).then(({ contents }) => {
+  
+  const article = await markdown2html(markdown).then(({ contents }) => {
     return contents.split('&#x3C;').join('<')
     // return contents.replaceAll(/&#x3C;/g, '<')
-  }).then(article => {
-    return unified().use([
-      [html2hast, {}],
-      [hastformat, {}],
-      [hast2html, {}],
-    ]).process(
-      `<!DOCTYPE html>${renderToStaticMarkup(
-        <Html {...{ type, favicons, config }}>
-          {article}
-        </Html>
-      )}`
+  })
+
+  return html2html(`<!DOCTYPE html>${
+    renderToStaticMarkup(
+      <Html {...{ type, favicons, config: generateProps(config) }}>
+        {article}
+      </Html>
     )
-  }).then(({ contents }) => {
+  }`).then(({ contents }) => {
     return contents
   })
 }

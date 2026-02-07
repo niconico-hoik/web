@@ -7,7 +7,7 @@ import { readFile, outputFile } from 'fs-extra'
 import { join } from 'path'
 import { type } from 'os'
 import { devdir, prodir } from './.variables.js'
-import { renderBranch } from './src/pages'
+import { renderBranch, renderSupporters } from './src/pages'
 import izumichuoConfig from './src/branches/izumichuo'
 
 export const outputHtmls = async (type, outdir, favicons) => {
@@ -24,6 +24,12 @@ export const outputHtmls = async (type, outdir, favicons) => {
       )
     }).then(izumichuoHtml => {
       return ['index.html', izumichuoHtml]
+    }),
+    renderSupporters(
+      type,
+      izumichuoConfig
+    ).then(supportersHtml => {
+      return ['supporters.html', supportersHtml]
     })
   ])
 
