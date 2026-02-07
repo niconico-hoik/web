@@ -10,7 +10,7 @@ import { devdir, prodir } from './.variables.js'
 import { renderBranch } from './src/pages'
 import izumichuoConfig from './src/branches/izumichuo'
 
-export const outputIndexHtml = async (type, outdir, favicons) => {
+export const outputHtmls = async (type, outdir, favicons) => {
   const files = await Promise.all([
     readFile(
       join('src', 'branches', 'izumichuo', 'main.md'),
@@ -121,7 +121,7 @@ const configs = {
       '**.xml'
     ],
     processors: commonProcessors,
-    before: () => outputIndexHtml('dev', devdir),
+    before: () => outputHtmls('dev', devdir),
   },
 
   'mir': {
@@ -136,7 +136,7 @@ const configs = {
       ['favicons.svg', faviconsProcessors],
       ['*', commonProcessors]
     ],
-    after: () => outputIndexHtml('mir', prodir, svg2fav.after())
+    after: () => outputHtmls('mir', prodir, svg2fav.after())
   },
 
   'pro': {
@@ -146,7 +146,7 @@ const configs = {
       ['favicons.svg', faviconsProcessors],
       ['*', commonProcessors]
     ],
-    after: () => outputIndexHtml('pro', prodir, svg2fav.after())
+    after: () => outputHtmls('pro', prodir, svg2fav.after())
   }
 
 }
