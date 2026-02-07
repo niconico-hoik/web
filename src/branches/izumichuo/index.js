@@ -1,23 +1,32 @@
 export default {
   "name": "ニコニコ保育園 和泉中央園",
-  "phone": "09082314457",
   "address": {
     "value": "〒5941105 大阪府和泉市のぞみ野3丁目4-17 Shima.B.L.D 1F",
     "href": "https://maps.app.goo.gl/DD3ZbfVbah9d8foy9"
   },
+  "phones": [
+    {
+      "name": "固定電話",
+      "value": "0725563396",
+    },
+    {
+      "name": "携帯電話",
+      "value": "09082314457",
+    },
+  ],
   "links": [
     {
-      "name": "instagram",
+      "name": "Instagram",
       "href": "https://www.instagram.com/evnr_hoik_izumichuo/",
       "text": "日々の保育の様子"
     },
     {
-      "name": "tumblr",
+      "name": "Tumblr",
       "href": "https://www.tumblr.com/nicohoi-info",
       "text": "給食メニュー等のお知らせ"
     },
     {
-      "name": "twitter",
+      "name": "Twitter (X)",
       "href": "https://twitter.com/niconico_hoik",
       "text": "他のSNSの更新を通知等"
     }

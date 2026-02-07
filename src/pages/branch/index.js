@@ -363,8 +363,8 @@ const Article = ({ brings, prices, auths, children, ...props }) => {
 
 const Body = ({
   name,
-  phone,
   address,
+  phones,
   links,
   auths,
   headers,
@@ -481,7 +481,7 @@ const Body = ({
         <table>
           <tbody>
             {[
-              { name: 'phone', href: `tel:${phone}`, text: phone, target: null },
+              ...phones.map(({ name, value }) => ({ name, href: `tel:${value}`, text: value, target: null })),
               ...links.map(link => ({ ...link, target: '_blank' })),
             ].map(({ name, href, text, target }) =>
             <tr {...{ key: name }}>
