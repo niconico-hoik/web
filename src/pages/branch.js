@@ -1,12 +1,15 @@
 import React, { Fragment, createElement } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
+import { Style, Script, Elements, Favicons, html2react } from '../utils'
 import unified from 'unified'
 import html2hast from 'rehype-parse'
-import hast2react from 'rehype-react'
+import hastformat from 'rehype-format'
+import md2mdast from 'remark-parse'
+import mdast2gfm from 'remark-gfm'
+import mdast2hast from 'remark-rehype'
+import hast2html from 'rehype-stringify'
 
-const MAIN_WIDTH = '52em'
-const BASIC_COLOR = '#3d342d'
-
-export const generateProps = ({ prices, ...config }) => {
+const generateProps = ({ prices, ...config }) => {
   return {
     ...config,
     prices: [...prices].sort(({ start: a }, { start: b }) =>
@@ -24,41 +27,160 @@ export const generateProps = ({ prices, ...config }) => {
   }
 }
 
-const { html2react, Relement } = {...{
-  processor: unified().use([
-    [html2hast, { fragment: true }],
-    [hast2react, { createElement }],
-  ]),
-  get html2react() {
-    return (html) => {
-      return this.processor.processSync(`<div>${html}</div>`).contents.props.children
-      // .filter((child) => typeof child === 'object')
-    }
-  },
-  get Relement() {
-    return ({ children }) => this.html2react(children)
-  },
-}}
+export const render = async (type, config, markdown, favicons) => {
 
-const Brings = ({ brings }) =>
-<div {...{ style: { display: 'flex', flexWrap: 'wrap', margin: '1.17em 0em' } }}>
-  {Object.entries(brings.reduce((acc, { in_prepaid, ...bring }) => {
-    acc[in_prepaid] = acc[in_prepaid] || []
-    acc[in_prepaid] = [...acc[in_prepaid], bring]
-    return acc
-  }, {})).map(([in_prepaid, brings], index, types) =>
-    <div {...{ id: `brings_type_${index}`, style: { minWidth: '50%' } }}>
-      <h3 {...{ style: { margin: 0 } }}>{in_prepaid}</h3>
-      <ol>
-        {brings.map(({ name, in_postpaid, option }, index) =>
-        <li {...{ key: index, style: { listStyle: 'auto' } }}>
-          {`${name}${in_postpaid}${option ? `【オプション: ${option.value}円/${option.unit}】` : ''}`}
-        </li>
-        )}
-      </ol>
-    </div>
-  )}
-</div>
+  config = generateProps(config)
+
+  return unified().use([
+    [md2mdast, {}],
+    [mdast2gfm, {}],
+    [mdast2hast, { allowDangerousHtml: true }],
+    [hast2html, { allowDangerousHtml: true }],
+  ]).process(
+    markdown
+  ).then(({ contents }) => {
+    return contents.split('&#x3C;').join('<')
+    // return contents.replaceAll(/&#x3C;/g, '<')
+  }).then(article => {
+    return unified().use([
+      [html2hast, {}],
+      [hastformat, {}],
+      [hast2html, {}],
+    ]).process(
+      `<!DOCTYPE html>${renderToStaticMarkup(
+        <Html {...{ type, favicons, config }}>
+          {article}
+        </Html>
+      )}`
+    )
+  }).then(({ contents }) => {
+    return contents
+  })
+}
+
+const Html = ({ type, favicons, config, children }) =>
+<html lang="ja">
+  <Head {...{ ...config, type }}>
+    {favicons}
+  </Head>
+  <Body {...{ ...config }}>
+    {children}
+  </Body>
+</html>
+
+const MAIN_WIDTH = '52em'
+const BASIC_COLOR = '#3d342d'
+const STYLE = `
+h1,h2,h3,h4,h5,h6 {
+  font-weight: 500;
+}
+h2 {
+  font-size: 1.5em;
+  margin: 1.8em 0em 0em;
+  border-style: solid;
+  border-color: gainsboro;
+  border-width: 0em 0em 0.08em;
+  padding: 0em 0em 0.4em 0.0em;
+}
+h3 {
+  font-size: 1.31em;
+  margin: 1.5em 0em 0em;
+}
+h4 {
+  font-size: 1.05em;
+  margin: 1.0em 0em 0em;
+}
+h5 {
+  font-size: 0.95em;
+  margin: 1.0em 0em 0em;
+}
+hr {
+  margin-block: 1.25em;
+  border-style: solid;
+  border-color: gainsboro;
+  border-width: 0em 0em 0.12em;
+}
+p {
+  margin: 1.2em 0em;
+}
+footer p {
+  margin: 0;
+}
+dl {
+  padding: 0.7em 0.85em 0.7em;
+  background-color: #fcfcfc;
+  border-style: solid;
+  border-color: #e6e6e6;
+  border-width: 0.12em;
+  border-radius: 0.4em;
+}
+dt {
+  font-weight: 500;
+}
+dd {
+  margin: 0.6em 0.85em;
+}
+li {
+  margin: 0.5em 0em;
+}
+table {
+  width: 100%;
+  margin: 1em 0em;
+}
+thead {
+  font-weight: 500;
+}
+th,td {
+  font-weight: inherit;
+  padding: 0.2em 0.2em 0.2em 0.2em;
+  font-size: 0.85em;
+  text-align: center;
+}
+a {
+  color: dimgray;
+}
+main img {
+  width: 100%;
+}
+`
+.split('  ').join('')
+.split('\n').join(' ')
+
+const Head = ({ type, name, head, children: favicons }) =>
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+  <meta charSet="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{name}</title>
+  <meta name="description" content={head.description} />
+  {
+  type === 'pro' ?
+  <Fragment>
+    <link rel="canonical" href="https://niconico-hoik.com/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:url" content="https://niconico-hoik.com/" />
+    <meta property="og:image" content="https://niconico-hoik.com/image/opengraph.png" />
+    <meta property="og:site_name" content={name} />
+    <meta property="og:title" content={name} />
+    <meta property="og:description" content={head.og_description} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {Array.isArray(favicons) && <Favicons>{favicons}</Favicons>}
+
+    <Script {...{ type: 'application/ld+json' }}>
+      {JSON.stringify(head.linking_data)}
+    </Script>
+  </Fragment>
+  :
+  <Fragment>
+    <meta name="robots" content="noindex,nofollow" />
+    {Array.isArray(favicons) && <Favicons>{favicons}</Favicons>}
+  </Fragment>
+  }
+  <Style>{STYLE}</Style>
+</head>
 
 const PrepaidBrings = ({ brings }) =>
 <div {...{ style: { display: 'flex', flexWrap: 'wrap', margin: '1.17em 0em 0em' } }}>
@@ -194,35 +316,6 @@ prices.map(({ start, disable, ...price }, index, prices) => {
 </div>
 )
 
-const Auths = ({ auths }) =>
-<div {...{ id: 'auths', className: 'article_block' }}>
-  <div {...{ className: 'article_block_contents' }}>
-    <h2>{'アカウント登録'}</h2>
-    <div>
-      <p>{'お客様の所有する各種サービスのアカウントをご登録いただくことができます。ご興味がございましたらお気軽にお問い合わせください。'}</p>
-    </div>
-    {auths.includes('line') &&
-    <div>
-      <h3>{'LINE'}</h3>
-      <div {...{ style: { margin: '0em 0.75em' } }}>
-        <p>{'ご予約やご相談などの連絡をLINEを通して行うことができます。ご来園の際に当園のスマートフォンにお友達として登録をする形となります。'}</p>
-      </div>
-    </div>
-    }
-    {auths.includes('google') &&
-    <div>  
-      <h3>{'Google'}</h3>
-      <div {...{ style: { margin: '0em 0.75em' } }}>
-        <p>{'GooglePhotosなどのGoogle系サービスに非公開で投稿されるコンテンツにアクセスできるようになります。ご来園の際に当園のスマートフォンに表示されるQRコードを読み取っていただき、お客様のスマートフォンを通してGoogleメールアドレスを送信していただく形となります。'}</p>
-      </div>
-    </div>
-    }
-    {/* <div>
-      <p>{'興味のある方はお気軽にお問い合わせください。'}</p>
-    </div> */}
-  </div>
-</div>
-
 const flatlit = (string, separators, sepindex = 0) => {
   return (
     separators[sepindex] && string.includes(separators[sepindex])
@@ -272,7 +365,6 @@ const Article = ({ brings, prices, auths, children, ...props }) => {
       component === 'PostpaidBrings' ? [PostpaidBrings({ brings })] :
       component === 'Options' ? [Options({ brings })] :
       component === 'Prices' ? [Prices({ prices })] :
-      component === 'Auths' ? [Auths({ auths })] :
       []
     )]
   }, [])
@@ -289,83 +381,7 @@ const Article = ({ brings, prices, auths, children, ...props }) => {
   return <article {...props}>{deeplit(children, sepructures, end, grab)}</article>
 }
 
-export const stylestring = `
-h1,h2,h3,h4,h5,h6 {
-  font-weight: 500;
-}
-h2 {
-  font-size: 1.5em;
-  margin: 1.8em 0em 0em;
-  border-style: solid;
-  border-color: gainsboro;
-  border-width: 0em 0em 0.08em;
-  padding: 0em 0em 0.4em 0.0em;
-}
-h3 {
-  font-size: 1.31em;
-  margin: 1.5em 0em 0em;
-}
-h4 {
-  font-size: 1.05em;
-  margin: 1.0em 0em 0em;
-}
-h5 {
-  font-size: 0.95em;
-  margin: 1.0em 0em 0em;
-}
-hr {
-  margin-block: 1.25em;
-  border-style: solid;
-  border-color: gainsboro;
-  border-width: 0em 0em 0.12em;
-}
-p {
-  margin: 1.2em 0em;
-}
-footer p {
-  margin: 0;
-}
-dl {
-  padding: 0.7em 0.85em 0.7em;
-  background-color: #fcfcfc;
-  border-style: solid;
-  border-color: #e6e6e6;
-  border-width: 0.12em;
-  border-radius: 0.4em;
-}
-dt {
-  font-weight: 500;
-}
-dd {
-  margin: 0.6em 0.85em;
-}
-li {
-  margin: 0.5em 0em;
-}
-table {
-  width: 100%;
-  margin: 1em 0em;
-}
-thead {
-  font-weight: 500;
-}
-th,td {
-  font-weight: inherit;
-  padding: 0.2em 0.2em 0.2em 0.2em;
-  font-size: 0.85em;
-  text-align: center;
-}
-a {
-  color: dimgray;
-}
-main img {
-  width: 100%;
-}
-`
-.split('  ').join('')
-.split('\n').join(' ')
-
-export default ({
+const Body = ({
   name,
   phone,
   address,
@@ -393,11 +409,7 @@ export default ({
           // justifyContent: 'space-around',
           justifyContent: 'start',
           height: '16em',
-          // height: '17em',
-          // height: '19em',
-          // height: '16.75em',
           backgroundColor: BASIC_COLOR,
-          // backgroundColor: 'antiquewhite',
         } }}>
         {headers.map((src, index) =>
           <img {...{
@@ -428,9 +440,6 @@ export default ({
           position: 'absolute',
           top: '0.4em',
           right: '0.4em',
-          // width: '10em',
-          // padding: '2em',
-          // backgroundColor: '#537967',
           backgroundColor: BASIC_COLOR,
           color: '#ffffff',
         },
@@ -438,30 +447,28 @@ export default ({
         <a {...{
           target: '_blank',
           rel: 'noopener noreferrer',
-          href: 'https://www.google.com/search?q=%E3%82%B5%E3%83%9D%E3%83%BC%E3%82%BF%E3%83%BC',
+          href: '/supporters',
           style: {
-            // display: 'contents',
-            display: 'block',
             color: 'inherit',
           }
         }}>
-          {/* <div {...{ style: { textAlign: 'center', fontSize: '0.5em' } }}>
+          {/*
+          <div {...{ style: { textAlign: 'center', fontSize: '0.5em' } }}>
             {'サポーターのみなさま'}
-          </div> */}
-          <div {...{ style: { display: 'flex', margin: '0.4em 0em' } }}>
+          </div>
+          */}
+          <div {...{ style: { display: 'flex', padding: '0.4em 0em' } }}>
             {[0,1,2].map((index) =>
             <div {...{
               style: {
-                // display: 'inline-block',
                 width: '1.75em',
                 height: '1.75em',
-                marginRight: '0.4em',
-                marginLeft: index === 0 ? '0.4em' : '0em',
-                // margin: index === 0 ? '0em 0.3em' : '0em 0.3em 0em 0em',
                 borderWidth: '0.1em',
                 borderStyle: 'dashed',
                 borderColor: '#604e43',
                 backgroundColor: '#322a25',
+                marginRight: '0.4em',
+                marginLeft: index === 0 ? '0.4em' : '0em',
               }
             }}>
               {''}
@@ -486,7 +493,7 @@ export default ({
         </h1>
         <address {...{ style: { fontSize: '0.80em' } }}>
           <a {...{ target: '_blank', href: address.href }}>
-            <Relement>{address.value}</Relement>
+            <Elements>{address.value}</Elements>
           </a>
         </address>
       </div>
@@ -509,7 +516,7 @@ export default ({
                     ...(target === '_blank' ? { rel: 'noopener noreferrer' } : {})
                   })
                 }}>
-                  <Relement>{text}</Relement>
+                  <Elements>{text}</Elements>
                 </a>
               </td>
             </tr>

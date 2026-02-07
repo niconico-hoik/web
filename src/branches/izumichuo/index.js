@@ -22,6 +22,44 @@ export default {
       "text": "他のSNSの更新を通知等"
     }
   ],
+  "head": {
+    "description": '生後2か月～小学校高学年を対象に「こどもの多彩な可能性が育まれるようサポート」する認可外保育園です。申込みに限らず見学やお試し保育について等、お気軽にお問い合わせください。',
+    "og_description": 'こどもの多彩な可能性が育まれるようサポートする大阪府和泉市の認可外保育園',
+    "linking_data": {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "ChildCare",
+          "name": "ニコニコ保育園 和泉中央園",
+          "url": "https://niconico-hoik.com/",
+          "description": "生後2か月～小学校高学年を対象に「こどもの多彩な可能性が育まれるようサポート」する認可外保育園",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "JP",
+            "addressRegion": "大阪府",
+            "addressLocality": "和泉市",
+            "streetAddress": "のぞみ野3丁目4-17 Shima.B.L.D 1F",
+            "postalCode": "594-1105"
+          }
+        },
+        {
+          "@type": "Organization",
+          "name": "合同会社EVNR 保育総合事業部",
+          "email": "branch.hoik@evnr.ing",
+          "telephone": "+81-90-8231-4457",
+          "url": "https://niconico-hoik.com/",
+          "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "JP",
+            "addressRegion": "大阪府",
+            "addressLocality": "泉南郡熊取町",
+            "streetAddress": "小垣内1-5-28",
+            "postalCode": "590-0432"
+          },
+        }
+      ]
+    },
+  },
   "auths": {
     "line": false,
     "google": false

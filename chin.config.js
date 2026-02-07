@@ -5,25 +5,31 @@ import imagemin from 'chin-plugin-imagemin'
 import presetM2H from 'lonogara-sdk/unified/m2h'
 import { readFile, outputFile } from 'fs-extra'
 import { join } from 'path'
-import generateIndexHtml, { TITLE } from './chin.indexHtml.js'
-import izumichuoConfig from './src/branches/izumichuo/config.js'
-import { devdir, prodir } from './.variables.js'
 import { type } from 'os'
+import { devdir, prodir } from './.variables.js'
+import { renderBranch } from './src/pages'
+import izumichuoConfig from './src/branches/izumichuo'
 
-export const outputIndexHtml = async (out, type, favicons) => {
-  const izumichuoMarkdown = await readFile(
-    join('src', 'branches', 'izumichuo', 'main.md'),
-    'utf8'
-  )
+export const outputIndexHtml = async (type, outdir, favicons) => {
+  const files = await Promise.all([
+    readFile(
+      join('src', 'branches', 'izumichuo', 'main.md'),
+      'utf8'
+    ).then(izumichuoMarkdown => {
+      return renderBranch(
+        type,
+        izumichuoConfig,
+        izumichuoMarkdown,
+        favicons
+      )
+    }).then(izumichuoHtml => {
+      return ['index.html', izumichuoHtml]
+    })
+  ])
 
-  const indexHtml = await generateIndexHtml(
-    type,
-    izumichuoConfig,
-    izumichuoMarkdown,
-    favicons
-  )
-
-  return outputFile(out, indexHtml)
+  return Promise.all(files.map(([name, contents]) => {
+    return outputFile(join(outdir, name), contents)
+  }))
 }
 
 /* extensions */
@@ -75,9 +81,9 @@ const { svg2fav, result: faviconsProcessors } = {
     nameAsDir: true,
     config: {
       path: 'favicons',
-      appName: TITLE,
+      appName: izumichuoConfig.name,
       description: null,
-      // dir: "auto",
+      dir: "auto",
       lang: "ja-JP",
       display: "browser",
       orientation: "any",
@@ -115,10 +121,7 @@ const configs = {
       '**.xml'
     ],
     processors: commonProcessors,
-    before: () => outputIndexHtml(
-      join(devdir, 'index.html'),
-      'dev'
-    ),
+    before: () => outputIndexHtml('dev', devdir),
   },
 
   'mir': {
@@ -133,11 +136,7 @@ const configs = {
       ['favicons.svg', faviconsProcessors],
       ['*', commonProcessors]
     ],
-    after: () => outputIndexHtml(
-      join(prodir, 'index.html'),
-      'mir',
-      svg2fav.after()
-    )
+    after: () => outputIndexHtml('mir', prodir, svg2fav.after())
   },
 
   'pro': {
@@ -147,11 +146,7 @@ const configs = {
       ['favicons.svg', faviconsProcessors],
       ['*', commonProcessors]
     ],
-    after: () => outputIndexHtml(
-      join(prodir, 'index.html'),
-      'pro',
-      svg2fav.after()
-    )
+    after: () => outputIndexHtml('pro', prodir, svg2fav.after())
   }
 
 }
