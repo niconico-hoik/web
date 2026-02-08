@@ -8,63 +8,29 @@ import { join } from 'path'
 import { type } from 'os'
 import { devdir, prodir } from './.variables.js'
 import { renderBranch, renderSupporters } from './src/pages'
-import izumichuoConfig from './src/branches/izumichuo'
+import * as branches from './src/branches/index.js'
 
 export const outputHtmls = async (type, outdir, favicons) => {
-  const files = await Promise.all([
-    readFile(
-      join('src', 'branches', 'izumichuo', 'main.md'),
-      'utf8'
-    ).then(izumichuoMarkdown => {
-      return renderBranch(
-        type,
-        izumichuoConfig,
-        izumichuoMarkdown,
-        favicons
-      )
-    }).then(izumichuoHtml => {
-      return ['index.html', izumichuoHtml]
-    }),
-    renderSupporters(
-      type,
-      izumichuoConfig
-    ).then(supportersHtml => {
-      return ['supporters.html', supportersHtml]
-    })
-  ])
+  return Promise.all([
+    'izumichuo',
+  ].reduce((acc, branch) => [...acc, ...Object.entries({
 
-  return Promise.all(files.map(([name, contents]) => {
-    return outputFile(join(outdir, name), contents)
-  }))
+    'index.html': readFile(join('src', 'branches', branch, 'main.md'), 'utf8').then(branchMarkdown => {
+      return renderBranch(type, branches[branch], branchMarkdown, favicons)
+    }),
+
+    'supporters.html': renderSupporters(type, branches[branch]),
+
+  }).map(([filename, promise]) => {
+    return promise.then(contents => {
+      return outputFile(join(outdir, filename), contents)
+    })
+  })], []))
 }
 
-/* extensions */
-
+const assets = 'frame'
 const ink2pdf = inkscape('pdf')
 const ink2png = inkscape('png', { width: 2000, background: '#ffffff' })
-
-/*
-const md2html = unified('.html', presetM2H())
-
-const img2min = imagemin({
-  gifsicle: {},
-  jpegtran: {},
-  optipng: {},
-  svgo: {}
-})
-
-const svg2fav = favicons({
-  nameAsDir: true,
-  config: {
-    path: 'favicons',
-    appName: TITLE
-  }
-})
-*/
-
-/* configs */
-
-const assets = 'frame'
 
 const { result: commonProcessors } = {...{
   md2html: unified('.html', presetM2H()),
@@ -87,7 +53,7 @@ const { svg2fav, result: faviconsProcessors } = {
     nameAsDir: true,
     config: {
       path: 'favicons',
-      appName: izumichuoConfig.name,
+      appName: branches['izumichuo'].name,
       description: null,
       dir: "auto",
       lang: "ja-JP",
