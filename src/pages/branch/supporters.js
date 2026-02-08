@@ -1,6 +1,27 @@
 import React, { Fragment, createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { html2html, markdown2html, html2react, Style, Script, Elements, Favicons } from '../../utils'
+import LINKED_DATA_GRAPHS from "../../ld"
+
+const generateGraph = (local_business) => ({
+  "@type": "WebPage",
+  "@id": "https://niconico-hoik.com/supporters/#webpage",
+  "url": "https://niconico-hoik.com/supporters/",
+  "name": "サポーターの方へ",
+  "description": "（supportersページ説明：例）協賛・支援のご案内ページ（現在準備中）です。",
+  "inLanguage": "ja",
+  "isPartOf": { "@id": LINKED_DATA_GRAPHS.WEBSITE['@id'] },
+
+  "about": { "@id": local_business["@id"] },
+  "mainEntity": { "@id": local_business["@id"] }
+
+  /* 代表画像があれば（任意）
+  ,"primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": "https://niconico-hoik.com/assets/supporters.jpg"
+  }
+  */
+})
 
 export const render = (type, config) => {
   return html2html(`<!DOCTYPE html>${

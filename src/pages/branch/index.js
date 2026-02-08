@@ -1,6 +1,37 @@
 import React, { Fragment, createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { x, html2html, markdown2html, html2react, Style, Script, Elements, Favicons } from '../../utils'
+import LINKED_DATA_GRAPHS from "../../ld"
+
+/* ===== WebPage（このページ = / ） ===== */
+const generateGraph = (local_business) => ({
+  "@type": "WebPage",
+  "@id": "https://niconico-hoik.com/#home",
+  "url": "https://niconico-hoik.com/",
+  "name": "ニコニコ保育園 和泉中央園",
+  "description": "園の概要、方針、募集情報、アクセスなどをご案内します。",
+  "inLanguage": "ja",
+  "isPartOf": { "@id": LINKED_DATA_GRAPHS.WEBSITE['@id'] },
+
+  /* このページが何についてか（= campus） */
+  "about": { "@id": local_business["@id"] },
+  "mainEntity": { "@id": local_business["@id"] },
+
+  /* 代表画像（任意） */
+  "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": "https://niconico-hoik.com/assets/hero.jpg"
+  },
+
+  /* パンくず（ページが増えてきたら使う。最初は消してOK）
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type":"ListItem","position":1,"name":"ホーム","item":"https://niconico-hoik.com/" }
+    ]
+  }
+  */
+})
 
 const generateProps = ({ prices, ...config }) => {
   return {
@@ -128,7 +159,7 @@ const Head = ({ type, name, head, children: favicons }) =>
   <meta charSet="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>{name}</title>
-  <meta name="description" content={head.description} />
+  <meta name="description" content={head['description']} />
   {
   type === 'pro' ?
   <Fragment>
@@ -140,14 +171,23 @@ const Head = ({ type, name, head, children: favicons }) =>
     <meta property="og:image" content="https://niconico-hoik.com/image/opengraph.png" />
     <meta property="og:site_name" content={name} />
     <meta property="og:title" content={name} />
-    <meta property="og:description" content={head.og_description} />
+    <meta property="og:description" content={head['og:description']} />
 
     <meta name="twitter:card" content="summary_large_image" />
 
     {Array.isArray(favicons) && <Favicons>{favicons}</Favicons>}
 
     <Script {...{ type: 'application/ld+json' }}>
-      {JSON.stringify(head.linking_data)}
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          LINKED_DATA_GRAPHS.COMPANY,
+          LINKED_DATA_GRAPHS.DIVISION,
+          head['@graph'],
+          LINKED_DATA_GRAPHS.WEBSITE,
+          generateGraph(head['@graph']),
+        ],
+      })}
     </Script>
   </Fragment>
   :
@@ -425,7 +465,7 @@ const Body = ({
         <a {...{
           target: '_blank',
           rel: 'noopener noreferrer',
-          href: '/supporters',
+          href: '/supporters/',
           style: {
             color: 'inherit',
           }

@@ -20,7 +20,7 @@ export const outputHtmls = async (type, outdir, favicons) => {
         return renderBranch(type, branches[branch], branchMarkdown, favicons)
       }),
 
-      'supporters.html': renderSupporters(type, branches[branch]),
+      'supporters/index.html': renderSupporters(type, branches[branch]),
 
     }).map(([filename, promise]) => {
       return promise.then(contents => [filename, contents])
