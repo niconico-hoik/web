@@ -24,6 +24,7 @@ const Head = ({}) =>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>{''}</title>
   <meta name="description" content={''} />
+  <meta name="robots" content="noindex,nofollow" />
 </head>
 
 const Body = ({}) =>

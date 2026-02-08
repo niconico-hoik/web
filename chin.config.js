@@ -11,21 +11,27 @@ import { renderBranch, renderSupporters } from './src/pages'
 import * as branches from './src/branches/index.js'
 
 export const outputHtmls = async (type, outdir, favicons) => {
-  return Promise.all([
-    'izumichuo',
-  ].reduce((acc, branch) => [...acc, ...Object.entries({
+  return Promise.all(
+    [
+      'izumichuo', // must be the only.
+    ].reduce((acc, branch) => [...acc, ...Object.entries({
 
-    'index.html': readFile(join('src', 'branches', branch, 'main.md'), 'utf8').then(branchMarkdown => {
-      return renderBranch(type, branches[branch], branchMarkdown, favicons)
-    }),
+      'index.html': readFile(join('src', 'branches', branch, 'main.md'), 'utf8').then(branchMarkdown => {
+        return renderBranch(type, branches[branch], branchMarkdown, favicons)
+      }),
 
-    'supporters.html': renderSupporters(type, branches[branch]),
+      'supporters.html': renderSupporters(type, branches[branch]),
 
-  }).map(([filename, promise]) => {
-    return promise.then(contents => {
+    }).map(([filename, promise]) => {
+      return promise.then(contents => [filename, contents])
+    })], [])
+  ).then(files => Promise.all(
+    [...files, ...Object.entries({
+
+    })].map(([filename, contents]) => {
       return outputFile(join(outdir, filename), contents)
-    })
-  })], []))
+    }))
+  )
 }
 
 const assets = 'frame'
