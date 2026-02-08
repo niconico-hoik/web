@@ -16,7 +16,7 @@ export const outputHtmls = async (type, outdir, favicons) => {
       'izumichuo', // must be the only.
     ].reduce((acc, branch) => [...acc, ...Object.entries({
 
-      'index.html': readFile(join('src', 'branches', branch, 'main.md'), 'utf8').then(branchMarkdown => {
+      'index.html': readFile(join('src', 'branches', branch, 'article.md'), 'utf8').then(branchMarkdown => {
         return renderBranch(type, branches[branch], branchMarkdown, favicons)
       }),
 
