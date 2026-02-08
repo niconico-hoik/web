@@ -8,6 +8,8 @@ import hastformat from 'rehype-format'
 import hast2html from 'rehype-stringify'
 import hast2react from 'rehype-react'
 
+export const x = (args, fn) => fn(args)
+
 export const { markdown2html } = {...{ get markdown2html() {
   const processor = unified().use([
     [md2mdast, {}],

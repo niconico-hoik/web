@@ -1,6 +1,6 @@
 import React, { Fragment, createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { html2html, markdown2html, html2react, Style, Script, Elements, Favicons } from '../../utils'
+import { x, html2html, markdown2html, html2react, Style, Script, Elements, Favicons } from '../../utils'
 
 const generateProps = ({ prices, ...config }) => {
   return {
@@ -519,17 +519,25 @@ const Body = ({
     </Article>
   </main>
   <footer {...{ style: { background: BASIC_COLOR, color: '#81756c', padding: '1.5em 1.5em' } }}>
+    {x({ margin: 0 }, ({ margin }) =>
     <div {...{ style: { fontSize: '0.85em', lineHeight: 'normal', textAlign: 'right' } }}>
       <address>
-        <div>{'合同会社EVNR / 保育総合事業部'}</div>
-        {/* <p>{'〒590-0432 大阪府泉南郡熊取町小垣内1-5-28'}</p> */}
-        <div>
+        <p {...{ style: { margin } }}>
+          {'合同会社EVNR / 保育総合事業部'}
+        </p>
+        {/* <p>
+          {'〒590-0432 大阪府泉南郡熊取町小垣内1-5-28'}
+        </p> */}
+        <p {...{ style: { margin } }}>
           <a {...{ href: 'mailto:branch.hoik@evnr.ing', style: { color: 'inherit' } }}>
             {'branch.hoik@evnr.ing'}
           </a>
-        </div>
+        </p>
       </address>
-      <div>{'© 合同会社EVNR'}</div>
+      <p {...{ style: { margin } }}>
+        {'© 合同会社EVNR'}
+      </p>
     </div>
+    )}
   </footer>
 </body>
