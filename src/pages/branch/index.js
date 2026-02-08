@@ -83,9 +83,6 @@ hr {
 p {
   margin: 1.2em 0em;
 }
-footer p {
-  margin: 0;
-}
 dl {
   padding: 0.7em 0.85em 0.7em;
   background-color: #fcfcfc;
@@ -524,15 +521,15 @@ const Body = ({
   <footer {...{ style: { background: BASIC_COLOR, color: '#81756c', padding: '1.5em 1.5em' } }}>
     <div {...{ style: { fontSize: '0.85em', lineHeight: 'normal', textAlign: 'right' } }}>
       <address>
-        <p>{'合同会社EVNR / 保育総合事業部'}</p>
-        <p>{'〒590-0432 大阪府泉南郡熊取町小垣内1-5-28'}</p>
-        <p>
+        <div>{'合同会社EVNR / 保育総合事業部'}</div>
+        {/* <p>{'〒590-0432 大阪府泉南郡熊取町小垣内1-5-28'}</p> */}
+        <div>
           <a {...{ href: 'mailto:branch.hoik@evnr.ing', style: { color: 'inherit' } }}>
             {'branch.hoik@evnr.ing'}
           </a>
-        </p>
+        </div>
       </address>
-      <p>{'© 合同会社EVNR'}</p>
+      <div>{'© 合同会社EVNR'}</div>
     </div>
   </footer>
 </body>
