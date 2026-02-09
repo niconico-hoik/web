@@ -166,14 +166,19 @@ const Head = ({ type, name, head, children: favicons }) =>
     <link rel="canonical" href="https://niconico-hoik.com/" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="ja_JP" />
     <meta property="og:url" content="https://niconico-hoik.com/" />
-    <meta property="og:image" content="https://niconico-hoik.com/image/opengraph.png" />
     <meta property="og:site_name" content={name} />
     <meta property="og:title" content={name} />
-    <meta property="og:description" content={head['og:description']} />
+    <meta property="og:description" content={head[':description']} />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:image" content="https://niconico-hoik.com/image/opengraph.png" />
+    <meta property="og:image:alt" content={name} />
 
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={name} />
+    <meta name="twitter:description" content={head[':description']} />
+    <meta name="twitter:image" content="https://niconico-hoik.com/image/opengraph.png" />
+    <meta name="twitter:image:alt" content={name} />
 
     {Array.isArray(favicons) && <Favicons>{favicons}</Favicons>}
 
@@ -293,9 +298,12 @@ prices.map(({ start, disable, ...price }, index, prices) => {
     {hours.map(({ pupil, periods }) =>
     <div {...{ key: pupil }}>
       <h5>{`年齢: ${pupil}`}</h5>
-      <table>
+      {x({ borderBottom: '0.12em dashed #e6e6e6' }, ({ borderBottom }) =>
+      <table {...{ style: { borderCollapse: 'collapse' } }}>
         <thead>
-          <tr>{['時間帯', '利用形態', '金額'].map(key => <th {...{ key }}>{key}</th>)}</tr>
+          <tr {...{ style: { borderBottom } }}>
+            {['時間帯', '利用形態', '金額'].map(key => <th {...{ key }}>{key}</th>)}
+          </tr>
         </thead>
         <tbody>
           {periods.reduce((acc, { key, values }) =>
@@ -310,11 +318,17 @@ prices.map(({ start, disable, ...price }, index, prices) => {
                   return `${usage}${this.range && `: ${this.range}*` || ''}`
                 },
               }}
-            }).map(({ usage, value }, index) =>
-              <tr {...{ key: `${key}.${index}` }}>
-                <td {...{ style: { width: '27%', visibility: index === 0 ? 'initial' : 'hidden' } }}>
+            }).map(({ usage, value }, index, { length: rowSpan }) =>
+              <tr {...{
+                key: `${key}.${index}`,
+                style: {
+                  ...(index === rowSpan - 1 ? { borderBottom } : {}),
+                }
+              }}>
+                {index === 0 &&
+                <td {...{ rowSpan, style: { width: '27%' } }}>
                   {key}
-                </td>
+                </td>}
                 <td {...{ style: {} }}>
                   {usage}
                 </td>
@@ -327,6 +341,7 @@ prices.map(({ start, disable, ...price }, index, prices) => {
           )}
         </tbody>
       </table>
+      )}
     </div>
     )}
   </div>
@@ -530,8 +545,16 @@ const Body = ({
           },
         }}>
           {[
-            ...phones.map(({ name, value }) => ({ name, href: `tel:${value}`, text: value, target: '' })),
-            ...links.map(link => ({ ...link, target: '_blank' })),
+            ...phones.map(({ name, value }) => ({
+              name,
+              href: `tel:${value.split('-').join('')}`,
+              text: value.replace(/^\+81-/,"0"),
+              target: '',
+            })),
+            ...links.map(link => ({
+              ...link,
+              target: '_blank',
+            })),
           ].map(({ name, href, text, target }, index) =>
           <li {...{
             key: index,

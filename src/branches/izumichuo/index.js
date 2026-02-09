@@ -9,11 +9,11 @@ export default {
   "phones": [
     {
       "name": "固定電話",
-      "value": "0725563396",
+      "value": "+81-72-556-3396",
     },
     {
       "name": "携帯電話",
-      "value": "09082314457",
+      "value": "+81-90-8231-4457",
     },
   ],
   "links": [
@@ -35,7 +35,7 @@ export default {
   ],
   "head": {
     "description": '生後2か月～小学校高学年を対象に「こどもの多彩な可能性が育まれるようサポート」する認可外保育園です。申込みに限らず見学やお試し保育について等、お気軽にお問い合わせください。',
-    "og:description": 'こどもの多彩な可能性が育まれるようサポートする大阪府和泉市の認可外保育園',
+    ":description": 'こどもの多彩な可能性が育まれるようサポートする大阪府和泉市の認可外保育園',
     "@graph": {
       "@type": ["LocalBusiness", "ChildCare"],
       "@id": "https://hoik.evnr.ing/campuses/izumichuo/#campus",
@@ -73,6 +73,15 @@ export default {
       "telephone": [
         "+81-72-556-3396",
         "+81-90-8231-4457",
+      ],
+
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "general inquiry",
+          "email": "contact@niconico-hoik.com",
+          "availableLanguage": ["ja"],
+        }
       ],
 
       /* 地図・座標（確定している場合だけ残す） */
