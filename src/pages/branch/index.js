@@ -300,13 +300,13 @@ prices.map(({ start, disable, ...price }, index, prices) => {
       <h5>{`年齢: ${pupil}`}</h5>
       {x({ borderBottom: '0.12em dashed #e6e6e6' }, ({ borderBottom }) =>
       <table {...{ style: { borderCollapse: 'collapse' } }}>
-        <thead>
-          <tr {...{ style: { borderBottom } }}>
+        <thead {...{ style: { borderBottom } }}>
+          <tr {...{}}>
             {['時間帯', '利用形態', '金額'].map(key => <th {...{ key }}>{key}</th>)}
           </tr>
         </thead>
-        <tbody>
-          {periods.reduce((acc, { key, values }) =>
+        <tbody {...{ style: { borderBottom } }}>
+          {periods.reduce((acc, { key, values }, pindex) =>
             [...acc, ...values.map(({ usage, min, max, value }) => {
               return {...{
                 value,
@@ -321,9 +321,11 @@ prices.map(({ start, disable, ...price }, index, prices) => {
             }).map(({ usage, value }, index, { length: rowSpan }) =>
               <tr {...{
                 key: `${key}.${index}`,
-                style: {
-                  ...(index === rowSpan - 1 ? { borderBottom } : {}),
-                }
+                style: { ...(
+                  index === rowSpan - 1 && pindex !== periods.length - 1
+                  ? { borderBottom }
+                  : {}
+                ) }
               }}>
                 {index === 0 &&
                 <td {...{ rowSpan, style: { width: '27%' } }}>
