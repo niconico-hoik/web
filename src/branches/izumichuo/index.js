@@ -1,35 +1,67 @@
 import LINKED_DATA_GRAPHS from "../../ld"
 
-export default {
-  "name": "ニコニコ保育園 和泉中央園",
-  "address": {
-    "value": "〒5941105 大阪府和泉市のぞみ野3丁目4-17 Shima.B.L.D 1F",
-    "href": "https://maps.app.goo.gl/DD3ZbfVbah9d8foy9"
-  },
-  "phones": [
-    {
-      "name": "固定電話",
-      "value": "+81-72-556-3396",
-    },
-    // {
-    //   "name": "携帯電話",
-    //   "value": "+81-90-8231-4457",
-    // },
+const BASE = {
+  name: 'ニコニコ保育園 和泉中央園',
+  alternateName: [
+    'いぶねる保育園 和泉中央園',
   ],
+  address: {
+    postalCode: "594-1105",
+    addressRegion: "大阪府",
+    addressLocality: "和泉市",
+    streetAddress: "のぞみ野3丁目4-17 Shima.B.L.D 1F",
+    latitude: 34.4528701,
+    longitude: 135.4580469,
+    hasMap: "https://www.google.com/maps/place/ニコニコ保育園+和泉中央園/@34.4528701,135.4580469,900m/data=!4m6!3m5!1s0x6000d02d756bc73d:0xc0cc03d243155b11!8m2!3d34.4528701!4d135.4580469!16s%2Fg%2F1tj73gjs",
+  },
+  telephone: {
+    '固定電話': '+81-72-556-3396',
+    // '携帯電話': '+81-90-8231-4457',
+  },
+  email: {
+    general_inquiry: 'contact@niconico-hoik.com',
+  },
+  sameAs: {
+    instagram: "https://www.instagram.com/evnr_hoik_izumichuo/",
+    facebook: "https://www.facebook.com/nicohoizumi",
+    twitter: "https://x.com/niconico_hoik",
+    tumblr: "https://www.tumblr.com/nicohoi-info",
+  },
+}
+
+export default {
+  "name": BASE.name,
+  "address": {
+    "href": BASE.address.hasMap,
+    "value": `〒${
+      BASE.address.postalCode
+    } ${
+      BASE.address.addressRegion
+    }${
+      BASE.address.addressLocality
+    }${
+      BASE.address.streetAddress
+    }`,
+  },
+  "phones": Object.entries(
+    BASE.telephone
+  ).map(([name, value]) => {
+    return { name, value }
+  }),
   "links": [
     {
       "name": "Instagram",
-      "href": "https://www.instagram.com/evnr_hoik_izumichuo/",
+      "href": BASE.sameAs.instagram,
       "text": "日々の保育の様子"
     },
     {
       "name": "Tumblr",
-      "href": "https://www.tumblr.com/nicohoi-info",
+      "href": BASE.sameAs.tumblr,
       "text": "給食メニュー等のお知らせ"
     },
     {
       "name": "Twitter (X)",
-      "href": "https://x.com/niconico_hoik",
+      "href": BASE.sameAs.twitter,
       "text": "他のSNSの更新を通知等"
     }
   ],
@@ -39,18 +71,10 @@ export default {
     "@graph": {
       "@type": ["LocalBusiness", "ChildCare"],
       "@id": "https://hoik.evnr.ing/campuses/izumichuo/#campus",
-      "name": "ニコニコ保育園 和泉中央園",
-      "alternateName": [
-        "いぶねる保育園 和泉中央園"
-      ],
-      "url": "https://niconico-hoik.com/",
-      "sameAs": [
-        "https://www.google.com/maps/place/ニコニコ保育園+和泉中央園/@34.4527993,135.4577143,900m/data=!4m6!3m5!1s0x6000d02d756bc73d:0xc0cc03d243155b11!8m2!3d34.4528701!4d135.4580469!16s%2Fg%2F1tj73gjs",
-        "https://www.instagram.com/evnr_hoik_izumichuo/",
-        "https://www.facebook.com/nicohoizumi",
-        "https://x.com/niconico_hoik",
-        "https://www.tumblr.com/nicohoi-info",
-      ],
+      "name": BASE.name,
+      "alternateName": BASE.alternateName,
+      "url": LINKED_DATA_GRAPHS.WEBSITE.url,
+      "sameAs": Object.values(BASE.sameAs),
       "parentOrganization": { "@id": LINKED_DATA_GRAPHS.DIVISION['@id'] },
 
       /* 画像・ロゴ（任意） */
@@ -62,24 +86,21 @@ export default {
       /* 住所（確定している場合だけ残す） */
       "address": {
         "@type": "PostalAddress",
-        "postalCode": "594-1105",
-        "addressRegion": "大阪府",
-        "addressLocality": "和泉市",
-        "streetAddress": "のぞみ野3丁目4-17 Shima.B.L.D 1F",
-        "addressCountry": "JP"
+        "addressCountry": "JP",
+        "postalCode": BASE.address.postalCode,
+        "addressRegion": BASE.address.addressRegion,
+        "addressLocality": BASE.address.addressLocality,
+        "streetAddress": BASE.address.streetAddress,
       },
 
       /* 電話（確定している場合だけ残す） */
-      "telephone": [
-        "+81-72-556-3396",
-        "+81-90-8231-4457",
-      ],
-
+      "telephone": Object.values(BASE.telephone),
+      "email": BASE.email.general_inquiry,
       "contactPoint": [
         {
           "@type": "ContactPoint",
           "contactType": "general inquiry",
-          "email": "contact@niconico-hoik.com",
+          "email": BASE.email.general_inquiry,
           "availableLanguage": ["ja"],
         }
       ],
@@ -87,22 +108,23 @@ export default {
       /* 地図・座標（確定している場合だけ残す） */
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": 34.4528701,
-        "longitude": 135.4580469,
+        "latitude": BASE.address.latitude,
+        "longitude": BASE.address.longitude,
       },
 
-      "hasMap": "https://www.google.com/maps/place/ニコニコ保育園+和泉中央園/@34.4527993,135.4577143,900m/data=!4m6!3m5!1s0x6000d02d756bc73d:0xc0cc03d243155b11!8m2!3d34.4528701!4d135.4580469!16s%2Fg%2F1tj73gjs",
+      "hasMap": BASE.address.hasMap,
 
       /* 対象地域（任意） */
       "areaServed": [
-        { "@type": "AdministrativeArea", "name": "和泉市" },
-        "和泉市周辺",
+        { "@type": "AdministrativeArea", "name": BASE.address.addressLocality },
+        `${BASE.address.addressLocality}周辺`,
       ],
 
       /* 料金帯（任意。曖昧なら消す） */
       // "priceRange": "¥¥",
 
       /* 営業/開園時間（確定している場合だけ残す） */
+      "description": '保育対応時間：07:00〜23:00（ご利用がある場合）／受付時間：08:00〜18:00（盆・年末年始を除く）',
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
