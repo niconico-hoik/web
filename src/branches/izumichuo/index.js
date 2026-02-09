@@ -176,9 +176,9 @@ export default {
       }
     },
     {
-      "name": "おやつ",
+      "name": "おやつ（朝・夕）",
       "in_prepaid": "毎日の持ち物",
-      "in_postpaid": "",
+      "in_postpaid": "場合によるもの",
       "option": null
     },
     {
