@@ -11,10 +11,10 @@ export default {
       "name": "固定電話",
       "value": "+81-72-556-3396",
     },
-    {
-      "name": "携帯電話",
-      "value": "+81-90-8231-4457",
-    },
+    // {
+    //   "name": "携帯電話",
+    //   "value": "+81-90-8231-4457",
+    // },
   ],
   "links": [
     {
@@ -148,12 +148,6 @@ export default {
       "option": null
     },
     {
-      "name": "スタイ（必要な場合）",
-      "in_prepaid": "毎日の持ち物",
-      "in_postpaid": "場合によるもの",
-      "option": null
-    },
-    {
       "name": "水筒",
       "in_prepaid": "毎日の持ち物",
       "in_postpaid": "必要なもの",
@@ -178,7 +172,7 @@ export default {
       "option": {
         "value": 450,
         "unit": "食",
-        "description": "ご注文・キャンセルは前日17:00（月曜日の分は土曜日の13:00）までにご連絡ください。昼食のメニューはtumblrにて毎週公開中です。"
+        "description": "ご注文・キャンセルは前日17:00（月曜日の分は土曜日の13:00）までにご連絡ください。昼食のメニューはTumblrにて毎週公開中です。"
       }
     },
     {
@@ -188,65 +182,71 @@ export default {
       "option": null
     },
     {
+      "name": "スタイ（必要な場合）",
+      "in_prepaid": "毎日の持ち物",
+      "in_postpaid": "場合によるもの",
+      "option": null
+    },
+    {
       "name": "母子手帳のコピー",
-      "in_prepaid": "お預かりする物",
+      "in_prepaid": "園でお預かりする物",
       "in_postpaid": "",
       "option": null
     },
     {
       "name": "健康保険証のコピー",
-      "in_prepaid": "お預かりする物",
+      "in_prepaid": "園でお預かりする物",
       "in_postpaid": "必要なもの",
       "option": null
     },
     {
       "name": "着替えの服（１~２セット）",
-      "in_prepaid": "お預かりする物",
+      "in_prepaid": "園でお預かりする物",
       "in_postpaid": "必要なもの",
       "option": null
     },
     {
       "name": "ビニール袋（汚れた衣服用）",
-      "in_prepaid": "お預かりする物",
+      "in_prepaid": "園でお預かりする物",
       "in_postpaid": "",
       "option": null
     },
     {
       "name": "バスタオル・シーツ（お昼寝用）",
-      "in_prepaid": "お預かりする物",
+      "in_prepaid": "園でお預かりする物",
       "in_postpaid": "場合によるもの",
       "option": null
     },
     {
       "name": "歯ブラシ・コップ",
-      "in_prepaid": "お預かりする物",
+      "in_prepaid": "園でお預かりする物",
       "in_postpaid": "場合によるもの",
       "option": null
     },
     {
       "name": "哺乳瓶",
-      "in_prepaid": "お預かりする物",
+      "in_prepaid": "園でお預かりする物",
       "in_postpaid": "",
       "option": null
     },
     {
       "name": "ミルク",
-      "in_prepaid": "お預かりする物",
+      "in_prepaid": "園でお預かりする物",
       "in_postpaid": "",
       "option": {
         "value": 180,
         "unit": "100ml",
-        "description": "ミルクに関する何らかの情報"
+        "description": "園でお預かりの分が足りなくなった場合はオプションよりご購入いただくことになります"
       }
     },
     {
       "name": "オムツ",
-      "in_prepaid": "お預かりする物",
+      "in_prepaid": "園でお預かりする物",
       "in_postpaid": "",
       "option": {
         "value": 90,
         "unit": "枚",
-        "description": "後日代わりのオムツを補充いただく場合は無料です"
+        "description": "後日代わりのオムツを補充いただく形でのご利用も可能です"
       }
     }
   ],

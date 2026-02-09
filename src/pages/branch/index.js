@@ -33,9 +33,16 @@ const generateGraph = (local_business) => ({
   */
 })
 
-const generateProps = ({ prices, ...config }) => {
+const generateProps = ({ phones, prices, ...config }) => {
   return {
     ...config,
+
+    phones: phones.map(({ name, value }) => ({
+      name,
+      href: `tel:${value.split('-').join('')}`,
+      text: value.replace(/^\+81-/,"0"),
+    })),
+
     prices: [...prices].sort(({ start: a }, { start: b }) =>
       a < b ? -1 : a > b ? 1 : 0
     ).map(({ start, prepaid_conditions, hours }, index, prices) => {
@@ -380,41 +387,6 @@ const deeplit = (string, sepructures, end, grab, deepindex = 0) => {
   )
 }
 
-const Article = ({ brings, prices, auths, children, ...props }) => {
-
-  const sepructures = [
-    ['<hr>','<h2>'],
-    ['<h3>'],
-    ['<h4>'],
-    ['<h5>'],
-  ]
-
-  const end = (string) =>
-  !string.includes('<h6>')
-  ? html2react(string)
-  : string.split('</h6>').reduce((acc, chunk, index) => {
-    const [block, component] = chunk.split('<h6>')
-    return [...acc, ...html2react(block), ...(
-      component === 'PrepaidBrings' ? [PrepaidBrings({ brings })] :
-      component === 'PostpaidBrings' ? [PostpaidBrings({ brings })] :
-      component === 'Options' ? [Options({ brings })] :
-      component === 'Prices' ? [Prices({ prices })] :
-      []
-    )]
-  }, [])
-
-  const grab = (string, deepindex, index, { length }, children) =>
-  deepindex > 0 && (index === 0 && length > 1)
-  ? children
-  : deepindex === 0 && index === 0
-  ? createElement('header', {}, children)
-  : deepindex === 0 && index === length - 1
-  ? createElement('footer', {}, children)
-  : createElement('section', {}, children)
-
-  return <article {...props}>{deeplit(children, sepructures, end, grab)}</article>
-}
-
 const Body = ({
   name,
   address,
@@ -477,6 +449,7 @@ const Body = ({
           backgroundColor: BASIC_COLOR,
           color: '#ffffff',
           borderRadius: '0.2em',
+          display: 'none', //
         },
       }}>
         <a {...{
@@ -547,16 +520,8 @@ const Body = ({
           },
         }}>
           {[
-            ...phones.map(({ name, value }) => ({
-              name,
-              href: `tel:${value.split('-').join('')}`,
-              text: value.replace(/^\+81-/,"0"),
-              target: '',
-            })),
-            ...links.map(link => ({
-              ...link,
-              target: '_blank',
-            })),
+            ...phones.map(phone => ({ ...phone, target: '' })),
+            ...links.map(link => ({ ...link, target: '_blank' })),
           ].map(({ name, href, text, target }, index) =>
           <li {...{
             key: index,
@@ -605,9 +570,78 @@ const Body = ({
       color: BASIC_COLOR,
     }
   }}>
-    <Article {...{ brings, prices, auths }}>
-      {children}
-    </Article>
+    {x({
+
+      sepructures: [
+        // ['<hr>','<h2>'],
+        ['<h2>'],
+        ['<h3>'],
+        ['<h4>'],
+        ['<h5>'],
+      ],
+
+      end: (string) =>
+      !string.includes('<h6>')
+      ? html2react(string)
+      : string.split('</h6>').reduce((acc, chunk, index) => {
+        const [block, component] = chunk.split('<h6>')
+        return [...acc, ...html2react(block), ...(
+          component === 'PrepaidBrings' ? [PrepaidBrings({ brings })] :
+          component === 'PostpaidBrings' ? [PostpaidBrings({ brings })] :
+          component === 'Options' ? [Options({ brings })] :
+          component === 'Prices' ? [Prices({ prices })] :
+          []
+        )]
+      }, []),
+
+      grab: (string, deepindex, index, { length }, children) =>
+      deepindex > 0 && (index === 0 && length > 1)
+      ? children
+      : deepindex === 0 && index === 0
+      ? createElement('header', {}, children)
+      : deepindex === 0 && index === length - 1 && /^\<hr\>/.test(string)
+      ? createElement('footer', {}, children)
+      : createElement('section', {}, children),
+
+    }, ({ sepructures, end, grab }) =>
+    <article {...{}}>
+      {deeplit(children, sepructures, end, grab)}
+      <footer>
+        <hr />
+        <div {...{ style: { margin: '2.5em 0em' } }}>
+          <p>
+            {'見学 / お試し保育 / 月極利用 / 一時預かり、等々に関するご相談やご質問、心よりお待ちしております🏠'}
+          </p>
+          <p>
+            {[
+              ...phones,
+              {
+                name: '受付時間',
+                href: null,
+                text: '07:00〜23:00（盆・年末年始を除く）',
+              }
+            ].map(({ name, href, text }) =>
+            <div {...{ style: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.5em' } }}>
+              <span {...{ style: { whiteSpace: 'nowrap' }}}>
+                {name}{':'}
+              </span>
+              {href
+              ?
+              <a {...{ href, style: { whiteSpace: 'nowrap' }}}>
+                {text}
+              </a>
+              :
+              <span {...{ style: { whiteSpace: 'nowrap' } }}>
+                {text}
+              </span>
+              }
+            </div>
+            )}
+          </p>
+        </div>
+      </footer>
+    </article>
+    )}
   </main>
   <footer {...{ style: { background: BASIC_COLOR, color: '#81756c', padding: '1.5em 1.5em' } }}>
     {x({ margin: 0 }, ({ margin }) =>
