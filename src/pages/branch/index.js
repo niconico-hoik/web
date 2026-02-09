@@ -610,7 +610,7 @@ const Body = ({
         <hr />
         <div {...{ style: { margin: '2.5em 0em' } }}>
           <p>
-            {'見学 / お試し保育 / 月極利用 / 一時預かり、等々に関するご相談やご質問、心よりお待ちしております🏠'}
+            {'見学 / お試し保育 / 月極利用 / 一時預かり 等々に関するご相談やご質問、心よりお待ちしております🏠'}
           </p>
           <p>
             {[
@@ -618,7 +618,7 @@ const Body = ({
               {
                 name: '受付時間',
                 href: null,
-                text: '07:00〜23:00（盆・年末年始を除く）',
+                text: '08:00-18:00（盆・年末年始を除く）',
               }
             ].map(({ name, href, text }) =>
             <div {...{ style: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.5em' } }}>
