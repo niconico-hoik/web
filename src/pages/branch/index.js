@@ -206,7 +206,7 @@ const PrepaidBrings = ({ brings }) =>
     acc[in_prepaid] = [...acc[in_prepaid], bring]
     return acc
   }, {})).map(([in_prepaid, brings], index, types) =>
-    <div {...{ id: `brings_type_${index}`, style: { minWidth: '50%' } }}>
+    <div {...{ key: index, style: { minWidth: '50%' } }}>
       <h4 {...{ style: { margin: 0 } }}>{in_prepaid}</h4>
       <ol>
         {brings.map(({ name, option }, index) =>
@@ -226,7 +226,7 @@ const PostpaidBrings = ({ brings }) =>
     acc[in_postpaid] = [...acc[in_postpaid], bring]
     return acc
   }, {})).map(([in_postpaid, brings], index, types) =>
-    <div {...{ id: `brings_type_${index}`, style: { minWidth: '50%' } }}>
+    <div {...{ key: index, style: { minWidth: '50%' } }}>
       <h4 {...{ style: { margin: 0 } }}>{in_postpaid}</h4>
       <ol>
         {brings.map(({ name, option }, index) =>
@@ -312,8 +312,8 @@ prices.map(({ start, disable, ...price }, index, prices) => {
               }}
             }).map(({ usage, value }, index) =>
               <tr {...{ key: `${key}.${index}` }}>
-                <td {...{ style: { width: '27%' } }}>
-                  {index === 0 ? key : ''}
+                <td {...{ style: { width: '27%', visibility: index === 0 ? 'initial' : 'hidden' } }}>
+                  {key}
                 </td>
                 <td {...{ style: {} }}>
                   {usage}
@@ -511,37 +511,63 @@ const Body = ({
           {name || ''}
         </h1>
         <address {...{ style: { fontSize: '0.80em' } }}>
-          <a {...{ target: '_blank', href: address.href }}>
+          <a {...{ target: '_blank', rel: 'noopener noreferrer', href: address.href }}>
             <Elements>{address.value}</Elements>
           </a>
         </address>
       </div>
       <nav {...{ "aria-label": '外部リンク' }}>
-        <table>
-          <tbody>
-            {[
-              ...phones.map(({ name, value }) => ({ name, href: `tel:${value}`, text: value, target: null })),
-              ...links.map(link => ({ ...link, target: '_blank' })),
-            ].map(({ name, href, text, target }) =>
-            <tr {...{ key: name }}>
-              <td {...{ style: { textAlign: 'left', width: 0, paddingRight: '1.5em' } }}>
-                {name}
-              </td>
-              <td {...{ style: { textAlign: 'left' } }}>
-                <a {...{
-                  href,
-                  ...(!target ? {} : {
-                    target,
-                    ...(target === '_blank' ? { rel: 'noopener noreferrer' } : {})
-                  })
-                }}>
-                  <Elements>{text}</Elements>
-                </a>
-              </td>
-            </tr>
-            )}
-          </tbody>
-        </table>
+        <ul {...{
+          style: {
+            listStyle: 'none',
+            margin: 0,
+            padding: 0,
+            display: 'grid',
+            // gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', // デフォルト2列
+            gridTemplateColumns: '1fr',
+            gap: '0.25em',
+            fontSize: '0.85em',
+          },
+        }}>
+          {[
+            ...phones.map(({ name, value }) => ({ name, href: `tel:${value}`, text: value, target: '' })),
+            ...links.map(link => ({ ...link, target: '_blank' })),
+          ].map(({ name, href, text, target }, index) =>
+          <li {...{
+            key: index,
+            style: {
+              margin: 0,
+              display: 'grid',
+              gridTemplateColumns: '7em 1fr', // 左:ラベル固定 / 右:値
+              gap: '0em',
+              alignItems: 'center',
+              padding: '0.2em 0.2em',
+              // border: '1px solid rgba(0,0,0,.12)',
+              // borderRadius: 10,
+            },
+          }}>
+            <span {...{ style: { whiteSpace: 'nowrap' } }}>
+              {name}
+            </span>
+            <a {...{
+              href,
+              ...({ '': {}, '_blank': { target: '_blank', rel: 'noopener noreferrer' } }[target] || { target }),
+              style: {
+                display: 'inline-block',
+                width: 'fit-content',  // 文字幅にする
+                justifySelf: 'start',
+                maxWidth: '100%',       // 長すぎたら枠内に収める
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                // textDecoration: 'none',
+              },
+            }}>
+              <span {...{}}>{text}</span>
+            </a>
+          </li>
+          )}
+        </ul>
       </nav>
       <hr />
     </div>

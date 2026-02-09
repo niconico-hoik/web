@@ -4,13 +4,13 @@
 
 ### 1日の流れ
 
-![](./image/routine_daily.png)
+![08:00~18:00](./image/routine_daily.png)
 
 登園時に連絡ノートを預かり、降園時にお返しする形となります。そのほか必要な手続きなども降園の際に行います。持参のおやつに関しては適宜ご用意ください。
 
 ### 1年の流れ
 
-![](./image/routine_yearly.png)
+![4月~3月](./image/routine_yearly.png)
 
 毎年の行事を積極的に実施するほか、お誕生日会が月毎に催されます。その様子はinstagramでご覧いただけます。
 

@@ -57,7 +57,8 @@ export default {...{
     "name": "ニコニコ保育園 和泉中央園",
     "inLanguage": "ja",
     "description": "ニコニコ保育園 和泉中央園の公式サイトです。",
-    "publisher": { "@id": this.COMPANY['@id'] },
+    "publisher": { "@id": this.DIVISION['@id'] },
+    "copyrightHolder": {"@id":this.COMPANY['@id'] },
     /* サイト内検索がある場合のみ（無いなら入れない）
     "potentialAction": {
       "@type": "SearchAction",
