@@ -1,18 +1,6 @@
 [build]
   publish = "_site"
-  command = "yarn build:mirror"
+  command = "npm run chin:mir"
 
 [context.production]
-  command = "yarn build:master"
-
-[[redirects]]
-  from = "/tumblr/*"
-  to = "https://api.tumblr.com/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-  force = false
+  command = "npm run chin:pro"

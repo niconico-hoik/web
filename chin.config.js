@@ -3,42 +3,76 @@ import favicons from 'chin-plugin-favicons'
 import unified from 'chin-plugin-unified'
 import imagemin from 'chin-plugin-imagemin'
 import presetM2H from 'lonogara-sdk/unified/m2h'
-import { outputFile } from 'fs-extra'
+import { readFile, outputFile } from 'fs-extra'
 import { join } from 'path'
-import indexHtml, { TITLE } from './chin.indexHtml.js'
+import { type } from 'os'
 import { devdir, prodir } from './.variables.js'
+import { renderBranch, renderSupporters } from './src/pages'
+import * as branches from './src/branches/index.js'
 
-/* extensions */
+export const outputHtmls = async (type, outdir, favicons) => {
+  return Promise.all(
+    [
+      'izumichuo', // must be the only.
+    ].reduce((acc, branch) => [...acc, ...Object.entries({
 
+      'index.html': readFile(join('src', 'branches', branch, 'article.md'), 'utf8').then(branchMarkdown => {
+        return renderBranch(type, branches[branch], branchMarkdown, favicons)
+      }),
+
+      'supporters/index.html': renderSupporters(type, branches[branch]),
+
+    }).map(([filename, promise]) => {
+      return promise.then(contents => [filename, contents])
+    })], [])
+  ).then(files => Promise.all(
+    [...files, ...Object.entries({
+
+    })].map(([filename, contents]) => {
+      return outputFile(join(outdir, filename), contents)
+    }))
+  )
+}
+
+const assets = 'frame'
 const ink2pdf = inkscape('pdf')
 const ink2png = inkscape('png', { width: 2000, background: '#ffffff' })
 
-const md2html = unified('.html', presetM2H())
+const { result: commonProcessors } = {...{
+  md2html: unified('.html', presetM2H()),
+  img2min: imagemin({
+    gifsicle: {},
+    jpegtran: {},
+    optipng: {},
+    svgo: {}
+  }),
+  get result() { return {
+    md: this.md2html,
+    png: this.img2min,
+    jpg: this.img2min,
+    svg: this.img2min,
+  }},
+}}
 
-const img2min = imagemin({
-  gifsicle: {},
-  jpegtran: {},
-  optipng: {},
-  svgo: {}
-})
-
-const svg2fav = favicons({
-  nameAsDir: true,
-  config: {
-    path: 'favicons',
-    appName: TITLE
-  }
-})
-
-/* configs */
-
-const assets = 'frame'
-
-const commonProcessors = {
-  md: md2html,
-  png: img2min,
-  jpg: img2min,
-  svg: img2min
+const { svg2fav, result: faviconsProcessors } = {
+  svg2fav: favicons({
+    nameAsDir: true,
+    config: {
+      path: 'favicons',
+      appName: branches['izumichuo'].name,
+      description: null,
+      dir: "auto",
+      lang: "ja-JP",
+      display: "browser",
+      orientation: "any",
+      start_url: "/",
+      background_color: "#ffffff",
+      theme_color: "#ffffff",
+    }
+  }),
+  get result() { return {
+    svg: this.svg2fav
+  }},
 }
 
 const configs = {
@@ -46,6 +80,9 @@ const configs = {
   'pre': {
     put: 'preframe',
     out: assets,
+    ignored: [
+      'index.md',
+    ],
     processors: [
       ['pdf', { svg: ink2pdf }],
       ['*', { svg: ink2png }]
@@ -62,10 +99,7 @@ const configs = {
       '**.xml'
     ],
     processors: commonProcessors,
-    before: () => outputFile(
-      join(devdir, 'index.html'),
-      indexHtml('dev')
-    )
+    before: () => outputHtmls('dev', devdir),
   },
 
   'mir': {
@@ -77,26 +111,20 @@ const configs = {
       '**.xml'
     ],
     processors: [
-      ['favicons.svg', { svg: svg2fav }],
+      ['favicons.svg', faviconsProcessors],
       ['*', commonProcessors]
     ],
-    after: () => outputFile(
-      join(prodir, 'index.html'),
-      indexHtml('mir', svg2fav.after())
-    )
+    after: () => outputHtmls('mir', prodir, svg2fav.after())
   },
 
   'pro': {
     put: assets,
     out: prodir,
     processors: [
-      ['favicons.svg', { svg: svg2fav }],
+      ['favicons.svg', faviconsProcessors],
       ['*', commonProcessors]
     ],
-    after: () => outputFile(
-      join(prodir, 'index.html'),
-      indexHtml('pro', svg2fav.after())
-    )
+    after: () => outputHtmls('pro', prodir, svg2fav.after())
   }
 
 }
