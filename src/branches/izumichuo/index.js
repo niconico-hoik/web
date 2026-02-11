@@ -25,7 +25,7 @@ const BASE = {
     instagram: "https://www.instagram.com/evnr_hoik_izumichuo/",
     facebook: "https://www.facebook.com/nicohoizumi",
     twitter: "https://x.com/niconico_hoik",
-    tumblr: "https://www.tumblr.com/nicohoi-info",
+    tumblr: "https://nicohoi-info.tumblr.com",
   },
 }
 
