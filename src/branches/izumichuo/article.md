@@ -122,9 +122,12 @@
 
 ## お支払い方法
 
-クレジットカード+電子マネーによる決済に対応しております（QRコード決済は非対応）。
+クレジットカード・電子マネーでのお支払いに対応しております。※QRコード決済はご利用いただけません。
 
 ![対応可能支払方法](./image/payment_methods.png)
+
+Visa / Mastercard / American Express / JCB / Diners Club / Discover / UnionPay / 交通系IC / iD / QUICPay
+
 <!--
 ## アカウント登録
 
