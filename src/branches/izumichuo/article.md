@@ -124,9 +124,15 @@
 
 クレジットカード・電子マネーでのお支払いに対応しております。※QRコード決済はご利用いただけません。
 
-![対応可能支払方法](./image/payment_methods.png)
+![対応可能決済方法](./image/payment_methods.png)
 
-Visa / Mastercard / American Express / JCB / Diners Club / Discover / UnionPay / 交通系IC / iD / QUICPay
+対応する決済方法:  
+現金 / Visa / Mastercard / American Express / JCB / Diners Club / Discover / UnionPay / 交通系IC / iD / QUICPay
+
+<!--
+これまではまとまった現金をご用意いただく形となってしまっていて、ご不便をおかけしておりました。  
+今後は現金のご準備がなくてもお支払いいただけます。
+-->
 
 <!--
 ## アカウント登録
