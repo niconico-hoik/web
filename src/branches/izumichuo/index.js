@@ -428,6 +428,84 @@ export default {
           ]
         }
       ]
+    },
+    {
+      "start": "2026-10-01",
+      "prepaid_conditions": {
+        "enrollment": 6000,
+        "initial_minimum": 50,
+        "additional_minimum": 25
+      },
+      "hours": [
+        {
+          "pupil": "1歳以上",
+          "periods": [
+            {
+              "key": "07:00-08:00",
+              "values": [
+                { "usage": "月極利用", "min": null, "max": null, "value": 680 },
+                { "usage": "一時預かり", "min": null, "max": null, "value": 1360 }
+              ]
+            },
+            {
+              "key": "08:00-18:00",
+              "values": [
+                { "usage": "月極利用", "min": 150, "max": null, "value": 420 },
+                { "usage": "月極利用", "min": 100, "max": 140, "value": 450 },
+                { "usage": "月極利用", "min": null, "max": 90, "value": 500 },
+                { "usage": "一時預かり", "min": null, "max": null, "value": 640 }
+              ]
+            },
+            {
+              "key": "18:00-20:00",
+              "values": [
+                { "usage": "月極利用", "min": null, "max": null, "value": 680 },
+                { "usage": "一時預かり", "min": null, "max": null, "value": 1360 }
+              ]
+            },
+            {
+              "key": "20:00-23:00",
+              "values": [
+                { "usage": "月極利用", "min": null, "max": null, "value": 1320 },
+                { "usage": "一時預かり", "min": null, "max": null, "value": 2000 }
+              ]
+            }
+          ]
+        },
+        {
+          "pupil": "1歳未満",
+          "periods": [
+            {
+              "key": "07:00-08:00",
+              "values": [
+                { "usage": "月極利用", "min": null, "max": null, "value": 880 },
+                { "usage": "一時預かり", "min": null, "max": null, "value": 1600 }
+              ]
+            },
+            {
+              "key": "08:00-18:00",
+              "values": [
+                { "usage": "月極利用", "min": null, "max": null, "value": 660 },
+                { "usage": "一時預かり", "min": null, "max": null, "value": 800 }
+              ]
+            },
+            {
+              "key": "18:00-20:00",
+              "values": [
+                { "usage": "月極利用", "min": null, "max": null, "value": 880 },
+                { "usage": "一時預かり", "min": null, "max": null, "value": 1600 }
+              ]
+            },
+            {
+              "key": "20:00-23:00",
+              "values": [
+                { "usage": "月極利用", "min": null, "max": null, "value": 1320 },
+                { "usage": "一時預かり", "min": null, "max": null, "value": 2260 }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
